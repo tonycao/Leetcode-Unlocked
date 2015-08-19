@@ -1,0 +1,540 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Flatten 2D Vector | Leetcode Locked</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.2.0">
+        <meta name="author" content="Tian Cao &lt;tiancao@cs.unc.edu&gt;">
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../LeetCode Locked/c1.11.html" />
+    
+    
+    <link rel="prev" href="../LeetCode Locked/c1.9.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="1.10" data-basepath=".." data-revision="Wed Aug 19 2015 02:09:19 GMT-0400 (EDT)">
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        
+        
+            
+            <li>
+                <a href="https://tiancao.me" target="blank" class="custom-link">Tian Cao&#39;s Website</a>
+            </li>
+        
+        
+
+        
+        <li class="divider"></li>
+        
+
+        
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="LeetCode Locked/c1.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        LeetCode Locked
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="LeetCode Locked/c1.1.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.1.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        Factor Combinations
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="LeetCode Locked/c1.2.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.2.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        Two Sum III – Data structure design
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="LeetCode Locked/c1.3.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.3.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        Read N Characters Given Read4 I, II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="LeetCode Locked/c1.4.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.4.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        Shortest Word Distance I, II, III
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="LeetCode Locked/c1.5.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.5.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        Strobogrammatic Number I, II, III
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="LeetCode Locked/c1.6.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.6.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.6.</b>
+                        
+                        Meeting Rooms I, II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="LeetCode Locked/c1.7.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.7.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.7.</b>
+                        
+                        Longest Substring with At Most Two Distinct Characters
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="LeetCode Locked/c1.8.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.8.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.8.</b>
+                        
+                        Missing Ranges
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="LeetCode Locked/c1.9.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.9.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.9.</b>
+                        
+                        One Edit Distance
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.10" data-path="LeetCode Locked/c1.10.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.10.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.10.</b>
+                        
+                        Flatten 2D Vector
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="LeetCode Locked/c1.11.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.11.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.11.</b>
+                        
+                        Group Shifted Strings
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="LeetCode Locked/c1.12.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.12.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.12.</b>
+                        
+                        Count Univalue Subtrees
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="LeetCode Locked/c1.13.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.13.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.13.</b>
+                        
+                        Binary Tree Upside Down
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="LeetCode Locked/c1.14.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.14.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.14.</b>
+                        
+                        Verify preorder sequence of Binary Search Tree
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="LeetCode Locked/c1.15.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.15.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.15.</b>
+                        
+                        Paint House
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="LeetCode Locked/c1.16.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.16.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.16.</b>
+                        
+                        3Sum Smaller
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="LeetCode Locked/c1.17.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.17.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.17.</b>
+                        
+                        Graph Valid Tree
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                Published with GitBook
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Google"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >Leetcode Locked</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h2 id="flatten-2d-vector">Flatten 2D Vector</h2>
+<blockquote>
+<p><strong>Question</strong></p>
+</blockquote>
+<p>Implement an iterator to flatten a 2d vector.</p>
+<p>For example,
+Given 2d vector =<br>    [<br>    [1,2],<br>    [3],<br>    [4,5,6]<br>    ]</p>
+<p>By calling <strong>next</strong> repeatedly until <strong>hasNext</strong> returns false, the order of elements returned by next should be: [1, 2, 3, 4, 5, 6].</p>
+<hr>
+<p>The idea is very simple. We keep two variables row and col for the range of rows and cols. Specifically, row is the number of rows of vec2d and col is the number of columns of the current 1d vector in vec2d. We also keep two variables r and c to point to the current element.</p>
+<p>In the constructor, we initialize row and col as above and initialize both r and c to be 0(pointing to the first element).</p>
+<p>In hasNext(), we just need to check whether r and c are still in the range limited by row andcol.</p>
+<p>In next(), we first record the current element, which is returned later. Then we update the running indexes and possibly the range if the current element is the last element of the current 1d vector.</p>
+<p>A final and important note, since in next(), we record the current element, we need to guarantee that there is an element. So we implement a helper function skipEmptyVector() to skip the empty vectors. It is also important to handle the case that vec2d is empty (in this case, we set col = -1).</p>
+<p>The time complexity of hasNext() is obviously O(1) and the time complexity of next is alsoO(1) in an amortized sense.</p>
+<p>The code is as follows.</p>
+<pre><code class="lang-c++"><span class="hljs-comment">//C++: 20ms</span>
+<span class="hljs-keyword">class</span> Vector2D {
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;::iterator row_it, row_end;
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;::iterator col_it;
+<span class="hljs-keyword">public</span>:
+    Vector2D(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; vec2d) {
+        row_it = vec2d.begin();
+        row_end = vec2d.end();
+        <span class="hljs-keyword">while</span>(row_it!=row_end &amp;&amp; row_it-&gt;empty()) row_it++;
+        <span class="hljs-keyword">if</span>(row_it!=row_end) col_it = row_it-&gt;begin();
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">next</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">int</span> v = *col_it;
+        col_it++;
+        <span class="hljs-keyword">if</span>(col_it==row_it-&gt;end()){
+            row_it++;
+            <span class="hljs-keyword">while</span>(row_it!=row_end &amp;&amp; row_it-&gt;empty()) row_it++; <span class="hljs-comment">// skip empty rows</span>
+            <span class="hljs-keyword">if</span>(row_it!=row_end) col_it = row_it-&gt;begin();
+        }
+        <span class="hljs-keyword">return</span> v;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">hasNext</span><span class="hljs-params">()</span> </span>{
+       <span class="hljs-keyword">if</span>(row_it==row_end) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+       <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+    }
+};
+
+<span class="hljs-comment">/**
+ * Your Vector2D object will be instantiated and called as such:
+ * Vector2D i(vec2d);
+ * while (i.hasNext()) cout &lt;&lt; i.next();
+ */</span>
+</code></pre>
+<p>another <a href="https://leetcode.com/discuss/50292/8-9-lines-added-c-o-1-space" target="_blank">solution</a>.</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../LeetCode Locked/c1.9.html" class="navigation navigation-prev " aria-label="Previous page: One Edit Distance"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../LeetCode Locked/c1.11.html" class="navigation navigation-next " aria-label="Next page: Group Shifted Strings"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>
