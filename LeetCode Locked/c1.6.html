@@ -9,7 +9,7 @@
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.2.0">
-        
+        <meta name="author" content="Tian Cao &lt;tiancao@cs.unc.edu&gt;">
         
         <meta name="HandheldFriendly" content="true"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -20,6 +20,8 @@
         
     <link rel="stylesheet" href="../gitbook/style.css">
     
+    
+        <link rel="stylesheet" href="../styles/website.css">
     
 
         
@@ -36,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="1.6" data-basepath=".." data-revision="Wed Aug 19 2015 22:24:04 GMT-0400 (EDT)">
+    <div class="book" data-level="1.6" data-basepath=".." data-revision="Wed Aug 19 2015 22:30:07 GMT-0400 (EDT)">
     
 
 <div class="book-summary">
@@ -47,8 +49,15 @@
         
         
         
+            
+            <li>
+                <a href="https://tiancao.me" target="blank" class="custom-link">Tian Cao&#39;s Website</a>
+            </li>
+        
         
 
+        
+        <li class="divider"></li>
         
 
         
@@ -447,7 +456,13 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h2 id="meeting-rooms">Meeting Rooms</h2>
+                        <h2 id="meeting-rooms-i-ii">Meeting Rooms I, II</h2>
+<blockquote>
+<p><strong>Question 1</strong></p>
+</blockquote>
+<p>Given an array of meeting time intervals consisting of start and end times <code>[[s1,e1],[s2,e2],...] (si &lt; ei)</code>, determine if a person could attend all meetings.</p>
+<p>For example,</p>
+<p>Given <code>[[0, 30],[5, 10],[15, 20]]</code>,<br>return false.</p>
 <blockquote>
 <p><strong>Solution</strong></p>
 </blockquote>
@@ -479,10 +494,18 @@
     }
     <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">overlap</span><span class="hljs-params">(Interval&amp; interval1, Interval&amp; interval2)</span> </span>{
         <span class="hljs-keyword">return</span> interval1.end &gt; interval2.start;
-    } 
+    }
 };
 </code></pre>
-<h2 id="meeting-rooms-ii">Meeting Rooms II</h2>
+<blockquote>
+<p><strong>Question 2</strong></p>
+</blockquote>
+<p>Given an array of meeting time intervals consisting of start and end times <code>[[s1,e1],[s2,e2],...] (si &lt; ei)</code>, find the minimum number of conference rooms required.</p>
+<p>For example,</p>
+<p>Given <code>[[0, 30],[5, 10],[15, 20]]</code>,<br>return <code>2</code>.</p>
+<blockquote>
+<p><strong>Solution</strong></p>
+</blockquote>
 <p>The idea is to group those non-overlapping meetings in the same room and then count how many rooms we need. You may refer to this <a href="https://leetcode.com/discuss/50783/java-ac-code-using-comparator" target="_blank">link</a>.</p>
 <pre><code class="lang-c++"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">myComp</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Interval &amp;a, <span class="hljs-keyword">const</span> Interval &amp;b)</span></span>{
     <span class="hljs-keyword">return</span> (a.start&lt;b.start);
@@ -503,7 +526,7 @@
 };
 </code></pre>
 <p>another solution: for each group of non-overlapping intervals, we just need to store the last added one instead of the full list. So we could use a vector &lt; Interval &gt; instead of vector &lt; vector &lt; Interval &gt;&gt; in C++. The code is now as follows.</p>
-<pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution { 
+<pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
     <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">minMeetingRooms</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;Interval&gt;&amp; intervals)</span> </span>{
         sort(intervals.begin(), intervals.end(), compare);
@@ -516,7 +539,7 @@
             <span class="hljs-keyword">else</span> rooms[idx] = intervals[i];
         }
         <span class="hljs-keyword">return</span> (<span class="hljs-keyword">int</span>)rooms.size();
-    } 
+    }
 <span class="hljs-keyword">private</span>:
     <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">compare</span><span class="hljs-params">(Interval&amp; interval1, Interval&amp; interval2)</span> </span>{
         <span class="hljs-keyword">return</span> interval1.start &lt; interval2.start;

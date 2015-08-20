@@ -9,7 +9,7 @@
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.2.0">
-        
+        <meta name="author" content="Tian Cao &lt;tiancao@cs.unc.edu&gt;">
         
         <meta name="HandheldFriendly" content="true"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -20,6 +20,8 @@
         
     <link rel="stylesheet" href="../gitbook/style.css">
     
+    
+        <link rel="stylesheet" href="../styles/website.css">
     
 
         
@@ -36,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="1.3" data-basepath=".." data-revision="Wed Aug 19 2015 22:24:04 GMT-0400 (EDT)">
+    <div class="book" data-level="1.3" data-basepath=".." data-revision="Wed Aug 19 2015 22:30:07 GMT-0400 (EDT)">
     
 
 <div class="book-summary">
@@ -47,8 +49,15 @@
         
         
         
+            
+            <li>
+                <a href="https://tiancao.me" target="blank" class="custom-link">Tian Cao&#39;s Website</a>
+            </li>
+        
         
 
+        
+        <li class="divider"></li>
         
 
         
@@ -449,7 +458,7 @@
                     
                         <h2 id="read-n-characters-given-read4-i-ii">Read N Characters Given Read4 I, II</h2>
 <blockquote>
-<p><strong>Question</strong> </p>
+<p><strong>Question 1</strong></p>
 </blockquote>
 <p>The API  </p>
 <p><code>int read4(char *buf)</code></p>
@@ -460,7 +469,6 @@ By using the read4 API, implement the function <code>int read(char *buf, int n)<
 <p><strong>Note</strong></p>
 </blockquote>
 <p>The read function will only be called once for each test case.</p>
-<hr>
 <blockquote>
 <p><strong>Solution</strong></p>
 </blockquote>
@@ -495,9 +503,12 @@ By using the read4 API, implement the function <code>int read(char *buf, int n)<
 };
 </code></pre>
 <blockquote>
-<p><strong>Question</strong></p>
+<p><strong>Question 2</strong></p>
 </blockquote>
-<p>Read N Characters Given Read4 II - Call multiple times </p>
+<p>Read N Characters Given Read4 II - Call multiple times</p>
+<blockquote>
+<p><strong>Solution</strong></p>
+</blockquote>
 <pre><code class="lang-java"><span class="hljs-comment">/* The read4 API is defined in the parent class Reader4.
          int read4(char[] buf); */</span>
 <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Reader4</span> </span>{
@@ -514,7 +525,7 @@ By using the read4 API, implement the function <code>int read(char *buf, int n)<
         <span class="hljs-keyword">while</span> (!eof &amp;&amp; readBytes &lt; n) {
             <span class="hljs-keyword">int</span> sz = (bufsize &gt; <span class="hljs-number">0</span>) ? bufsize : read4(buffer);
             <span class="hljs-keyword">if</span> (bufsize == <span class="hljs-number">0</span> &amp;&amp; sz &lt; <span class="hljs-number">4</span>) eof = <span class="hljs-keyword">true</span>;
-            <span class="hljs-keyword">int</span> bytes = Math.min(n - readBytes, sz); 
+            <span class="hljs-keyword">int</span> bytes = Math.min(n - readBytes, sz);
             System.arraycopy(buffer <span class="hljs-comment">/* src */</span>, offset <span class="hljs-comment">/* srcPos */</span>, buf <span class="hljs-comment">/* dest */</span>, readBytes <span class="hljs-comment">/* destPos */</span>, bytes <span class="hljs-comment">/* length */</span>);
             offset = (offset + bytes) % <span class="hljs-number">4</span>;
             bufsize = sz - bytes;

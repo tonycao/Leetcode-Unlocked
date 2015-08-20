@@ -9,7 +9,7 @@
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.2.0">
-        
+        <meta name="author" content="Tian Cao &lt;tiancao@cs.unc.edu&gt;">
         
         <meta name="HandheldFriendly" content="true"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -20,6 +20,8 @@
         
     <link rel="stylesheet" href="../gitbook/style.css">
     
+    
+        <link rel="stylesheet" href="../styles/website.css">
     
 
         
@@ -36,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="1.9" data-basepath=".." data-revision="Wed Aug 19 2015 22:24:04 GMT-0400 (EDT)">
+    <div class="book" data-level="1.9" data-basepath=".." data-revision="Wed Aug 19 2015 22:30:07 GMT-0400 (EDT)">
     
 
 <div class="book-summary">
@@ -47,8 +49,15 @@
         
         
         
+            
+            <li>
+                <a href="https://tiancao.me" target="blank" class="custom-link">Tian Cao&#39;s Website</a>
+            </li>
+        
         
 
+        
+        <li class="divider"></li>
         
 
         
@@ -453,13 +462,12 @@
 </blockquote>
 <p>Given two strings S and T, determine if they are both one edit distance apart. Hint:</p>
 <ol>
-<li>If | n &#x2013; m | is greater than 1, we know immediately both are not one-edit distance apart.</li>
-<li>It might help if you consider these cases separately, m == n and m =&#x338; n.</li>
+<li>If `| n &#x2013; m |`` is greater than 1, we know immediately both are not one-edit distance apart.</li>
+<li>It might help if you consider these cases separately, <code>m == n</code> and <code>m =&#x338; n</code>.</li>
 <li>Assume that m is always &#x2264; n, which greatly simplifies the conditional statements.
-If m &gt; n, we could just simply swap S and T.</li>
-<li>If m == n, it becomes finding if there is exactly one modified operation. If m =&#x338; n, you do not have to consider the delete operation. Just consider the insert operation in T.</li>
+If <code>m &gt; n</code>, we could just simply swap S and T.</li>
+<li>If <code>m == n</code>, it becomes finding if there is exactly one modified operation. If <code>m =&#x338; n</code> you do not have to consider the delete operation. Just consider the insert operation in T.</li>
 </ol>
-<hr>
 <blockquote>
 <p><strong>Solution:</strong></p>
 </blockquote>
@@ -483,15 +491,15 @@ S = &#x201C;abcde&#x201D; T = &#x201C;abcdeX&#x201D;
 <li>If | n &#x2013; m | == 0, then we skip both non-matching characters in S and T and make sure the remaining characters between S and T are exactly matching. (Append operation)</li>
 </ol>
 <pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isOneEditDistance</span><span class="hljs-params">(String s, String t)</span> </span>{
-   <span class="hljs-keyword">int</span> m = s.length(), n = t.length();
-   <span class="hljs-keyword">if</span> (m &gt; n) <span class="hljs-keyword">return</span> isOneEditDistance(t, s);
-   <span class="hljs-keyword">if</span> (n - m &gt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
-   <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, shift = n - m;
-   <span class="hljs-keyword">while</span> (i &lt; m &amp;&amp; s.charAt(i) == t.charAt(i)) i++;
-   <span class="hljs-keyword">if</span> (i == m) <span class="hljs-keyword">return</span> shift &gt; <span class="hljs-number">0</span>;
-   <span class="hljs-keyword">if</span> (shift == <span class="hljs-number">0</span>) i++;
-   <span class="hljs-keyword">while</span> (i &lt; m &amp;&amp; s.charAt(i) == t.charAt(i + shift)) i++;
-   <span class="hljs-keyword">return</span> i == m;
+     <span class="hljs-keyword">int</span> m = s.length(), n = t.length();
+     <span class="hljs-keyword">if</span> (m &gt; n) <span class="hljs-keyword">return</span> isOneEditDistance(t, s);
+     <span class="hljs-keyword">if</span> (n - m &gt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+     <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, shift = n - m;
+     <span class="hljs-keyword">while</span> (i &lt; m &amp;&amp; s.charAt(i) == t.charAt(i)) i++;
+     <span class="hljs-keyword">if</span> (i == m) <span class="hljs-keyword">return</span> shift &gt; <span class="hljs-number">0</span>;
+     <span class="hljs-keyword">if</span> (shift == <span class="hljs-number">0</span>) i++;
+     <span class="hljs-keyword">while</span> (i &lt; m &amp;&amp; s.charAt(i) == t.charAt(i + shift)) i++;
+     <span class="hljs-keyword">return</span> i == m;
 }
 </code></pre>
 

@@ -9,7 +9,7 @@
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.2.0">
-        
+        <meta name="author" content="Tian Cao &lt;tiancao@cs.unc.edu&gt;">
         
         <meta name="HandheldFriendly" content="true"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -20,6 +20,8 @@
         
     <link rel="stylesheet" href="../gitbook/style.css">
     
+    
+        <link rel="stylesheet" href="../styles/website.css">
     
 
         
@@ -36,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="1.14" data-basepath=".." data-revision="Wed Aug 19 2015 22:24:04 GMT-0400 (EDT)">
+    <div class="book" data-level="1.14" data-basepath=".." data-revision="Wed Aug 19 2015 22:30:07 GMT-0400 (EDT)">
     
 
 <div class="book-summary">
@@ -47,8 +49,15 @@
         
         
         
+            
+            <li>
+                <a href="https://tiancao.me" target="blank" class="custom-link">Tian Cao&#39;s Website</a>
+            </li>
+        
         
 
+        
+        <li class="divider"></li>
         
 
         
@@ -452,8 +461,8 @@
 <p><strong>Question</strong></p>
 </blockquote>
 <p>You have an array of preorder traversal of Binary Search Tree ( BST). Your program should verify whether it is a correct sequence or not.</p>
-<p>Input: <code>Array of Integer [ Pre-order BST ]</code><br>Output: <code>String &#x201C;Yes&#x201D; or &#x201C;No&#x201D;</code></p>
-<hr>
+<p>Input: <code>Array of Integer [ Pre-order BST ]</code>
+Output: <code>String &#x201C;Yes&#x201D; or &#x201C;No&#x201D;</code></p>
 <blockquote>
 <p><strong>Solution 1</strong></p>
 </blockquote>
@@ -470,7 +479,7 @@
         <span class="hljs-keyword">if</span>(preorder[i]&lt;lb || preorder[i]&gt;ub) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
         i++;
     }
-    <span class="hljs-keyword">return</span> helper(preorder, s+<span class="hljs-number">1</span>, i-<span class="hljs-number">1</span>, lb, r-<span class="hljs-number">1</span>) &amp;&amp; 
+    <span class="hljs-keyword">return</span> helper(preorder, s+<span class="hljs-number">1</span>, i-<span class="hljs-number">1</span>, lb, r-<span class="hljs-number">1</span>) &amp;&amp;
            helper(preorder, i, e, r+<span class="hljs-number">1</span>, ub);
 }
 </code></pre>

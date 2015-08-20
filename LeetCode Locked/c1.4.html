@@ -9,7 +9,7 @@
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.2.0">
-        
+        <meta name="author" content="Tian Cao &lt;tiancao@cs.unc.edu&gt;">
         
         <meta name="HandheldFriendly" content="true"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -20,6 +20,8 @@
         
     <link rel="stylesheet" href="../gitbook/style.css">
     
+    
+        <link rel="stylesheet" href="../styles/website.css">
     
 
         
@@ -36,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="1.4" data-basepath=".." data-revision="Wed Aug 19 2015 22:24:04 GMT-0400 (EDT)">
+    <div class="book" data-level="1.4" data-basepath=".." data-revision="Wed Aug 19 2015 22:30:07 GMT-0400 (EDT)">
     
 
 <div class="book-summary">
@@ -47,8 +49,15 @@
         
         
         
+            
+            <li>
+                <a href="https://tiancao.me" target="blank" class="custom-link">Tian Cao&#39;s Website</a>
+            </li>
+        
         
 
+        
+        <li class="divider"></li>
         
 
         
@@ -460,7 +469,9 @@ Given <code>word1 = &quot;makes&quot;</code>, <code>word2 = &quot;coding&quot;</
 <p><strong>Note</strong></p>
 </blockquote>
 <p>You may assume that word1 does not equal to word2, and word1 and word2 are both in the list.</p>
-<hr>
+<blockquote>
+<p><strong>Solution</strong></p>
+</blockquote>
 <p>The naive idea is very easy. But could you solve it in one-pass? Well, the one-pass code (taken from <a href="https://leetcode.com/discuss/50234/ac-java-clean-solution" target="_blank">here</a>) is rewritten in C++ as follows.</p>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
@@ -479,8 +490,7 @@ Given <code>word1 = &quot;makes&quot;</code>, <code>word2 = &quot;coding&quot;</
 <blockquote>
 <p><strong>Question 2</strong></p>
 </blockquote>
-<p>This is a follow up of Shortest Word Distance. The only difference is now you are given the list of words and your method will be called repeatedly many times with different parameters. How would you optimize it?</p>
-<p>Design a class which receives a list of words in the constructor, and implements a method that takes two words word1 and word2 and return the shortest distance between these two words in the list.</p>
+<p>Given a list of words and two words word1 and word2, return the shortest distance between these two words in the list.</p>
 <p>For example,</p>
 <p>Assume that <code>words = [&quot;practice&quot;, &quot;makes&quot;, &quot;perfect&quot;, &quot;coding&quot;, &quot;makes&quot;]</code>.</p>
 <p>Given <code>word1 = &quot;coding&#x201D;</code>, <code>word2 = &quot;practice&#x201D;</code>, return 3.
@@ -489,7 +499,10 @@ Given <code>word1 = &quot;makes&quot;</code>, <code>word2 = &quot;coding&quot;</
 <p><strong>Note</strong></p>
 </blockquote>
 <p>You may assume that word1 does not equal to word2, and word1 and word2 are both in the list.</p>
-<hr>
+<blockquote>
+<p><strong>Solution</strong></p>
+</blockquote>
+<p>This is a follow up of Shortest Word Distance. The only difference is now you are given the list of words and your method will be called repeatedly many times with different parameters. How would you optimize it?</p>
 <p>The key idea is to store the indexes of each word using a hash map. Then the function shortest() is just to find the minimum difference between two sorted lists (see <a href="https://leetcode.com/discuss/50185/java-solution-using-minimum-difference-between-sorted-arrays" target="_blank">here</a> for a method).</p>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> WordDistance {
 <span class="hljs-keyword">public</span>:
@@ -524,7 +537,13 @@ Given <code>word1 = &quot;makes&quot;</code>, <code>word2 = &quot;coding&quot;</
 <blockquote>
 <p><strong>Question 3</strong></p>
 </blockquote>
-<p>word1 and word2 can be equal</p>
+<p>Given a list of words and two words word1 and word2, return the shortest distance between these two words in the list.</p>
+<p>word1 and word2 may be the same and they represent two individual words in the list.</p>
+<p>For example,</p>
+<p>Assume that <code>words = [&quot;practice&quot;, &quot;makes&quot;, &quot;perfect&quot;, &quot;coding&quot;, &quot;makes&quot;]</code>.</p>
+<p>Given <code>word1 = &quot;makes&quot;</code>, <code>word2 = &quot;coding&quot;</code>, return 1. Given <code>word1 = &quot;makes&quot;</code>, <code>word2 = &quot;makes&quot;</code>, return 3.</p>
+<p>Note:</p>
+<p>You may assume word1 and word2 are both in the list.</p>
 <pre><code class="lang-c++"><span class="hljs-comment">//C++: 20ms</span>
 <span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:

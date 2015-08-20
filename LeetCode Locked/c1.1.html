@@ -9,7 +9,7 @@
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.2.0">
-        
+        <meta name="author" content="Tian Cao &lt;tiancao@cs.unc.edu&gt;">
         
         <meta name="HandheldFriendly" content="true"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -20,6 +20,8 @@
         
     <link rel="stylesheet" href="../gitbook/style.css">
     
+    
+        <link rel="stylesheet" href="../styles/website.css">
     
 
         
@@ -36,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="1.1" data-basepath=".." data-revision="Wed Aug 19 2015 22:24:04 GMT-0400 (EDT)">
+    <div class="book" data-level="1.1" data-basepath=".." data-revision="Wed Aug 19 2015 22:30:07 GMT-0400 (EDT)">
     
 
 <div class="book-summary">
@@ -47,8 +49,15 @@
         
         
         
+            
+            <li>
+                <a href="https://tiancao.me" target="blank" class="custom-link">Tian Cao&#39;s Website</a>
+            </li>
+        
         
 
+        
+        <li class="divider"></li>
         
 
         
@@ -452,8 +461,8 @@
 <p><strong>Question</strong></p>
 </blockquote>
 <p>Print all unique combination of factors (except 1) of a given number.  </p>
-<p>For example:<br>Input: <code>12</code><br>Output: <code>[[2, 2, 3], [2, 6], [3, 4]]</code><br>Input: <code>15</code><br>Output: <code>[[3, 5]]</code><br>Input: <code>28</code><br>Output: <code>[[2, 2, 7], [2, 14], [4, 7]]</code></p>
-<hr>
+<p>For example:<br>Input: <code>12</code><br>Output: <code>[[2, 2, 3], [2, 6], [3, 4]]</code><br>Input: <code>15</code><br>Output: <code>[[3, 5]]</code><br>Input: <code>28</code>
+Output: <code>[[2, 2, 7], [2, 14], [4, 7]]</code></p>
 <blockquote>
 <p><strong>Solution</strong></p>
 </blockquote>
@@ -484,7 +493,7 @@
 </code></pre>
 <p>Another solution with Lambda expression</p>
 <pre><code class="lang-c++"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; factors_comb(<span class="hljs-keyword">int</span> n) {
-    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; ret = {};    
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; ret = {};
     function&lt;<span class="hljs-keyword">void</span>(<span class="hljs-keyword">int</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp;)&gt; dfs = [&amp;](<span class="hljs-keyword">int</span> num, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; cur) {
         <span class="hljs-keyword">int</span> last = cur.empty() ? <span class="hljs-number">2</span> : cur.back();
         <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> f = last; f &lt; num; ++f) {
@@ -498,7 +507,7 @@
             ret.push_back(cur);
             cur.pop_back();
         }
-    };    
+    };
     <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; cur = {};
     dfs(n, cur);
     <span class="hljs-keyword">return</span> ret;

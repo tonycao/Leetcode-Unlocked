@@ -9,7 +9,7 @@
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.2.0">
-        
+        <meta name="author" content="Tian Cao &lt;tiancao@cs.unc.edu&gt;">
         
         <meta name="HandheldFriendly" content="true"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -20,6 +20,8 @@
         
     <link rel="stylesheet" href="../gitbook/style.css">
     
+    
+        <link rel="stylesheet" href="../styles/website.css">
     
 
         
@@ -36,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="1.15" data-basepath=".." data-revision="Wed Aug 19 2015 22:24:04 GMT-0400 (EDT)">
+    <div class="book" data-level="1.15" data-basepath=".." data-revision="Wed Aug 19 2015 22:30:07 GMT-0400 (EDT)">
     
 
 <div class="book-summary">
@@ -47,8 +49,15 @@
         
         
         
+            
+            <li>
+                <a href="https://tiancao.me" target="blank" class="custom-link">Tian Cao&#39;s Website</a>
+            </li>
+        
         
 
+        
+        <li class="divider"></li>
         
 
         
@@ -451,13 +460,17 @@
 <blockquote>
 <p><strong>Question</strong></p>
 </blockquote>
-<p>Given a list of houses and the cost of painting each house, the houses can be painted in three colors <code>RED</code>, <code>GREEN</code> and <code>BLUE</code>, two neighboring houses can&#x2019;t be painted in the same color, calculate the total minimum cost for painting all houses.</p>
-<hr>
+<p>There are a row of <code>n</code> houses, each house can be painted with one of the three colors: <code>red</code>, <code>blue</code> or <code>green</code>. The cost of painting each house with a certain color is different. You have to paint all the houses such that no two adjacent houses have the same color.</p>
+<p>The cost of painting each house with a certain color is represented by a <code>n x 3</code> cost matrix. For example, <code>costs[0][0]</code> is the cost of painting house <code>0</code> with color red; <code>costs[1][2]</code> is the cost of painting house <code>1</code> with color green, and so on... Find the minimum cost to paint all houses.</p>
+<blockquote>
+<p><strong>Note</strong></p>
+</blockquote>
+<p>All costs are positive integers.</p>
 <blockquote>
 <p><strong>Solution</strong></p>
 </blockquote>
-<p>DP</p>
-<p>O(1) space from <a href="http://likemyblogger.blogspot.com/2015/08/leetcode-256-paint-house.html" target="_blank">here</a></p>
+<p>DP.</p>
+<p>O(1) space from <a href="http://likemyblogger.blogspot.com/2015/08/leetcode-256-paint-house.html" target="_blank">here</a>.</p>
 <pre><code class="lang-c++"><span class="hljs-comment">//C++: 12ms</span>
 <span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
@@ -470,6 +483,22 @@
             }
         }
         <span class="hljs-keyword">return</span> min(costs[n-<span class="hljs-number">1</span>][<span class="hljs-number">0</span>], min(costs[n-<span class="hljs-number">1</span>][<span class="hljs-number">1</span>], costs[n-<span class="hljs-number">1</span>][<span class="hljs-number">2</span>]));
+    }
+};
+</code></pre>
+<p>or <a href="http://www.cnblogs.com/jcliBlogger/p/4729957.html" target="_blank">here</a>.</p>
+<pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">minCost</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; costs)</span> </span>{
+        <span class="hljs-keyword">if</span> (costs.empty()) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> n = costs.size(), r = <span class="hljs-number">0</span>, g = <span class="hljs-number">0</span>, b = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) {
+            <span class="hljs-keyword">int</span> rr = r, bb = b, gg = g;
+            r = costs[i][<span class="hljs-number">0</span>] + min(bb, gg);
+            b = costs[i][<span class="hljs-number">1</span>] + min(rr, gg);
+            g = costs[i][<span class="hljs-number">2</span>] + min(rr, bb);
+        }
+        <span class="hljs-keyword">return</span> min(r, min(b, g));
     }
 };
 </code></pre>

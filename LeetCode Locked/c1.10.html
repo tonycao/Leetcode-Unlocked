@@ -9,7 +9,7 @@
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.2.0">
-        
+        <meta name="author" content="Tian Cao &lt;tiancao@cs.unc.edu&gt;">
         
         <meta name="HandheldFriendly" content="true"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -20,6 +20,8 @@
         
     <link rel="stylesheet" href="../gitbook/style.css">
     
+    
+        <link rel="stylesheet" href="../styles/website.css">
     
 
         
@@ -36,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="1.10" data-basepath=".." data-revision="Wed Aug 19 2015 22:24:04 GMT-0400 (EDT)">
+    <div class="book" data-level="1.10" data-basepath=".." data-revision="Wed Aug 19 2015 22:30:07 GMT-0400 (EDT)">
     
 
 <div class="book-summary">
@@ -47,8 +49,15 @@
         
         
         
+            
+            <li>
+                <a href="https://tiancao.me" target="blank" class="custom-link">Tian Cao&#39;s Website</a>
+            </li>
+        
         
 
+        
+        <li class="divider"></li>
         
 
         
@@ -453,9 +462,16 @@
 </blockquote>
 <p>Implement an iterator to flatten a 2d vector.</p>
 <p>For example,
-Given 2d vector =<br>    [<br>    [1,2],<br>    [3],<br>    [4,5,6]<br>    ]</p>
-<p>By calling <strong>next</strong> repeatedly until <strong>hasNext</strong> returns false, the order of elements returned by next should be: [1, 2, 3, 4, 5, 6].</p>
-<hr>
+Given 2d <code>vector =  
+    [  
+    [1,2],  
+    [3],  
+    [4,5,6]  
+    ]</code></p>
+<p>By calling <code>__next__</code> repeatedly until <code>__hasNext__</code> returns false, the order of elements returned by next should be: <code>`[1, 2, 3, 4, 5, 6]</code>.</p>
+<blockquote>
+<p><strong>Solution</strong></p>
+</blockquote>
 <p>The idea is very simple. We keep two variables row and col for the range of rows and cols. Specifically, row is the number of rows of vec2d and col is the number of columns of the current 1d vector in vec2d. We also keep two variables r and c to point to the current element.</p>
 <p>In the constructor, we initialize row and col as above and initialize both r and c to be 0(pointing to the first element).</p>
 <p>In hasNext(), we just need to check whether r and c are still in the range limited by row andcol.</p>

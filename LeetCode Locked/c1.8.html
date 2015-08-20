@@ -9,7 +9,7 @@
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.2.0">
-        
+        <meta name="author" content="Tian Cao &lt;tiancao@cs.unc.edu&gt;">
         
         <meta name="HandheldFriendly" content="true"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -20,6 +20,8 @@
         
     <link rel="stylesheet" href="../gitbook/style.css">
     
+    
+        <link rel="stylesheet" href="../styles/website.css">
     
 
         
@@ -36,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="1.8" data-basepath=".." data-revision="Wed Aug 19 2015 22:24:04 GMT-0400 (EDT)">
+    <div class="book" data-level="1.8" data-basepath=".." data-revision="Wed Aug 19 2015 22:30:07 GMT-0400 (EDT)">
     
 
 <div class="book-summary">
@@ -47,8 +49,15 @@
         
         
         
+            
+            <li>
+                <a href="https://tiancao.me" target="blank" class="custom-link">Tian Cao&#39;s Website</a>
+            </li>
+        
         
 
+        
+        <li class="divider"></li>
         
 
         
@@ -457,10 +466,9 @@ For example, given [0, 1, 3, 50, 75], return [&#x201C;2&#x201D;, &#x201C;4-&gt;4
 <ul>
 <li>Q: What if the given array is empty?</li>
 <li>A: Then you should return [&#x201C;0-&gt;99&#x201D;] as those ranges are missing.</li>
-<li>Q: What if the given array contains all elements from the ranges? </li>
+<li>Q: What if the given array contains all elements from the ranges?</li>
 <li>A: Return an empty list, which means no range is missing.</li>
 </ul>
-<hr>
 <blockquote>
 <p><strong>Solution</strong></p>
 </blockquote>
@@ -479,7 +487,7 @@ ii. You should be able to extend the above cases not only for the range [0,99], 
         <span class="hljs-keyword">if</span> (curr - prev &gt;= <span class="hljs-number">2</span>) {
            ranges.add(getRange(prev + <span class="hljs-number">1</span>, curr - <span class="hljs-number">1</span>));
         }
-        prev = curr; 
+        prev = curr;
     }
     <span class="hljs-keyword">return</span> ranges;
 }
@@ -527,7 +535,7 @@ ii. You should be able to extend the above cases not only for the range [0,99], 
     <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; ret = missingRange(a, <span class="hljs-number">0</span>, <span class="hljs-number">99</span>);
     display(ret);
 
-    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; b = {<span class="hljs-number">6</span>}; 
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; b = {<span class="hljs-number">6</span>};
     <span class="hljs-comment">//ret.clear()</span>
     ret = missingRange(b, <span class="hljs-number">0</span>, <span class="hljs-number">99</span>);
     display(ret);
