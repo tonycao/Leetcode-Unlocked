@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Paint House | Leetcode Locked</title>
+        <title>Paint House I, II | Leetcode Locked</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.2.0">
@@ -38,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="1.15" data-basepath=".." data-revision="Wed Aug 19 2015 22:30:07 GMT-0400 (EDT)">
+    <div class="book" data-level="1.15" data-basepath=".." data-revision="Thu Aug 20 2015 22:27:11 GMT-0400 (EDT)">
     
 
 <div class="book-summary">
@@ -310,7 +310,7 @@
                         
                             <b>1.15.</b>
                         
-                        Paint House
+                        Paint House I, II
                     </a>
             
             
@@ -458,7 +458,7 @@
                     
                         <h2 id="paint-house">Paint House</h2>
 <blockquote>
-<p><strong>Question</strong></p>
+<p><strong>Question 1</strong></p>
 </blockquote>
 <p>There are a row of <code>n</code> houses, each house can be painted with one of the three colors: <code>red</code>, <code>blue</code> or <code>green</code>. The cost of painting each house with a certain color is different. You have to paint all the houses such that no two adjacent houses have the same color.</p>
 <p>The cost of painting each house with a certain color is represented by a <code>n x 3</code> cost matrix. For example, <code>costs[0][0]</code> is the cost of painting house <code>0</code> with color red; <code>costs[1][2]</code> is the cost of painting house <code>1</code> with color green, and so on... Find the minimum cost to paint all houses.</p>
@@ -514,6 +514,43 @@
     }
     <span class="hljs-keyword">return</span> Math.min(dp[dp.length-<span class="hljs-number">1</span>][<span class="hljs-number">0</span>], Math.min(dp[dp.length-<span class="hljs-number">1</span>][<span class="hljs-number">1</span>],[dp.length-<span class="hljs-number">1</span>][<span class="hljs-number">2</span>]));
 }
+</code></pre>
+<blockquote>
+<p><strong>Question 2</strong></p>
+</blockquote>
+<p>There are a row of n houses, each house can be painted with one of the k colors. The cost of painting each house with a certain color is different. You have to paint all the houses such that no two adjacent houses have the same color.</p>
+<p>The cost of painting each house with a certain color is represented by a <code>n x k</code> cost matrix. For example, <code>costs[0][0]</code> is the cost of painting house 0 with color 0; <code>costs[1][2]</code> is the cost of painting house 1 with color 2, and so on... Find the minimum cost to paint all houses.</p>
+<blockquote>
+<p><strong>Note</strong></p>
+</blockquote>
+<p>All costs are positive integers.</p>
+<p>Follow up:
+Could you solve it in O(nk) runtime?</p>
+<blockquote>
+<p><strong>Solution</strong></p>
+</blockquote>
+<p>dp: maintain the minimum two costs min1(smallest) and min2 (second to smallest) after painting i-th house.</p>
+<p>from <a href="https://leetcode.com/discuss/52982/c-dp-time-o-nk-space-o-k" target="_blank">here</a></p>
+<pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">minCostII</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; costs)</span> </span>{
+        <span class="hljs-keyword">if</span> (costs.empty()) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> n = costs.size(), k = costs[<span class="hljs-number">0</span>].size(), m1, m2;
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; dp(k, <span class="hljs-number">0</span>);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) {
+            <span class="hljs-keyword">int</span> t1 = i ? m1 : <span class="hljs-number">0</span>, t2 = i ? m2 : <span class="hljs-number">0</span>;
+            m1 = m2 = INT_MAX;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; k; j++) {
+                <span class="hljs-keyword">if</span> (dp[j] != t1 || t1 == t2)
+                    dp[j] = t1 + costs[i][j];
+                <span class="hljs-keyword">else</span> dp[j] = t2 + costs[i][j];
+                <span class="hljs-keyword">if</span> (m1 &lt;= dp[j]) m2 = min(m2, dp[j]);
+                <span class="hljs-keyword">else</span> m2 = m1, m1 = dp[j];
+            }
+        }
+        <span class="hljs-keyword">return</span> m1;
+    }
+};
 </code></pre>
 
                     
