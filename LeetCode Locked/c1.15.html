@@ -38,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="1.15" data-basepath=".." data-revision="Thu Aug 20 2015 22:27:11 GMT-0400 (EDT)">
+    <div class="book" data-level="1.15" data-basepath=".." data-revision="Mon Aug 24 2015 10:37:39 GMT-0400 (EDT)">
     
 
 <div class="book-summary">
@@ -535,20 +535,22 @@ Could you solve it in O(nk) runtime?</p>
 <span class="hljs-keyword">public</span>:
     <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">minCostII</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; costs)</span> </span>{
         <span class="hljs-keyword">if</span> (costs.empty()) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">int</span> n = costs.size(), k = costs[<span class="hljs-number">0</span>].size(), m1, m2;
+        <span class="hljs-keyword">int</span> n = costs.size(), k = costs[<span class="hljs-number">0</span>].size(), min1, min2;
         <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; dp(k, <span class="hljs-number">0</span>);
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) {
-            <span class="hljs-keyword">int</span> t1 = i ? m1 : <span class="hljs-number">0</span>, t2 = i ? m2 : <span class="hljs-number">0</span>;
-            m1 = m2 = INT_MAX;
+            <span class="hljs-keyword">int</span> premin1 = i ? min1 : <span class="hljs-number">0</span>, premin2 = i ? min2 : <span class="hljs-number">0</span>;
+            min1 = min2 = INT_MAX;
             <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; k; j++) {
-                <span class="hljs-keyword">if</span> (dp[j] != t1 || t1 == t2)
-                    dp[j] = t1 + costs[i][j];
-                <span class="hljs-keyword">else</span> dp[j] = t2 + costs[i][j];
-                <span class="hljs-keyword">if</span> (m1 &lt;= dp[j]) m2 = min(m2, dp[j]);
-                <span class="hljs-keyword">else</span> m2 = m1, m1 = dp[j];
+                <span class="hljs-keyword">if</span> (dp[j] != premin1 || premin1 == premin2)
+                    dp[j] = premin1 + costs[i][j];
+                <span class="hljs-comment">// pre_min1 occurred when painting house i-1 with color j, </span>
+                <span class="hljs-comment">// so it cannot be added to dp[j]</span>
+                <span class="hljs-keyword">else</span> dp[j] = premin2 + costs[i][j];
+                <span class="hljs-keyword">if</span> (min1 &lt;= dp[j]) min2 = min(min2, dp[j]);
+                <span class="hljs-keyword">else</span> min2 = min1, min1 = dp[j];
             }
         }
-        <span class="hljs-keyword">return</span> m1;
+        <span class="hljs-keyword">return</span> min1;
     }
 };
 </code></pre>
