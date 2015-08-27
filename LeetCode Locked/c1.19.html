@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Shortest Word Distance I, II, III | Leetcode Locked</title>
+        <title>Alien Dictonary | Leetcode Locked</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.2.0">
@@ -27,10 +27,8 @@
         
     
     
-    <link rel="next" href="../LeetCode Locked/c1.5.html" />
     
-    
-    <link rel="prev" href="../LeetCode Locked/c1.3.html" />
+    <link rel="prev" href="../LeetCode Locked/c1.18.html" />
     
 
         
@@ -38,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="1.4" data-basepath=".." data-revision="Thu Aug 27 2015 11:14:22 GMT-0400 (EDT)">
+    <div class="book" data-level="1.19" data-basepath=".." data-revision="Thu Aug 27 2015 11:14:22 GMT-0400 (EDT)">
     
 
 <div class="book-summary">
@@ -136,7 +134,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4" data-path="LeetCode Locked/c1.4.html">
+        <li class="chapter " data-level="1.4" data-path="LeetCode Locked/c1.4.html">
             
                 
                     <a href="../LeetCode Locked/c1.4.html">
@@ -361,7 +359,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.19" data-path="LeetCode Locked/c1.19.html">
+        <li class="chapter active" data-level="1.19" data-path="LeetCode Locked/c1.19.html">
             
                 
                     <a href="../LeetCode Locked/c1.19.html">
@@ -486,114 +484,84 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h2 id="shortest-word-distance-i-ii-iii">Shortest Word Distance I, II, III</h2>
+                        <h2 id="alien-dictonary">Alien Dictonary</h2>
 <blockquote>
-<p><strong>Question 1</strong></p>
+<p><strong>Question</strong></p>
 </blockquote>
-<p>Given a list of words and two words word1 and word2, return the shortest distance between these two words in the list.</p>
-<p>For example,
-Assume that <code>words = [&quot;practice&quot;, &quot;makes&quot;, &quot;perfect&quot;, &quot;coding&quot;, &quot;makes&quot;]</code>.</p>
-<p>Given <code>word1 = &quot;coding&quot;</code>, <code>word2 = &quot;practice&quot;</code>, return 3.
-Given <code>word1 = &quot;makes&quot;</code>, <code>word2 = &quot;coding&quot;</code>, return 1.</p>
-<blockquote>
-<p><strong>Note</strong></p>
-</blockquote>
-<p>You may assume that word1 does not equal to word2, and word1 and word2 are both in the list.</p>
+<p>Given a lexicographically sorted dictionary (array of words) of an alien language, find order of characters in the language.</p>
+<p>Examples:
+Input:  <code>words[] = {&quot;baa&quot;, &quot;abcd&quot;, &quot;abca&quot;, &quot;cab&quot;, &quot;cad&quot;}</code>
+Output: Order of characters is &apos;b&apos;, &apos;d&apos;, &apos;a&apos;, &apos;c&apos;
+Note that words are sorted and in the given language &quot;baa&quot;
+comes before &quot;abcd&quot;, therefore &apos;b&apos; is before &apos;a&apos; in output.
+Similarly we can find other orders.</p>
+<p>Input:  <code>words[] = {&quot;caa&quot;, &quot;aaa&quot;, &quot;aab&quot;}</code><br>Output: Order of characters is &apos;c&apos;, &apos;a&apos;, &apos;b&apos;</p>
 <blockquote>
 <p><strong>Solution</strong></p>
 </blockquote>
-<p>The naive idea is very easy. But could you solve it in one-pass? Well, the one-pass code (taken from <a href="https://leetcode.com/discuss/50234/ac-java-clean-solution" target="_blank">here</a>) is rewritten in C++ as follows.</p>
+<p>topological sorting from <a href="https://leetcode.com/discuss/54024/straightforward-c-solution?show=54024#q54024" target="_blank">here</a> and <a href="http://www.cnblogs.com/jcliBlogger/p/4758761.html" target="_blank">here</a></p>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
+
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">shortestDistance</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&amp; words, <span class="hljs-built_in">string</span> word1, <span class="hljs-built_in">string</span> word2)</span> </span>{
-        <span class="hljs-keyword">int</span> n = words.size(), idx1 = -<span class="hljs-number">1</span>, idx2 = -<span class="hljs-number">1</span>, dist = INT_MAX;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) {
-            <span class="hljs-keyword">if</span> (words[i] == word1) idx1 = i;
-            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (words[i] == word2) idx2 = i;
-            <span class="hljs-keyword">if</span> (idx1 != -<span class="hljs-number">1</span> &amp;&amp; idx2 != -<span class="hljs-number">1</span>)
-                dist = min(dist, <span class="hljs-built_in">abs</span>(idx1 - idx2));
-        }
-        <span class="hljs-keyword">return</span> dist;
-    }
-};
-</code></pre>
-<blockquote>
-<p><strong>Question 2</strong></p>
-</blockquote>
-<p>Given a list of words and two words word1 and word2, return the shortest distance between these two words in the list.</p>
-<p>For example,</p>
-<p>Assume that <code>words = [&quot;practice&quot;, &quot;makes&quot;, &quot;perfect&quot;, &quot;coding&quot;, &quot;makes&quot;]</code>.</p>
-<p>Given <code>word1 = &quot;coding&#x201D;</code>, <code>word2 = &quot;practice&#x201D;</code>, return 3.
-Given <code>word1 = &quot;makes&quot;</code>, <code>word2 = &quot;coding&quot;</code>, return 1.</p>
-<blockquote>
-<p><strong>Note</strong></p>
-</blockquote>
-<p>You may assume that word1 does not equal to word2, and word1 and word2 are both in the list.</p>
-<blockquote>
-<p><strong>Solution</strong></p>
-</blockquote>
-<p>This is a follow up of Shortest Word Distance. The only difference is now you are given the list of words and your method will be called repeatedly many times with different parameters. How would you optimize it?</p>
-<p>The key idea is to store the indexes of each word using a hash map. Then the function shortest() is just to find the minimum difference between two sorted lists (see <a href="https://leetcode.com/discuss/50185/java-solution-using-minimum-difference-between-sorted-arrays" target="_blank">here</a> for a method).</p>
-<pre><code class="lang-c++"><span class="hljs-keyword">class</span> WordDistance {
-<span class="hljs-keyword">public</span>:
-    WordDistance(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; words) {
-        <span class="hljs-keyword">int</span> n = words.size();
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)
-            wordInd[words[i]].push_back(i);
+    <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">alienOrder</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&amp; words)</span> </span>{
+        <span class="hljs-keyword">if</span> (words.size() == <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> words[<span class="hljs-number">0</span>];
+        graph g = make_graph(words);
+
+        <span class="hljs-keyword">return</span> topsort(g);
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">shortest</span><span class="hljs-params">(<span class="hljs-built_in">string</span> word1, <span class="hljs-built_in">string</span> word2)</span> </span>{
-        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; indexes1 = wordInd[word1];
-        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; indexes2 = wordInd[word2];
-        <span class="hljs-keyword">int</span> m = indexes1.size(), n = indexes2.size();
-        <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>, dist = INT_MAX;
-        <span class="hljs-keyword">while</span> (i &lt; m &amp;&amp; j &lt; n) {
-            dist = min(dist, <span class="hljs-built_in">abs</span>(indexes1[i] - indexes2[j]));
-            <span class="hljs-keyword">if</span> (indexes1[i] &lt; indexes2[j]) i++;
-            <span class="hljs-keyword">else</span> j++;
-        }
-        <span class="hljs-keyword">return</span> dist;
-    }
 <span class="hljs-keyword">private</span>:
-    <span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &gt; wordInd;
-};
+    <span class="hljs-keyword">typedef</span> <span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-keyword">char</span>, <span class="hljs-built_in">unordered_set</span>&lt;<span class="hljs-keyword">char</span>&gt;&gt; graph;
 
-
-<span class="hljs-comment">// Your WordDistance object will be instantiated and called as such:</span>
-<span class="hljs-comment">// WordDistance wordDistance(words);</span>
-<span class="hljs-comment">// wordDistance.shortest(&quot;word1&quot;, &quot;word2&quot;);</span>
-<span class="hljs-comment">// wordDistance.shortest(&quot;anotherWord1&quot;, &quot;anotherWord2&quot;);</span>
-</code></pre>
-<blockquote>
-<p><strong>Question 3</strong></p>
-</blockquote>
-<p>Given a list of words and two words word1 and word2, return the shortest distance between these two words in the list.</p>
-<p>word1 and word2 may be the same and they represent two individual words in the list.</p>
-<p>For example,</p>
-<p>Assume that <code>words = [&quot;practice&quot;, &quot;makes&quot;, &quot;perfect&quot;, &quot;coding&quot;, &quot;makes&quot;]</code>.</p>
-<p>Given <code>word1 = &quot;makes&quot;</code>, <code>word2 = &quot;coding&quot;</code>, return 1. Given <code>word1 = &quot;makes&quot;</code>, <code>word2 = &quot;makes&quot;</code>, return 3.</p>
-<p>Note:</p>
-<p>You may assume word1 and word2 are both in the list.</p>
-<pre><code class="lang-c++"><span class="hljs-comment">//C++: 20ms</span>
-<span class="hljs-keyword">class</span> Solution {
-<span class="hljs-keyword">public</span>:
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">shortestWordDistance</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&amp; words, <span class="hljs-built_in">string</span> word1, <span class="hljs-built_in">string</span> word2)</span> </span>{
+    <span class="hljs-function">graph <span class="hljs-title">make_graph</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&amp; words)</span> </span>{
+        graph g;
         <span class="hljs-keyword">int</span> n = words.size();
-        <span class="hljs-keyword">int</span> p1 = -<span class="hljs-number">1</span>, p2 = -<span class="hljs-number">1</span>, dist = INT_MAX;
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;n; ++i){
-            <span class="hljs-keyword">if</span>(word1==word2){
-                <span class="hljs-keyword">if</span>(words[i]==word1){
-                    <span class="hljs-keyword">if</span>(p1&gt;p2) p2 = i;
-                    <span class="hljs-keyword">else</span> p1 = i;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; words.size(); i++) {
+            <span class="hljs-built_in">string</span> word1 = words[i - <span class="hljs-number">1</span>], word2 = words[i];
+            <span class="hljs-keyword">bool</span> found = <span class="hljs-keyword">false</span>;
+            <span class="hljs-keyword">int</span> m = word1.size(), n = word2.size(), l = max(m, n);
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; l; j++) {
+                <span class="hljs-keyword">if</span> (j &lt; m &amp;&amp; g.find(word1[j]) == g.end())
+                    g[word1[j]] = <span class="hljs-built_in">unordered_set</span>&lt;<span class="hljs-keyword">char</span>&gt;();
+                <span class="hljs-keyword">if</span> (j &lt; n &amp;&amp; g.find(word2[j]) == g.end())
+                    g[word2[j]] = <span class="hljs-built_in">unordered_set</span>&lt;<span class="hljs-keyword">char</span>&gt;();
+                <span class="hljs-keyword">if</span> (j &lt; m &amp;&amp; j &lt; n &amp;&amp; word1[j] != word2[j] &amp;&amp; !found) {
+                    [word1[j]].insert(word2[j]);
+                    found = <span class="hljs-keyword">true</span>;
                 }
-            }<span class="hljs-keyword">else</span>{
-                <span class="hljs-keyword">if</span>(words[i]==word1) p1 = i;
-                <span class="hljs-keyword">if</span>(words[i]==word2) p2 = i;
             }
-            <span class="hljs-keyword">if</span>(p1&gt;=<span class="hljs-number">0</span> &amp;&amp; p2&gt;=<span class="hljs-number">0</span>)
-                dist = min(dist, <span class="hljs-built_in">abs</span>(p1-p2));
         }
-        <span class="hljs-keyword">return</span> dist;
+        <span class="hljs-keyword">return</span> g;
+    }
+
+    <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">topsort</span><span class="hljs-params">(graph&amp; g)</span> </span>{
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt; path(<span class="hljs-number">256</span>, <span class="hljs-keyword">false</span>), visited(<span class="hljs-number">256</span>, <span class="hljs-keyword">false</span>);
+        <span class="hljs-built_in">string</span> order;
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> adj : g) {
+            <span class="hljs-keyword">if</span> (!dfs(g, path, visited, order, adj-&gt;first))
+                <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;
+        }
+
+        reverse(order.begin(), order.end());
+        <span class="hljs-keyword">return</span> order;
+    }
+
+
+    <span class="hljs-comment">// check for cycle and generate topological sort</span>
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">dfs</span><span class="hljs-params">(graph&amp; g, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&amp; path, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&amp; visited, <span class="hljs-built_in">string</span>&amp; order, <span class="hljs-keyword">char</span> node)</span> </span>{
+        <span class="hljs-keyword">if</span> (path[node]) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        <span class="hljs-keyword">if</span> (visited[node]) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        path[node] = visited[node] = <span class="hljs-keyword">true</span>;
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> neigh : g[node]) {
+            <span class="hljs-keyword">if</span> (!dfs(g, path, visited, order, neigh))
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        }
+        path[node] = <span class="hljs-keyword">false</span>;
+        order += node;
+
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
     }
 };
 </code></pre>
@@ -607,10 +575,8 @@ Given <code>word1 = &quot;makes&quot;</code>, <code>word2 = &quot;coding&quot;</
         </div>
 
         
-        <a href="../LeetCode Locked/c1.3.html" class="navigation navigation-prev " aria-label="Previous page: Read N Characters Given Read4 I, II"><i class="fa fa-angle-left"></i></a>
+        <a href="../LeetCode Locked/c1.18.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Palindrome Permutation I, II"><i class="fa fa-angle-left"></i></a>
         
-        
-        <a href="../LeetCode Locked/c1.5.html" class="navigation navigation-next " aria-label="Next page: Strobogrammatic Number I, II, III"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Shortest Word Distance I, II, III | Leetcode Locked</title>
+        <title>Palindrome Permutation I, II | Leetcode Locked</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.2.0">
@@ -27,10 +27,10 @@
         
     
     
-    <link rel="next" href="../LeetCode Locked/c1.5.html" />
+    <link rel="next" href="../LeetCode Locked/c1.19.html" />
     
     
-    <link rel="prev" href="../LeetCode Locked/c1.3.html" />
+    <link rel="prev" href="../LeetCode Locked/c1.17.html" />
     
 
         
@@ -38,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="1.4" data-basepath=".." data-revision="Thu Aug 27 2015 11:14:22 GMT-0400 (EDT)">
+    <div class="book" data-level="1.18" data-basepath=".." data-revision="Thu Aug 27 2015 11:14:22 GMT-0400 (EDT)">
     
 
 <div class="book-summary">
@@ -136,7 +136,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4" data-path="LeetCode Locked/c1.4.html">
+        <li class="chapter " data-level="1.4" data-path="LeetCode Locked/c1.4.html">
             
                 
                     <a href="../LeetCode Locked/c1.4.html">
@@ -346,7 +346,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.18" data-path="LeetCode Locked/c1.18.html">
+        <li class="chapter active" data-level="1.18" data-path="LeetCode Locked/c1.18.html">
             
                 
                     <a href="../LeetCode Locked/c1.18.html">
@@ -486,115 +486,92 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h2 id="shortest-word-distance-i-ii-iii">Shortest Word Distance I, II, III</h2>
+                        <h2 id="palindrome-permutation-i-ii">Palindrome Permutation I, II</h2>
 <blockquote>
 <p><strong>Question 1</strong></p>
 </blockquote>
-<p>Given a list of words and two words word1 and word2, return the shortest distance between these two words in the list.</p>
-<p>For example,
-Assume that <code>words = [&quot;practice&quot;, &quot;makes&quot;, &quot;perfect&quot;, &quot;coding&quot;, &quot;makes&quot;]</code>.</p>
-<p>Given <code>word1 = &quot;coding&quot;</code>, <code>word2 = &quot;practice&quot;</code>, return 3.
-Given <code>word1 = &quot;makes&quot;</code>, <code>word2 = &quot;coding&quot;</code>, return 1.</p>
-<blockquote>
-<p><strong>Note</strong></p>
-</blockquote>
-<p>You may assume that word1 does not equal to word2, and word1 and word2 are both in the list.</p>
+<p>Given a string, determine if a permutation of the string could form a palindrome.</p>
+<p>For example,<br><code>&quot;code&quot; -&gt; False</code>, <code>&quot;aab&quot; -&gt; True</code>, <code>&quot;carerac&quot; -&gt; True</code>.</p>
+<p>Hint:</p>
+<ol>
+<li>Consider the palindromes of odd vs even length. What difference do you notice?</li>
+<li>Count the frequency of each character.</li>
+<li>If each character occurs even number of times, then it must be a palindrome. How about character which occurs odd number of times?</li>
+</ol>
 <blockquote>
 <p><strong>Solution</strong></p>
 </blockquote>
-<p>The naive idea is very easy. But could you solve it in one-pass? Well, the one-pass code (taken from <a href="https://leetcode.com/discuss/50234/ac-java-clean-solution" target="_blank">here</a>) is rewritten in C++ as follows.</p>
-<pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
+<p>count number of chars, and odd char can only be one</p>
+<pre><code class="lang-c++">
+<span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">shortestDistance</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&amp; words, <span class="hljs-built_in">string</span> word1, <span class="hljs-built_in">string</span> word2)</span> </span>{
-        <span class="hljs-keyword">int</span> n = words.size(), idx1 = -<span class="hljs-number">1</span>, idx2 = -<span class="hljs-number">1</span>, dist = INT_MAX;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) {
-            <span class="hljs-keyword">if</span> (words[i] == word1) idx1 = i;
-            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (words[i] == word2) idx2 = i;
-            <span class="hljs-keyword">if</span> (idx1 != -<span class="hljs-number">1</span> &amp;&amp; idx2 != -<span class="hljs-number">1</span>)
-                dist = min(dist, <span class="hljs-built_in">abs</span>(idx1 - idx2));
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">canPermutePalindrome</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span> </span>{
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; smap(<span class="hljs-number">256</span>, <span class="hljs-number">0</span>);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> c : s) {
+            smap[c]++;
         }
-        <span class="hljs-keyword">return</span> dist;
+        <span class="hljs-keyword">int</span> oddCount = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">256</span>; i++) {
+            <span class="hljs-keyword">if</span> (cmap[i] % <span class="hljs-number">2</span> != <span class="hljs-number">0</span>) oddCount++;
+        }
+        <span class="hljs-keyword">return</span> oddCount &lt;= <span class="hljs-number">1</span>;
     }
 };
+</code></pre>
+<p>another solution <a href="https://leetcode.com/discuss/53180/1-4-lines-python-ruby-c-c-java" target="_blank">here</a></p>
+<pre><code class="lang-c++"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">canPermutePalindrome</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span> </span>{
+<span class="hljs-built_in">bitset</span>&lt;256&gt; b;
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : s)
+    b.flip(c);
+<span class="hljs-keyword">return</span> b.count() &lt; <span class="hljs-number">2</span>;
+}
 </code></pre>
 <blockquote>
 <p><strong>Question 2</strong></p>
 </blockquote>
-<p>Given a list of words and two words word1 and word2, return the shortest distance between these two words in the list.</p>
-<p>For example,</p>
-<p>Assume that <code>words = [&quot;practice&quot;, &quot;makes&quot;, &quot;perfect&quot;, &quot;coding&quot;, &quot;makes&quot;]</code>.</p>
-<p>Given <code>word1 = &quot;coding&#x201D;</code>, <code>word2 = &quot;practice&#x201D;</code>, return 3.
-Given <code>word1 = &quot;makes&quot;</code>, <code>word2 = &quot;coding&quot;</code>, return 1.</p>
-<blockquote>
-<p><strong>Note</strong></p>
-</blockquote>
-<p>You may assume that word1 does not equal to word2, and word1 and word2 are both in the list.</p>
+<p>Given a string s, return all the palindromic permutations (without duplicates) of it. Return an empty list if no palindromic permutation could be form.</p>
+<p>For example:</p>
+<p>Given <code>s = &quot;aabb&quot;</code>, return <code>[&quot;abba&quot;, &quot;baab&quot;]</code>.</p>
+<p>Given <code>s = &quot;abc&quot;</code>, return [].</p>
+<p>Hint:</p>
+<p>If a palindromic permutation exists, we just need to generate the first half of the string.
+To generate all distinct permutations of a (half of) string, use a similar approach from: Permutations II or Next Permutation.</p>
 <blockquote>
 <p><strong>Solution</strong></p>
 </blockquote>
-<p>This is a follow up of Shortest Word Distance. The only difference is now you are given the list of words and your method will be called repeatedly many times with different parameters. How would you optimize it?</p>
-<p>The key idea is to store the indexes of each word using a hash map. Then the function shortest() is just to find the minimum difference between two sorted lists (see <a href="https://leetcode.com/discuss/50185/java-solution-using-minimum-difference-between-sorted-arrays" target="_blank">here</a> for a method).</p>
-<pre><code class="lang-c++"><span class="hljs-keyword">class</span> WordDistance {
+<pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    WordDistance(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; words) {
-        <span class="hljs-keyword">int</span> n = words.size();
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)
-            wordInd[words[i]].push_back(i);
-    }
-
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">shortest</span><span class="hljs-params">(<span class="hljs-built_in">string</span> word1, <span class="hljs-built_in">string</span> word2)</span> </span>{
-        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; indexes1 = wordInd[word1];
-        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; indexes2 = wordInd[word2];
-        <span class="hljs-keyword">int</span> m = indexes1.size(), n = indexes2.size();
-        <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>, dist = INT_MAX;
-        <span class="hljs-keyword">while</span> (i &lt; m &amp;&amp; j &lt; n) {
-            dist = min(dist, <span class="hljs-built_in">abs</span>(indexes1[i] - indexes2[j]));
-            <span class="hljs-keyword">if</span> (indexes1[i] &lt; indexes2[j]) i++;
-            <span class="hljs-keyword">else</span> j++;
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; generatePalindromes(<span class="hljs-built_in">string</span> s) {
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; palindromes;
+        <span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-keyword">char</span>, <span class="hljs-keyword">int</span>&gt; count;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c : s) count[c]++;
+        <span class="hljs-keyword">int</span> odd = <span class="hljs-number">0</span>; <span class="hljs-keyword">char</span> mid; <span class="hljs-built_in">string</span> half;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> p: count) {
+            <span class="hljs-keyword">if</span> (p.second &amp; <span class="hljs-number">1</span>) {
+                odd++, mid = p.first;
+            }
+            half += <span class="hljs-built_in">string</span>(p.second / <span class="hljs-number">2</span>, p.first);
         }
-        <span class="hljs-keyword">return</span> dist;
+        palindromes = permutations(half);
+        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">string</span> &amp; p : palindromes) {
+            <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">t</span><span class="hljs-params">(p)</span></span>;
+            reverse(t.begin(), t.end());
+            <span class="hljs-keyword">if</span> (odd) t = mid + t;
+            p += t;
+        }
+        <span class="hljs-keyword">return</span> palindromes;
     }
 <span class="hljs-keyword">private</span>:
-    <span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &gt; wordInd;
-};
-
-
-<span class="hljs-comment">// Your WordDistance object will be instantiated and called as such:</span>
-<span class="hljs-comment">// WordDistance wordDistance(words);</span>
-<span class="hljs-comment">// wordDistance.shortest(&quot;word1&quot;, &quot;word2&quot;);</span>
-<span class="hljs-comment">// wordDistance.shortest(&quot;anotherWord1&quot;, &quot;anotherWord2&quot;);</span>
-</code></pre>
-<blockquote>
-<p><strong>Question 3</strong></p>
-</blockquote>
-<p>Given a list of words and two words word1 and word2, return the shortest distance between these two words in the list.</p>
-<p>word1 and word2 may be the same and they represent two individual words in the list.</p>
-<p>For example,</p>
-<p>Assume that <code>words = [&quot;practice&quot;, &quot;makes&quot;, &quot;perfect&quot;, &quot;coding&quot;, &quot;makes&quot;]</code>.</p>
-<p>Given <code>word1 = &quot;makes&quot;</code>, <code>word2 = &quot;coding&quot;</code>, return 1. Given <code>word1 = &quot;makes&quot;</code>, <code>word2 = &quot;makes&quot;</code>, return 3.</p>
-<p>Note:</p>
-<p>You may assume word1 and word2 are both in the list.</p>
-<pre><code class="lang-c++"><span class="hljs-comment">//C++: 20ms</span>
-<span class="hljs-keyword">class</span> Solution {
-<span class="hljs-keyword">public</span>:
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">shortestWordDistance</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&amp; words, <span class="hljs-built_in">string</span> word1, <span class="hljs-built_in">string</span> word2)</span> </span>{
-        <span class="hljs-keyword">int</span> n = words.size();
-        <span class="hljs-keyword">int</span> p1 = -<span class="hljs-number">1</span>, p2 = -<span class="hljs-number">1</span>, dist = INT_MAX;
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;n; ++i){
-            <span class="hljs-keyword">if</span>(word1==word2){
-                <span class="hljs-keyword">if</span>(words[i]==word1){
-                    <span class="hljs-keyword">if</span>(p1&gt;p2) p2 = i;
-                    <span class="hljs-keyword">else</span> p1 = i;
-                }
-            }<span class="hljs-keyword">else</span>{
-                <span class="hljs-keyword">if</span>(words[i]==word1) p1 = i;
-                <span class="hljs-keyword">if</span>(words[i]==word2) p2 = i;
-            }
-            <span class="hljs-keyword">if</span>(p1&gt;=<span class="hljs-number">0</span> &amp;&amp; p2&gt;=<span class="hljs-number">0</span>)
-                dist = min(dist, <span class="hljs-built_in">abs</span>(p1-p2));
-        }
-        <span class="hljs-keyword">return</span> dist;
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; permutations(<span class="hljs-built_in">string</span> &amp; s) {
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; perms;
+        <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">t</span><span class="hljs-params">(s)</span></span>;
+        <span class="hljs-keyword">do</span> {
+            perms.push_back(s);
+            next_permutation(s.begin(), s.end());
+        } <span class="hljs-keyword">while</span> (s!= t);
+        <span class="hljs-keyword">return</span> perms;
     }
+
 };
 </code></pre>
 
@@ -607,10 +584,10 @@ Given <code>word1 = &quot;makes&quot;</code>, <code>word2 = &quot;coding&quot;</
         </div>
 
         
-        <a href="../LeetCode Locked/c1.3.html" class="navigation navigation-prev " aria-label="Previous page: Read N Characters Given Read4 I, II"><i class="fa fa-angle-left"></i></a>
+        <a href="../LeetCode Locked/c1.17.html" class="navigation navigation-prev " aria-label="Previous page: Graph Valid Tree"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../LeetCode Locked/c1.5.html" class="navigation navigation-next " aria-label="Next page: Strobogrammatic Number I, II, III"><i class="fa fa-angle-right"></i></a>
+        <a href="../LeetCode Locked/c1.19.html" class="navigation navigation-next " aria-label="Next page: Alien Dictonary"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
