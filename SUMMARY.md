@@ -19,3 +19,5 @@
    * [Paint House I, II](LeetCode Locked/c1.15.md)
    * [3Sum Smaller](LeetCode Locked/c1.16.md)
    * [Graph Valid Tree](LeetCode Locked/c1.17.md)
+   * [Palindrome Permutation I, II](LeetCode Locked/c1.18.md)
+   * [Alien Dictonary](LeetCode Locked/c1.19.md)
