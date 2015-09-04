@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>One Edit Distance | Leetcode Locked</title>
+        <title>Encode and Decode Strings | Leetcode Locked</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.2.0">
@@ -27,10 +27,8 @@
         
     
     
-    <link rel="next" href="../LeetCode Locked/c1.10.html" />
     
-    
-    <link rel="prev" href="../LeetCode Locked/c1.8.html" />
+    <link rel="prev" href="../LeetCode Locked/c1.20.html" />
     
 
         
@@ -38,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="1.9" data-basepath=".." data-revision="Fri Sep 04 2015 15:10:37 GMT-0400 (EDT)">
+    <div class="book" data-level="1.21" data-basepath=".." data-revision="Fri Sep 04 2015 15:10:37 GMT-0400 (EDT)">
     
 
 <div class="book-summary">
@@ -211,7 +209,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.9" data-path="LeetCode Locked/c1.9.html">
+        <li class="chapter " data-level="1.9" data-path="LeetCode Locked/c1.9.html">
             
                 
                     <a href="../LeetCode Locked/c1.9.html">
@@ -391,7 +389,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.21" data-path="LeetCode Locked/c1.21.html">
+        <li class="chapter active" data-level="1.21" data-path="LeetCode Locked/c1.21.html">
             
                 
                     <a href="../LeetCode Locked/c1.21.html">
@@ -516,52 +514,75 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h2 id="one-edit-distance">One Edit Distance</h2>
+                        <h2 id="encode-and-decode-strings">Encode and Decode Strings</h2>
 <blockquote>
-<p><strong>Question:</strong></p>
+<p><strong>Question</strong></p>
 </blockquote>
-<p>Given two strings S and T, determine if they are both one edit distance apart. Hint:</p>
-<ol>
-<li>If `| n &#x2013; m |`` is greater than 1, we know immediately both are not one-edit distance apart.</li>
-<li>It might help if you consider these cases separately, <code>m == n</code> and <code>m =&#x338; n</code>.</li>
-<li>Assume that m is always &#x2264; n, which greatly simplifies the conditional statements.
-If <code>m &gt; n</code>, we could just simply swap S and T.</li>
-<li>If <code>m == n</code>, it becomes finding if there is exactly one modified operation. If <code>m =&#x338; n</code> you do not have to consider the delete operation. Just consider the insert operation in T.</li>
-</ol>
-<blockquote>
-<p><strong>Solution:</strong></p>
-</blockquote>
-<p>Let us assume m = length of S, n = length of T.
-Although this problem is solvable by directly applying the famous Edit distance dynamic programming algorithm with runtime complexity of O(mn) and space complexity of O(mn) (could be optimized to O(min(m,n)), it is far from desirable as there exists a simpler and more efficient one-pass algorithm.</p>
-<p><strong>O(n) runtime, O(1) space &#x2013; Simple one-pass:</strong></p>
-<p>For the case where m is equal to n, it becomes finding if there is exactly one modified
-character. Now let&#x2019;s assume m &#x2264; n. (If m &gt; n we could just swap them).
-Assume X represents the one-edit character. There are three one-edit distance operations
-that could be applied to S.</p>
-<p>i. Modify operation &#x2013; Modify a character to X in S.</p>
-<p>ii. Insert operation &#x2013; X was inserted before a character in S.</p>
-<p>iii. Append operation &#x2013; X was appended at the end of S.</p>
-<pre><code>S = &#x201C;abcde&#x201D; T = &#x201C;abXde&#x201D;
-S = &#x201C;abcde&#x201D; T = &#x201C;abcXde&#x201D;
-S = &#x201C;abcde&#x201D; T = &#x201C;abcdeX&#x201D;
-</code></pre><p>We make a first pass over S and T concurrently and stop at the first non-matching character between S and T.</p>
-<ol>
-<li>If S matches all characters in T, then check if there is an extra character at the end of T. (Modify operation)</li>
-<li>If | n &#x2013; m | == 1, that means we must skip this non-matching character only in T and make sure the remaining characters between S and T are exactly matching. (Insert operation)</li>
-<li>If | n &#x2013; m | == 0, then we skip both non-matching characters in S and T and make sure the remaining characters between S and T are exactly matching. (Append operation)</li>
-</ol>
-<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isOneEditDistance</span><span class="hljs-params">(String s, String t)</span> </span>{
-     <span class="hljs-keyword">int</span> m = s.length(), n = t.length();
-     <span class="hljs-keyword">if</span> (m &gt; n) <span class="hljs-keyword">return</span> isOneEditDistance(t, s);
-     <span class="hljs-keyword">if</span> (n - m &gt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
-     <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, shift = n - m;
-     <span class="hljs-keyword">while</span> (i &lt; m &amp;&amp; s.charAt(i) == t.charAt(i)) i++;
-     <span class="hljs-keyword">if</span> (i == m) <span class="hljs-keyword">return</span> shift &gt; <span class="hljs-number">0</span>;
-     <span class="hljs-keyword">if</span> (shift == <span class="hljs-number">0</span>) i++;
-     <span class="hljs-keyword">while</span> (i &lt; m &amp;&amp; s.charAt(i) == t.charAt(i + shift)) i++;
-     <span class="hljs-keyword">return</span> i == m;
+<p>Design an algorithm to encode a list of strings to a string. The encoded string is then sent over the network and is decoded back to the original list of strings.</p>
+<p>Machine 1 (sender) has the function:</p>
+<pre><code class="lang-c++"><span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">encode</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; strs)</span> </span>{
+  <span class="hljs-comment">// ... your code</span>
+  <span class="hljs-keyword">return</span> encoded_string;
 }
 </code></pre>
+<p>Machine 2 (receiver) has the function:</p>
+<pre><code class="lang-c++"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; decode(<span class="hljs-built_in">string</span> s) {
+  <span class="hljs-comment">//... your code</span>
+  <span class="hljs-keyword">return</span> strs;
+}
+</code></pre>
+<p>So Machine 1 does:</p>
+<p><code>string encoded_string = encode(strs);</code>  </p>
+<p>and Machine 2 does:</p>
+<p><code>vector&lt;string&gt; strs2 = decode(encoded_string);</code></p>
+<p>strs2 in Machine 2 should be the same as strs in Machine 1.</p>
+<p>Implement the encode and decode methods.</p>
+<blockquote>
+<p><strong>Note</strong></p>
+</blockquote>
+<p>The string may contain any possible characters out of 256 valid ascii characters. Your algorithm should be generalized enough to work on any possible characters.</p>
+<p>Do not use class member/global/static variables to store states. Your encode and decode algorithms should be stateless.</p>
+<p>Do not rely on any library method such as eval or serialize methods. You should implement your own encode/decode algorithm.</p>
+<blockquote>
+<p><strong>Solution</strong></p>
+</blockquote>
+<p>from <a href="https://leetcode.com/discuss/54906/accepted-simple-c-solution" target="_blank">here</a></p>
+<pre><code class="lang-c++"><span class="hljs-keyword">class</span> Codec {
+<span class="hljs-keyword">public</span>:
+
+    <span class="hljs-comment">// Encodes a list of strings to a single string.</span>
+    <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">encode</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&amp; strs)</span> </span>{
+        <span class="hljs-built_in">string</span> encoded = <span class="hljs-string">&quot;&quot;</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">string</span> &amp;str: strs) {
+            <span class="hljs-keyword">int</span> len = str.size();
+            encoded += to_string(len) + <span class="hljs-string">&quot;@&quot;</span> + str;
+        }
+        <span class="hljs-keyword">return</span> encoded;
+    }
+
+    <span class="hljs-comment">// Decodes a single string to a list of strings.</span>
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; decode(<span class="hljs-built_in">string</span> s) {
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; r;
+        <span class="hljs-keyword">int</span> head = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">while</span> (head &lt; s.size())    {
+            <span class="hljs-keyword">int</span> at_pos = s.find_first_of(<span class="hljs-string">&apos;@&apos;</span>, head);
+            <span class="hljs-comment">//int len = atoi(&amp;s[head]);</span>
+            <span class="hljs-comment">//head = s.find(&apos;@&apos;, head)  + 1;</span>
+            <span class="hljs-keyword">int</span> len = stoi(s.substr(head, at_pos - head));
+            head = at_pos + <span class="hljs-number">1</span>;
+            r.push_back(s.substr(head, len));
+            head += len;
+        }
+
+        <span class="hljs-keyword">return</span> r;
+    }
+};
+
+<span class="hljs-comment">// Your Codec object will be instantiated and called as such:</span>
+<span class="hljs-comment">// Codec codec;</span>
+<span class="hljs-comment">// codec.decode(codec.encode(strs));</span>
+</code></pre>
+<p>other solution with run-length encoding <a href="https://leetcode.com/discuss/54862/run-length-encoding-solution-using-c" target="_blank">here</a></p>
 
                     
                     </section>
@@ -572,10 +593,8 @@ S = &#x201C;abcde&#x201D; T = &#x201C;abcdeX&#x201D;
         </div>
 
         
-        <a href="../LeetCode Locked/c1.8.html" class="navigation navigation-prev " aria-label="Previous page: Missing Ranges"><i class="fa fa-angle-left"></i></a>
+        <a href="../LeetCode Locked/c1.20.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Closest Binary Search Tree Value I, II"><i class="fa fa-angle-left"></i></a>
         
-        
-        <a href="../LeetCode Locked/c1.10.html" class="navigation navigation-next " aria-label="Next page: Flatten 2D Vector"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

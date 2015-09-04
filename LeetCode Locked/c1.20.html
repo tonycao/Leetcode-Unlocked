@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>One Edit Distance | Leetcode Locked</title>
+        <title>Closest Binary Search Tree Value I, II | Leetcode Locked</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.2.0">
@@ -27,10 +27,10 @@
         
     
     
-    <link rel="next" href="../LeetCode Locked/c1.10.html" />
+    <link rel="next" href="../LeetCode Locked/c1.21.html" />
     
     
-    <link rel="prev" href="../LeetCode Locked/c1.8.html" />
+    <link rel="prev" href="../LeetCode Locked/c1.19.html" />
     
 
         
@@ -38,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="1.9" data-basepath=".." data-revision="Fri Sep 04 2015 15:10:37 GMT-0400 (EDT)">
+    <div class="book" data-level="1.20" data-basepath=".." data-revision="Fri Sep 04 2015 15:10:37 GMT-0400 (EDT)">
     
 
 <div class="book-summary">
@@ -211,7 +211,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.9" data-path="LeetCode Locked/c1.9.html">
+        <li class="chapter " data-level="1.9" data-path="LeetCode Locked/c1.9.html">
             
                 
                     <a href="../LeetCode Locked/c1.9.html">
@@ -376,7 +376,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.20" data-path="LeetCode Locked/c1.20.html">
+        <li class="chapter active" data-level="1.20" data-path="LeetCode Locked/c1.20.html">
             
                 
                     <a href="../LeetCode Locked/c1.20.html">
@@ -516,50 +516,80 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h2 id="one-edit-distance">One Edit Distance</h2>
+                        <h2 id="closest-binary-search-tree-value-i-ii">Closest Binary Search Tree Value I, II</h2>
 <blockquote>
-<p><strong>Question:</strong></p>
+<p><strong>Question I</strong>  </p>
 </blockquote>
-<p>Given two strings S and T, determine if they are both one edit distance apart. Hint:</p>
-<ol>
-<li>If `| n &#x2013; m |`` is greater than 1, we know immediately both are not one-edit distance apart.</li>
-<li>It might help if you consider these cases separately, <code>m == n</code> and <code>m =&#x338; n</code>.</li>
-<li>Assume that m is always &#x2264; n, which greatly simplifies the conditional statements.
-If <code>m &gt; n</code>, we could just simply swap S and T.</li>
-<li>If <code>m == n</code>, it becomes finding if there is exactly one modified operation. If <code>m =&#x338; n</code> you do not have to consider the delete operation. Just consider the insert operation in T.</li>
-</ol>
+<p>one closest value</p>
 <blockquote>
-<p><strong>Solution:</strong></p>
+<p><strong>Solution</strong></p>
 </blockquote>
-<p>Let us assume m = length of S, n = length of T.
-Although this problem is solvable by directly applying the famous Edit distance dynamic programming algorithm with runtime complexity of O(mn) and space complexity of O(mn) (could be optimized to O(min(m,n)), it is far from desirable as there exists a simpler and more efficient one-pass algorithm.</p>
-<p><strong>O(n) runtime, O(1) space &#x2013; Simple one-pass:</strong></p>
-<p>For the case where m is equal to n, it becomes finding if there is exactly one modified
-character. Now let&#x2019;s assume m &#x2264; n. (If m &gt; n we could just swap them).
-Assume X represents the one-edit character. There are three one-edit distance operations
-that could be applied to S.</p>
-<p>i. Modify operation &#x2013; Modify a character to X in S.</p>
-<p>ii. Insert operation &#x2013; X was inserted before a character in S.</p>
-<p>iii. Append operation &#x2013; X was appended at the end of S.</p>
-<pre><code>S = &#x201C;abcde&#x201D; T = &#x201C;abXde&#x201D;
-S = &#x201C;abcde&#x201D; T = &#x201C;abcXde&#x201D;
-S = &#x201C;abcde&#x201D; T = &#x201C;abcdeX&#x201D;
-</code></pre><p>We make a first pass over S and T concurrently and stop at the first non-matching character between S and T.</p>
-<ol>
-<li>If S matches all characters in T, then check if there is an extra character at the end of T. (Modify operation)</li>
-<li>If | n &#x2013; m | == 1, that means we must skip this non-matching character only in T and make sure the remaining characters between S and T are exactly matching. (Insert operation)</li>
-<li>If | n &#x2013; m | == 0, then we skip both non-matching characters in S and T and make sure the remaining characters between S and T are exactly matching. (Append operation)</li>
-</ol>
-<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isOneEditDistance</span><span class="hljs-params">(String s, String t)</span> </span>{
-     <span class="hljs-keyword">int</span> m = s.length(), n = t.length();
-     <span class="hljs-keyword">if</span> (m &gt; n) <span class="hljs-keyword">return</span> isOneEditDistance(t, s);
-     <span class="hljs-keyword">if</span> (n - m &gt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
-     <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, shift = n - m;
-     <span class="hljs-keyword">while</span> (i &lt; m &amp;&amp; s.charAt(i) == t.charAt(i)) i++;
-     <span class="hljs-keyword">if</span> (i == m) <span class="hljs-keyword">return</span> shift &gt; <span class="hljs-number">0</span>;
-     <span class="hljs-keyword">if</span> (shift == <span class="hljs-number">0</span>) i++;
-     <span class="hljs-keyword">while</span> (i &lt; m &amp;&amp; s.charAt(i) == t.charAt(i + shift)) i++;
-     <span class="hljs-keyword">return</span> i == m;
+<p>can be solved by recursion [here])(<a href="http://www.cnblogs.com/jcliBlogger/p/4763200.html" target="_blank">http://www.cnblogs.com/jcliBlogger/p/4763200.html</a>)</p>
+<pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">closestValue</span><span class="hljs-params">(TreeNode* root, <span class="hljs-keyword">double</span> target)</span> </span>{
+        <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span> INT_MAX;
+        <span class="hljs-keyword">if</span> (!root-&gt;left &amp;&amp; !root-&gt;right) <span class="hljs-keyword">return</span> root-&gt;val;
+
+        <span class="hljs-keyword">int</span> left = closestValue(target-&gt;left, target);
+        <span class="hljs-keyword">int</span> right = closestValue(target-&gt;right, target);
+
+        <span class="hljs-keyword">double</span> td = <span class="hljs-built_in">abs</span>(root-&gt;val - target), ld = <span class="hljs-built_in">abs</span>(left - target), rd = <span class="hljs-built_in">abs</span>(right - target);
+        <span class="hljs-keyword">if</span> (td &lt; ld) <span class="hljs-keyword">return</span> (td &lt; rd) ? root-&gt;val : right;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> (ld &lt; rd) ? left : right;
+    }
+}
+</code></pre>
+<p>or</p>
+<pre><code class="lang-c++"><span class="hljs-comment">// recursive</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">closestValue</span><span class="hljs-params">(TreeNode* root, <span class="hljs-keyword">double</span> target)</span> </span>{
+    <span class="hljs-keyword">int</span> a = root-&gt;val;
+    <span class="hljs-keyword">auto</span> kid = target &lt; a ? root-&gt;left : root-&gt;right;
+    <span class="hljs-keyword">if</span> (!kid) <span class="hljs-keyword">return</span> a;
+    <span class="hljs-keyword">int</span> b = closestValue(kid, target);
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">abs</span>(a - target) &lt; <span class="hljs-built_in">abs</span>(b - target) ? a : b;
+}
+</code></pre>
+<pre><code class="lang-c++"><span class="hljs-comment">// iterative</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">closestValue</span><span class="hljs-params">(TreeNode* root, <span class="hljs-keyword">double</span> target)</span> </span>{
+    <span class="hljs-keyword">int</span> closest = root-&gt;val;
+    <span class="hljs-keyword">while</span> (root) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">abs</span>(closest - target) &gt;= <span class="hljs-built_in">abs</span>(root-&gt;val - target))
+            closest = root-&gt;val;
+        root = target &lt; root-&gt;val ? root-&gt;left : root-&gt;right;
+    }
+    <span class="hljs-keyword">return</span> closest;
+}
+</code></pre>
+<p>more solution <a href="https://leetcode.com/discuss/54438/4-7-lines-recursive-iterative-ruby-c-java-python" target="_blank">here</a></p>
+<blockquote>
+<p><strong>Question II</strong></p>
+</blockquote>
+<p>k closest values</p>
+<blockquote>
+<p><strong>Solution</strong></p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/jcliBlogger/p/4771342.html" target="_blank">here</a></p>
+<pre><code class="lang-c++">Solution {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; closestKValues(TreeNode* root, <span class="hljs-keyword">double</span> target, <span class="hljs-keyword">int</span> k) {
+        priority_queue&lt;pair&lt;<span class="hljs-keyword">double</span>, <span class="hljs-keyword">int</span>&gt;&gt; pq;
+        closestK(root, pq, target, k);
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; closest;
+        <span class="hljs-keyword">while</span>(!pq.empty()) {
+            closest.push_back(pq.top().second);
+            pq.pop();
+        }
+        <span class="hljs-keyword">return</span> closest;
+    }
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">closestK</span><span class="hljs-params">(TreeNode* node, priority_queue&lt;pair&lt;<span class="hljs-keyword">double</span>, <span class="hljs-keyword">int</span>&gt;&gt;pq, <span class="hljs-keyword">double</span> target, <span class="hljs-keyword">int</span> k)</span></span>{
+        <span class="hljs-keyword">if</span>(!node) <span class="hljs-keyword">return</span> ;
+        pq.push(make_pair(<span class="hljs-built_in">abs</span>(target - node-&gt;val), node-&gt;val));
+        <span class="hljs-keyword">if</span> (pq.size() &gt; k) pq.pop();
+        closestK(node-&gt;left, pq, target, k);
+        closestK(node-&gt;right, pq, target, k);
+    }
 }
 </code></pre>
 
@@ -572,10 +602,10 @@ S = &#x201C;abcde&#x201D; T = &#x201C;abcdeX&#x201D;
         </div>
 
         
-        <a href="../LeetCode Locked/c1.8.html" class="navigation navigation-prev " aria-label="Previous page: Missing Ranges"><i class="fa fa-angle-left"></i></a>
+        <a href="../LeetCode Locked/c1.19.html" class="navigation navigation-prev " aria-label="Previous page: Alien Dictonary"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../LeetCode Locked/c1.10.html" class="navigation navigation-next " aria-label="Next page: Flatten 2D Vector"><i class="fa fa-angle-right"></i></a>
+        <a href="../LeetCode Locked/c1.21.html" class="navigation navigation-next " aria-label="Next page: Encode and Decode Strings"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
