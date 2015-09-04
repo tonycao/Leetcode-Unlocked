@@ -21,3 +21,5 @@
    * [Graph Valid Tree](LeetCode Locked/c1.17.md)
    * [Palindrome Permutation I, II](LeetCode Locked/c1.18.md)
    * [Alien Dictonary](LeetCode Locked/c1.19.md)
+   * [Closest Binary Search Tree Value I, II](LeetCode Locked/c1.20.md)
+   * [Encode and Decode Strings](LeetCode Locked/c1.21.md)
