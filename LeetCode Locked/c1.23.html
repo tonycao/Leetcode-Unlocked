@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Graph Valid Tree | Leetcode Locked</title>
+        <title>Paint Fence | Leetcode Locked</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.2.0">
@@ -27,10 +27,8 @@
         
     
     
-    <link rel="next" href="../LeetCode Locked/c1.18.html" />
     
-    
-    <link rel="prev" href="../LeetCode Locked/c1.16.html" />
+    <link rel="prev" href="../LeetCode Locked/c1.22.html" />
     
 
         
@@ -38,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="1.17" data-basepath=".." data-revision="Mon Sep 07 2015 14:23:11 GMT-0400 (EDT)">
+    <div class="book" data-level="1.23" data-basepath=".." data-revision="Mon Sep 07 2015 14:23:11 GMT-0400 (EDT)">
     
 
 <div class="book-summary">
@@ -331,7 +329,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.17" data-path="LeetCode Locked/c1.17.html">
+        <li class="chapter " data-level="1.17" data-path="LeetCode Locked/c1.17.html">
             
                 
                     <a href="../LeetCode Locked/c1.17.html">
@@ -421,7 +419,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.23" data-path="LeetCode Locked/c1.23.html">
+        <li class="chapter active" data-level="1.23" data-path="LeetCode Locked/c1.23.html">
             
                 
                     <a href="../LeetCode Locked/c1.23.html">
@@ -546,56 +544,34 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h2 id="graph-valid-tree">Graph Valid Tree</h2>
+                        <h2 id="paint-fence">Paint Fence</h2>
 <blockquote>
-<p><strong>Question</strong>  </p>
+<p><strong>Question</strong></p>
 </blockquote>
-<p>Given n nodes labeled from <code>0</code> to <code>n - 1</code> and a list of undirected edges (each edge is a pair of nodes), write a function to check whether these edges make up a valid tree.</p>
-<p>For example:</p>
-<p>Given <code>n = 5</code> and <code>edges = [[0, 1], [0, 2], [0, 3], [1, 4]]</code>, return true.</p>
-<p>Given <code>n = 5</code> and <code>edges = [[0, 1], [1, 2], [2, 3], [1, 3], [1, 4]]</code>, return false.</p>
-<p>Hint:</p>
-<p>Given n = 5 and edges = [[0, 1], [1, 2], [3, 4]], what should your return? Is this case a valid tree?
-According to the definition of tree on Wikipedia: &#x201C;a tree is an undirected graph in which any two vertices are connected by exactly one path. In other words, any connected graph without simple cycles is a tree.&#x201D;
-Note: you can assume that no duplicate edges will appear in edges. Since all edges are undirected, [0, 1] is the same as [1, 0] and thus will not appear together inedges.</p>
+<p>There is a fence with n posts, each post can be painted with one of the k colors.</p>
+<p>You have to paint all the posts such that no more than two adjacent fence posts have the same color.</p>
+<p>Return the total number of ways you can paint the fence.</p>
+<blockquote>
+<p><strong>Note</strong></p>
+</blockquote>
+<p>n and k are non-negative integers.</p>
 <blockquote>
 <p><strong>Solution</strong></p>
 </blockquote>
-<ol>
-<li>Treating input as graph, making sure no cycles and one connected component.</li>
-<li>check for cycle and connectness in Graph
-can be done by DFS, BFS and Union-find</li>
-</ol>
-<p>DFS from <a href="http://likemyblogger.blogspot.com/2015/08/leetcode-261-graph-valid-tree.html" target="_blank">here</a></p>
+<p>DP, see <a href="https://leetcode.com/discuss/56146/dynamic-programming-c-o-n-time-o-1-space-0ms" target="_blank">here</a> and <a href="http://www.fgdsb.com/2015/01/04/fence-painter/" target="_blank">here</a></p>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">validTree</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n, <span class="hljs-built_in">vector</span>&lt;pair&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt;&gt;&amp; edges)</span> </span>{
-        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; matrix(n);
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> e : edges) {
-            matrix[e.first].push_back(e.second);
-            matrix[e.second].push_back(e.first);
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">numWays</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> k)</span> </span>{
+        <span class="hljs-keyword">if</span> (n &lt; <span class="hljs-number">2</span> || !k) <span class="hljs-keyword">return</span> n * k;
+        <span class="hljs-keyword">int</span> s = k, d1 = k, d2 = k * (k - <span class="hljs-number">1</span>);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt; n; i++) {
+            s = d2;
+            d2 = (k - <span class="hljs-number">1</span>) * (d1 + d2);
+            d1 = s;
         }
-
-        <span class="hljs-keyword">int</span> path[n];
-        fill(path, path + n, <span class="hljs-number">0</span>);
-        path[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;
-        <span class="hljs-keyword">if</span> (hasCycle(matrix, n, <span class="hljs-number">0</span>, -<span class="hljs-number">1</span>, path)) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>; <span class="hljs-comment">// has cycle</span>
-        <span class="hljs-keyword">if</span> (accumulate(path, path + n, <span class="hljs-number">0</span>) &lt; n) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>; <span class="hljs-comment">// not fully connected</span>
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        <span class="hljs-keyword">return</span> s + d2;
     }
-
-    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">hasCycle</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; &amp;matrix, <span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> src, <span class="hljs-keyword">int</span> pre, <span class="hljs-keyword">int</span> path[])</span> </span>{
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> i:matrix[src]) {
-            <span class="hljs-keyword">if</span> (i != pre) {
-                <span class="hljs-keyword">if</span> (path[i]) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
-                path[i] = <span class="hljs-number">1</span>;
-                <span class="hljs-keyword">if</span> (hasCycle(matrix, n, i, src, path)) <span class="hljs-keyword">return</span> ture;
-            }
-        }
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
-    }
-
-}
+};
 </code></pre>
 
                     
@@ -607,10 +583,8 @@ can be done by DFS, BFS and Union-find</li>
         </div>
 
         
-        <a href="../LeetCode Locked/c1.16.html" class="navigation navigation-prev " aria-label="Previous page: 3Sum Smaller"><i class="fa fa-angle-left"></i></a>
+        <a href="../LeetCode Locked/c1.22.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Find the Celebrity"><i class="fa fa-angle-left"></i></a>
         
-        
-        <a href="../LeetCode Locked/c1.18.html" class="navigation navigation-next " aria-label="Next page: Palindrome Permutation I, II"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
