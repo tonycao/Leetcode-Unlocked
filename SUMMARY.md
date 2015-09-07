@@ -23,3 +23,5 @@
    * [Alien Dictonary](LeetCode Locked/c1.19.md)
    * [Closest Binary Search Tree Value I, II](LeetCode Locked/c1.20.md)
    * [Encode and Decode Strings](LeetCode Locked/c1.21.md)
+   * [Find the Celebrity](LeetCode Locked/c1.22.md)
+   * [Paint Fence](LeetCode Locked/c1.23.md)
