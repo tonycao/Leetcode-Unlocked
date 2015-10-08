@@ -25,3 +25,5 @@
    * [Encode and Decode Strings](LeetCode Locked/c1.21.md)
    * [Find the Celebrity](LeetCode Locked/c1.22.md)
    * [Paint Fence](LeetCode Locked/c1.23.md)
+   * [Walls and Gates](LeetCode Locked/c1.24.md)
+   * [Inorder Successor](LeetCode Locked/c1.25.md)
