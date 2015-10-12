@@ -27,3 +27,6 @@
    * [Paint Fence](LeetCode Locked/c1.23.md)
    * [Walls and Gates](LeetCode Locked/c1.24.md)
    * [Inorder Successor](LeetCode Locked/c1.25.md)
+   * [Unique Word Abbreviation](LeetCode Locked/c1.26.md)
+   * [Word Pattern II](LeetCode Locked/c1.27.md)
+
