@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Read N Characters Given Read4 I, II | Leetcode Locked</title>
+        <title>Unique Word Abbreviation | Leetcode Locked</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.2.0">
@@ -27,10 +27,10 @@
         
     
     
-    <link rel="next" href="../LeetCode Locked/c1.4.html" />
+    <link rel="next" href="../LeetCode Locked/c1.27.html" />
     
     
-    <link rel="prev" href="../LeetCode Locked/c1.2.html" />
+    <link rel="prev" href="../LeetCode Locked/c1.25.html" />
     
 
         
@@ -38,7 +38,7 @@
     <body>
         
         
-    <div class="book" data-level="1.3" data-basepath=".." data-revision="Sun Oct 11 2015 23:49:02 GMT-0400 (EDT)">
+    <div class="book" data-level="1.26" data-basepath=".." data-revision="Sun Oct 11 2015 23:49:02 GMT-0400 (EDT)">
     
 
 <div class="book-summary">
@@ -121,7 +121,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.3" data-path="LeetCode Locked/c1.3.html">
+        <li class="chapter " data-level="1.3" data-path="LeetCode Locked/c1.3.html">
             
                 
                     <a href="../LeetCode Locked/c1.3.html">
@@ -466,7 +466,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.26" data-path="LeetCode Locked/c1.26.html">
+        <li class="chapter active" data-level="1.26" data-path="LeetCode Locked/c1.26.html">
             
                 
                     <a href="../LeetCode Locked/c1.26.html">
@@ -606,129 +606,58 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h2 id="read-n-characters-given-read4-i-ii">Read N Characters Given Read4 I, II</h2>
+                        <h2 id="unique-word-abbreviation">Unique Word Abbreviation</h2>
 <blockquote>
-<p><strong>Question 1</strong></p>
+<p><strong>Question</strong></p>
 </blockquote>
-<p>The API  </p>
-<p><code>int read4(char *buf)</code></p>
-<p>reads 4 characters at a time from a file.
-The return value is the actual number of characters read. For example, it returns 3 if there is only 3 characters left in the file.
-By using the read4 API, implement the function <code>int read(char *buf, int n)</code> that reads n characters from the file.</p>
+<p>An abbreviation of a word follows the form <first letter=""><number><last letter="">. Below are some examples of word abbreviations:</last></number></first></p>
 <blockquote>
-<p><strong>Note</strong></p>
+<p>a) it                      --&gt; it    (no abbreviation)</p>
+<pre><code>1
+</code></pre><p>b) d|o|g                   --&gt; d1g</p>
+<pre><code>         1    1  1
+1---5----0----5--8
+</code></pre><p>c) i|nternationalizatio|n  --&gt; i18n</p>
+<pre><code>         1
+1---5----0
+</code></pre><p>d) l|ocalizatio|n          --&gt; l10n</p>
 </blockquote>
-<p>The read function will only be called once for each test case.</p>
+<p>Assume you have a dictionary and given a word, find whether its abbreviation is unique in the dictionary. A word&apos;s abbreviation is unique if no other word from the dictionary has the same abbreviation.</p>
+<p>Example:</p>
+<p>Given dictionary = [ &quot;deer&quot;, &quot;door&quot;, &quot;cake&quot;, &quot;card&quot; ]</p>
+<pre><code class="lang-c++">isUnique(<span class="hljs-string">&quot;dear&quot;</span>) -&gt; <span class="hljs-function"><span class="hljs-keyword">false</span>
+<span class="hljs-title">isUnique</span><span class="hljs-params">(&quot;cart&quot;)</span> -&gt; <span class="hljs-keyword">true</span>
+<span class="hljs-title">isUnique</span><span class="hljs-params">(&quot;cane&quot;)</span> -&gt; <span class="hljs-keyword">false</span>
+<span class="hljs-title">isUnique</span><span class="hljs-params">(&quot;make&quot;)</span> -&gt; <span class="hljs-keyword">true</span>
+</span></code></pre>
 <blockquote>
 <p><strong>Solution</strong></p>
 </blockquote>
-<p>&#x7531;&#x4E8E;&#x6BCF;&#x6B21;&#x53EA;&#x80FD;&#x8BFB;&#x8FDB;4&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x800C;n&#x672A;&#x5FC5;&#x662F;4&#x7684;&#x500D;&#x6570;&#x3002;&#x6240;&#x4EE5;&#x4E00;&#x76F4;&#x8BFB;&#x5230;len+4&gt;n&#x65F6;&#x505C;&#x6B62;&#x3002;&#x5269;&#x4E0B;m = n-len &lt; 4 &#x4E2A;&#x5B57;&#x7B26;&#x3002;&#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x7F13;&#x5B58;remain&#x8BFB;&#x5165;4&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x5176;&#x4E2D;&#x7684;m&#x4E2A;&#x5199;&#x5165;buff&#x5C3E;&#x90E8;&#x3002;&#x8981;&#x6CE8;&#x610F;&#x5728;&#x6574;&#x4E2A;&#x8BFB;&#x5165;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x6BCF;&#x4E2A;&#x9636;&#x6BB5;&#x5224;&#x65AD;&#x662F;&#x5426;&#x5DF2;&#x7ECF;&#x8BFB;&#x5B8C;&#x6587;&#x4EF6;&#x3002;</p>
-<pre><code class="lang-c++"><span class="hljs-comment">// Forward declaration of the read4 API.</span>
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">read4</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *buf)</span></span>;
-
-<span class="hljs-keyword">class</span> Solution {
+<p>use map to store the abbrev and set of the original string (in case the same string is appeared in the set)</p>
+<pre><code class="lang-c++"><span class="hljs-keyword">class</span> ValidWordAbbr {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param buf Destination buffer
-     * @param n   Maximum number of characters to read
-     * @return    The number of characters read
-     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">read</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *buf, <span class="hljs-keyword">int</span> n)</span> </span>{
-        <span class="hljs-keyword">int</span> len = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">int</span> m = INT_MAX;
-        <span class="hljs-keyword">while</span>(len+<span class="hljs-number">4</span>&lt;=n) {
-            m = read4(buf+len);
-            len += m;
-            <span class="hljs-keyword">if</span>(m&lt;<span class="hljs-number">4</span>) <span class="hljs-keyword">break</span>;
+    ValidWordAbbr(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; &amp;dictionary) {
+        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">string</span>&amp; d : dictionary) {
+            <span class="hljs-keyword">int</span> n = d.length();
+            <span class="hljs-built_in">string</span> abbr = d[<span class="hljs-number">0</span>] + to_string(n) + d[n - <span class="hljs-number">1</span>];
+            mp[abbr].insert(d);
         }
-        <span class="hljs-keyword">if</span>(len==n || m&lt;<span class="hljs-number">4</span>) <span class="hljs-keyword">return</span> len;
-
-        <span class="hljs-keyword">char</span> *remain = <span class="hljs-keyword">new</span> <span class="hljs-keyword">char</span>[<span class="hljs-number">5</span>];
-        m = min(read4(remain),n-len);
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;m; i++) buf[len++] = remain[i];
-        <span class="hljs-keyword">delete</span> [] remain;
-
-        <span class="hljs-keyword">return</span> len;
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">read2</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *buf, <span class="hljs-keyword">int</span> n)</span> </span>{
-        <span class="hljs-keyword">char</span> tmp[<span class="hljs-number">4</span>];
-        <span class="hljs-keyword">int</span> idx = <span class="hljs-number">0</span>, cnt4;
-        <span class="hljs-keyword">while</span> (idx &lt; n) {
-            cnt4 = read4(tmp);
-            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; cnt4 &amp;&amp; idx &lt; n; ++i) {
-                buf[idx++] = tmp[i];
-            }
-            <span class="hljs-keyword">if</span> (cnt4 &lt; <span class="hljs-number">4</span>) <span class="hljs-keyword">break</span>;
-        }
-        <span class="hljs-keyword">return</span> idx;
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isUnique</span><span class="hljs-params">(<span class="hljs-built_in">string</span> word)</span> </span>{
+        <span class="hljs-keyword">int</span> n = word.length();
+        <span class="hljs-built_in">string</span> abbr = word[<span class="hljs-number">0</span>] + to_string(n) + word[n - <span class="hljs-number">1</span>];
+        <span class="hljs-keyword">return</span> mp[abbr].count(word) == mp[abbr].size();
     }
-};
-</code></pre>
-<blockquote>
-<p><strong>Question 2</strong></p>
-</blockquote>
-<p>Read N Characters Given Read4 II - Call multiple times</p>
-<blockquote>
-<p><strong>Solution</strong></p>
-</blockquote>
-<pre><code class="lang-java"><span class="hljs-comment">/* The read4 API is defined in the parent class Reader4.
-         int read4(char[] buf); */</span>
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Reader4</span> </span>{
-   <span class="hljs-keyword">private</span> <span class="hljs-keyword">char</span>[] buffer = <span class="hljs-keyword">new</span> <span class="hljs-keyword">char</span>[<span class="hljs-number">4</span>];
-   <span class="hljs-keyword">int</span> offset = <span class="hljs-number">0</span>, bufsize = <span class="hljs-number">0</span>;
-   <span class="hljs-comment">/**
-    * <span class="hljs-doctag">@param</span> buf Destination buffer
-    * <span class="hljs-doctag">@param</span> n   Maximum number of characters to read
-    * <span class="hljs-doctag">@return</span>    The number of characters read
-    */</span>
-   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">read</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[] buf, <span class="hljs-keyword">int</span> n)</span> </span>{
-        <span class="hljs-keyword">int</span> readBytes = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">boolean</span> eof = <span class="hljs-keyword">false</span>;
-        <span class="hljs-keyword">while</span> (!eof &amp;&amp; readBytes &lt; n) {
-            <span class="hljs-keyword">int</span> sz = (bufsize &gt; <span class="hljs-number">0</span>) ? bufsize : read4(buffer);
-            <span class="hljs-keyword">if</span> (bufsize == <span class="hljs-number">0</span> &amp;&amp; sz &lt; <span class="hljs-number">4</span>) eof = <span class="hljs-keyword">true</span>;
-            <span class="hljs-keyword">int</span> bytes = Math.min(n - readBytes, sz);
-            System.arraycopy(buffer <span class="hljs-comment">/* src */</span>, offset <span class="hljs-comment">/* srcPos */</span>, buf <span class="hljs-comment">/* dest */</span>, readBytes <span class="hljs-comment">/* destPos */</span>, bytes <span class="hljs-comment">/* length */</span>);
-            offset = (offset + bytes) % <span class="hljs-number">4</span>;
-            bufsize = sz - bytes;
-            readBytes += bytes;
-        }
-      <span class="hljs-keyword">return</span> readBytes;
-    }
-}
-</code></pre>
-<pre><code class="lang-c++"><span class="hljs-comment">// Forward declaration of the read4 API.</span>
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">read4</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *buf)</span></span>;
-
-<span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">private</span>:
-    <span class="hljs-keyword">char</span> tmp[<span class="hljs-number">4</span>];
-    <span class="hljs-keyword">int</span> tmp_idx = <span class="hljs-number">0</span>, tmp_len = <span class="hljs-number">0</span>;
-<span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param buf Destination buffer
-     * @param n   Maximum number of characters to read
-     * @return    The number of characters read
-     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">read</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *buf, <span class="hljs-keyword">int</span> n)</span> </span>{
-        <span class="hljs-keyword">int</span> idx = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">bool</span> flag;
-        <span class="hljs-keyword">while</span> (idx &lt; n) {
-            flag = <span class="hljs-keyword">true</span>;
-            <span class="hljs-keyword">if</span> (tmp_idx == tmp_len) {
-                tmp_idx = <span class="hljs-number">0</span>;
-                tmp_len = read4(tmp);
-                <span class="hljs-keyword">if</span> (tmp_len != <span class="hljs-number">4</span>) flag = <span class="hljs-keyword">false</span>;
-            }
-            <span class="hljs-keyword">for</span> (; tmp_idx &lt; tmp_len &amp;&amp; idx &lt; n; ++tmp_idx) {
-                buf[idx++] = tmp[tmp_idx];
-            }
-            <span class="hljs-keyword">if</span> (!flag) <span class="hljs-keyword">break</span>;
-        }
-        <span class="hljs-keyword">return</span> idx;
-    }
+    <span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">unordered_set</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; mp;
 };
+
+
+<span class="hljs-comment">// Your ValidWordAbbr object will be instantiated and called as such:</span>
+<span class="hljs-comment">// ValidWordAbbr vwa(dictionary);</span>
+<span class="hljs-comment">// vwa.isUnique(&quot;hello&quot;);</span>
+<span class="hljs-comment">// vwa.isUnique(&quot;anotherWord&quot;);</span>
 </code></pre>
 
                     
@@ -740,10 +669,10 @@ By using the read4 API, implement the function <code>int read(char *buf, int n)<
         </div>
 
         
-        <a href="../LeetCode Locked/c1.2.html" class="navigation navigation-prev " aria-label="Previous page: Two Sum III – Data structure design"><i class="fa fa-angle-left"></i></a>
+        <a href="../LeetCode Locked/c1.25.html" class="navigation navigation-prev " aria-label="Previous page: Inorder Successor"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../LeetCode Locked/c1.4.html" class="navigation navigation-next " aria-label="Next page: Shortest Word Distance I, II, III"><i class="fa fa-angle-right"></i></a>
+        <a href="../LeetCode Locked/c1.27.html" class="navigation navigation-next " aria-label="Next page: Word Pattern II"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
