@@ -30,3 +30,4 @@
    * [Unique Word Abbreviation](LeetCode Locked/c1.26.md)
    * [Word Pattern II](LeetCode Locked/c1.27.md)
    * [Flip Game I, II](LeetCode Locked/c1.28.md)
+   * [Best Meeting Point](LeetCode Locked/c1.29.md)
