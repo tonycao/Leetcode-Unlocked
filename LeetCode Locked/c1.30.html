@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Longest Substring with At Most Two Distinct Characters | Leetcode Locked</title>
+        <title>Binary Tree Longest Consecutive Sequence | Leetcode Locked</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
@@ -31,10 +31,8 @@
         
     
     
-    <link rel="next" href="../LeetCode Locked/c1.8.html" />
     
-    
-    <link rel="prev" href="../LeetCode Locked/c1.6.html" />
+    <link rel="prev" href="../LeetCode Locked/c1.29.html" />
     
 
         
@@ -42,7 +40,7 @@
     <body>
         
         
-    <div class="book" data-level="0.8" data-basepath=".." data-revision="Sun Nov 08 2015 16:26:47 GMT-0500 (EST)">
+    <div class="book" data-level="0.31" data-basepath=".." data-revision="Sun Nov 08 2015 16:26:47 GMT-0500 (EST)">
     
 
 <div class="book-summary">
@@ -186,7 +184,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="0.8" data-path="LeetCode Locked/c1.7.html">
+        <li class="chapter " data-level="0.8" data-path="LeetCode Locked/c1.7.html">
             
                 
                     <a href="../LeetCode Locked/c1.7.html">
@@ -531,7 +529,7 @@
             
         </li>
     
-        <li class="chapter " data-level="0.31" data-path="LeetCode Locked/c1.30.html">
+        <li class="chapter active" data-level="0.31" data-path="LeetCode Locked/c1.30.html">
             
                 
                     <a href="../LeetCode Locked/c1.30.html">
@@ -657,81 +655,54 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h2 id="longest-substring-with-at-most-two-distinct-characters">Longest Substring with At Most Two Distinct Characters</h2>
+                        <h2 id="binary-tree-longest-consecutive-sequence">Binary Tree Longest Consecutive Sequence</h2>
 <blockquote>
-<p><strong>Question</strong></p>
+<p><strong>Problem</strong></p>
 </blockquote>
-<p>Given a string S, find the length of the longest substring T that contains at most two distinct characters.</p>
-<p>For example,
-Given <code>S = &#x201C;eceba&#x201D;</code>,
-T is <code>`&quot;ece&quot;</code> which its length is 3.</p>
+<p>Given a binary tree, find the length of the longest consecutive sequence path.</p>
+<p>The path refers to any sequence of nodes from some starting node to any node in the tree along the parent-child connections. The longest consecutive path need to be from parent to child (cannot be the reverse).</p>
+<p>For example,</p>
+<pre><code>   1
+    \
+     3
+    / \
+   2   4
+        \
+         5
+</code></pre><p>Longest consecutive sequence path is 3-4-5, so return 3.</p>
+<pre><code>   2
+    \
+     3
+    /
+   2    
+  /
+ 1
+</code></pre><p>Longest consecutive sequence path is <code>2-3&apos;,not</code>3-2-1&apos;, so return `2&apos;.</p>
 <blockquote>
 <p><strong>Solution</strong></p>
 </blockquote>
-<p>First, we could simplify the problem by assuming that S contains two or more distinct characters, which means T must contain exactly two distinct characters.
-The brute force approach is O(n3) where n is the length of S. We can form every possible substring, and for each substring insert all characters into a Set which the Set&#x2019;s size indicating the number of distinct characters. This could be easily improved to O(n2) by reusing the same Set when adding a character to form a new substring.</p>
-<p>The trick is to maintain a sliding window that always satisfies the invariant where there are always at most two distinct characters in it. When we add a new character that breaks this invariant, how can we move the begin pointer to satisfy the invariant? Using the above example, our first window is the substring &#x201C;abba&#x201D;. When we add the character &#x2018;c&#x2019; into the sliding window, it breaks the invariant. Therefore, we have to readjust the window to satisfy the invariant again. The question is which starting point to choose so the invariant is satisfied.</p>
-<p>Let&#x2019;s look at another example where S = &#x201C;abaac&#x201D;. We found our first window &#x201C;abaa&#x201D;. When we add &#x2018;c&#x2019; to the window, the next sliding window should be &#x201C;aac&#x201D;.
-This method iterates n times and therefore its runtime complexity is O(n). We use three pointers: i, j, and k.</p>
-<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">lengthOfLongestSubstringTwoDistinct</span><span class="hljs-params">(String s)</span> </span>{
-   <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, j = -<span class="hljs-number">1</span>, maxLen = <span class="hljs-number">0</span>;
-   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">1</span>; k &lt; s.length(); k++) {
-      <span class="hljs-keyword">if</span> (s.charAt(k) == s.charAt(k - <span class="hljs-number">1</span>)) <span class="hljs-keyword">continue</span>;
-      <span class="hljs-keyword">if</span> (j &gt;= <span class="hljs-number">0</span> &amp;&amp; s.charAt(j) != s.charAt(k)) {
-         maxLen = Math.max(k - i, maxLen);
-i = j + <span class="hljs-number">1</span>; }
-j = k - <span class="hljs-number">1</span>; }
-   <span class="hljs-keyword">return</span> Math.max(s.length() - i, maxLen);
-}
-</code></pre>
-<pre><code class="lang-c++"><span class="hljs-preprocessor">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
-<span class="hljs-preprocessor">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cmath&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-
+<p><a href="https://leetcode.com/discuss/66486/c-solution-in-4-lines" target="_blank">here</a></p>
+<pre><code class="lang-c++"><span class="hljs-comment">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */</span>
 <span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">lengthOfLongestSubstringTwoDistinct</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span> </span>{
-        <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, j = -<span class="hljs-number">1</span>, maxLen = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">1</span>; k &lt; s.length(); k++) {
-            <span class="hljs-keyword">if</span> (s[k] == s[k - <span class="hljs-number">1</span>]) <span class="hljs-keyword">continue</span>;
-            <span class="hljs-keyword">if</span> (j &gt;= <span class="hljs-number">0</span> &amp;&amp; s[j] != s[k]) {
-                maxLen = max(k - i, maxLen);
-                i = j + <span class="hljs-number">1</span>;
-            }
-            j = k - <span class="hljs-number">1</span>;
-        }
-        <span class="hljs-keyword">return</span> max((<span class="hljs-keyword">int</span>)(s.length() - i), maxLen);
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">longestConsecutive</span><span class="hljs-params">(TreeNode* root)</span> </span>{
+        <span class="hljs-keyword">return</span> longest(root, <span class="hljs-literal">NULL</span>, <span class="hljs-number">0</span>);
+    }
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">longest</span><span class="hljs-params">(TreeNode* now, TreeNode* parent, <span class="hljs-keyword">int</span> len)</span> </span>{
+        <span class="hljs-keyword">if</span> (!now) <span class="hljs-keyword">return</span> len;
+        len = (parent &amp;&amp; now-&gt;val == parent-&gt;val + <span class="hljs-number">1</span>) ? len + <span class="hljs-number">1</span> : <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">return</span> max(len, max(longest(now-&gt;left, now, len), longest(now-&gt;right, now, len)));
     }
 };
-
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
-    Solution sol;
-    <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">s</span><span class="hljs-params">(<span class="hljs-string">&quot;eceba&quot;</span>)</span></span>;
-    <span class="hljs-built_in">cout</span> &lt;&lt; sol.lengthOfLongestSubstringTwoDistinct(s) &lt;&lt; endl;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-}
-</code></pre>
-<blockquote>
-<p><strong>Further Thoughts</strong></p>
-</blockquote>
-<p>Although the above method works fine, it could not be easily generalized to the case where T contains at most k distinct characters.
-The key is when we adjust the sliding window to satisfy the invariant, we need a counter of the number of times each character appears in the substring.</p>
-<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">lengthOfLongestSubstringTwoDistinct</span><span class="hljs-params">(String s)</span> </span>{
-   <span class="hljs-keyword">int</span>[] count = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">256</span>];
-   <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, numDistinct = <span class="hljs-number">0</span>, maxLen = <span class="hljs-number">0</span>;
-   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; s.length(); j++) {
-      <span class="hljs-keyword">if</span> (count[s.charAt(j)] == <span class="hljs-number">0</span>) numDistinct++;
-      count[s.charAt(j)]++;
-      <span class="hljs-keyword">while</span> (numDistinct &gt; <span class="hljs-number">2</span>) {
-         count[s.charAt(i)]--;
-         <span class="hljs-keyword">if</span> (count[s.charAt(i)] == <span class="hljs-number">0</span>) numDistinct--;
-         i++;
-}
-      maxLen = Math.max(j - i + <span class="hljs-number">1</span>, maxLen);
-   }
-   <span class="hljs-keyword">return</span> maxLen;
-}
 </code></pre>
 
                     
@@ -743,10 +714,8 @@ The key is when we adjust the sliding window to satisfy the invariant, we need a
         </div>
 
         
-        <a href="../LeetCode Locked/c1.6.html" class="navigation navigation-prev " aria-label="Previous page: Meeting Rooms I, II"><i class="fa fa-angle-left"></i></a>
+        <a href="../LeetCode Locked/c1.29.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Best Meeting Point"><i class="fa fa-angle-left"></i></a>
         
-        
-        <a href="../LeetCode Locked/c1.8.html" class="navigation navigation-next " aria-label="Next page: Missing Ranges"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
