@@ -31,3 +31,4 @@
    * [Word Pattern II](LeetCode Locked/c1.27.md)
    * [Flip Game I, II](LeetCode Locked/c1.28.md)
    * [Best Meeting Point](LeetCode Locked/c1.29.md)
+   * [Binary Tree Longest Consecutive Sequence](LeetCode Locked/c1.30.md)
