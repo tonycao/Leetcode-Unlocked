@@ -32,3 +32,8 @@
    * [Flip Game I, II](LeetCode Locked/c1.28.md)
    * [Best Meeting Point](LeetCode Locked/c1.29.md)
    * [Binary Tree Longest Consecutive Sequence](LeetCode Locked/c1.30.md)
+   * [Smallest Rectangle Enclosing Black Pixels](LeetCode Locked/c1.31.md)
+   * [Number of Islands II](LeetCode Locked/c1.32.md)
+   * [Range Sum Query 2D - Mutable](LeetCode Locked/c1.33.md)
+   * [Sparse Matrix Multiplication](LeetCode Locked/c1.34.md)
+   * [Binary Tree Vertical Order Traversal](LeetCode Locked/c1.35.md)
