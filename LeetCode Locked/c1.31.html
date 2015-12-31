@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Group Shifted Strings | Leetcode Locked</title>
+        <title>Smallest Rectangle Enclosing Black Pixels | Leetcode Locked</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
@@ -31,10 +31,10 @@
         
     
     
-    <link rel="next" href="../LeetCode Locked/c1.12.html" />
+    <link rel="next" href="../LeetCode Locked/c1.32.html" />
     
     
-    <link rel="prev" href="../LeetCode Locked/c1.10.html" />
+    <link rel="prev" href="../LeetCode Locked/c1.30.html" />
     
 
         
@@ -42,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="0.12" data-basepath=".." data-revision="Wed Dec 30 2015 20:08:44 GMT-0500 (EST)">
+    <div class="book" data-level="0.32" data-basepath=".." data-revision="Wed Dec 30 2015 20:08:44 GMT-0500 (EST)">
     
 
 <div class="book-summary">
@@ -246,7 +246,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="0.12" data-path="LeetCode Locked/c1.11.html">
+        <li class="chapter " data-level="0.12" data-path="LeetCode Locked/c1.11.html">
             
                 
                     <a href="../LeetCode Locked/c1.11.html">
@@ -546,7 +546,7 @@
             
         </li>
     
-        <li class="chapter " data-level="0.32" data-path="LeetCode Locked/c1.31.html">
+        <li class="chapter active" data-level="0.32" data-path="LeetCode Locked/c1.31.html">
             
                 
                     <a href="../LeetCode Locked/c1.31.html">
@@ -732,56 +732,51 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h2 id="group-shifted-strings">Group Shifted Strings</h2>
+                        <h2 id="smallest-rectangle-enclosing-black-pixels">Smallest Rectangle Enclosing Black Pixels</h2>
 <blockquote>
 <p><strong>Question</strong></p>
 </blockquote>
-<p>Given a string, we can <code>&#x201C;shift&#x201D;</code> each of its letter to its successive letter, for example: <code>&#x201C;abc&#x201D; -&gt; &#x201C;bcd&#x201D;</code>. We can keep <code>&#x201C;shifting&#x201D;</code> which forms the sequence:</p>
-<p><code>&quot;abc&quot; -&gt; &quot;bcd&quot; -&gt; ... -&gt; &quot;xyz&quot;</code>
-Given a list of strings which contains only lowercase alphabets, group all strings that belong to the same shifting sequence.</p>
-<p>For example,</p>
-<p>given: <code>[&quot;abc&quot;, &quot;bcd&quot;, &quot;acef&quot;, &quot;xyz&quot;, &quot;az&quot;, &quot;ba&quot;, &quot;a&quot;, &quot;z&quot;]</code>, Return:</p>
-<p><code>[
-    [&quot;abc&quot;,&quot;bcd&quot;,&quot;xyz&quot;],  
-    [&quot;az&quot;,&quot;ba&quot;],  
-    [&quot;acef&quot;],  
-    [&quot;a&quot;,&quot;z&quot;]  
-]</code></p>
-<blockquote>
-<p><strong>Note</strong></p>
-</blockquote>
-<p>For the return value, each inner list&#x2019;s elements must follow the lexicographic order.</p>
+<p>An image is represented by a binary matrix with 0 as a white pixel and 1 as a black pixel. The black pixels are connected, i.e., there is only one black region. Pixels are connected horizontally and vertically. Given the location <code>(x, y)</code> of one of the black pixels, return the area of the smallest (axis-aligned) rectangle that encloses all black pixels.</p>
+<p>For example, given the following image:</p>
+<pre><code>[
+  &quot;0010&quot;,
+  &quot;0110&quot;,
+  &quot;0100&quot;
+]
+</code></pre><p>and <code>x = 0</code>, <code>y = 2</code>,
+Return <code>6</code>.</p>
 <blockquote>
 <p><strong>Solution</strong></p>
 </blockquote>
-<p><a href="https://leetcode.com/discuss/50557/4ms-easy-c-solution-with-explanations" target="_blank">here</a>.</p>
-<pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
-<span class="hljs-keyword">public</span>:
-    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; groupStrings(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&amp; strings) {
-        <span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; &gt; mp;
-        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">string</span>  s : strings)
-            mp[shift(s)].push_back(s);
-        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; &gt; groups;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> m : mp) {
-            <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; group = m.second;
-            sort(group.begin(), group.end());
-            groups.push_back(group);
-        }
-        <span class="hljs-keyword">return</span> groups;
+<p>DFS and binary search</p>
+<p><a href="https://leetcode.com/discuss/68246/c-java-python-binary-search-solution-with-explanation" target="_blank">here</a></p>
+<pre><code class="lang-c++">// binary search
+class Solution {
+public:
+    int minArea(vector&lt;vector&lt;char&gt;&gt;&amp; image, int x, int y) {
+        int m = image.size(), n = image[0].size();
+        int l = search(image,     0, x, 0, n,  true,  true);
+        int r = search(image, x + 1, m, 0, n, false,  true);
+        int u = search(image,     0, y, l, r,  true, false);
+        int d = search(image, y + 1, n, l, r, false, false);
+        return (r - l) * (d - u);
     }
-<span class="hljs-keyword">private</span>:
-    <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">shift</span><span class="hljs-params">(<span class="hljs-built_in">string</span>&amp; s)</span> </span>{
-        <span class="hljs-built_in">string</span> t;
-        <span class="hljs-keyword">int</span> n = s.length();
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i++) {
-            <span class="hljs-keyword">int</span> diff = s[i] - s[i - <span class="hljs-number">1</span>];
-            <span class="hljs-keyword">if</span> (diff &lt; <span class="hljs-number">0</span>) diff += <span class="hljs-number">26</span>;
-            t += <span class="hljs-string">&apos;a&apos;</span> + diff + <span class="hljs-string">&apos;,&apos;</span>;
+private:
+    bool white(vector&lt;vector&lt;char&gt;&gt;&amp; image, int mid, int k, int row) {
+        return (row ? image[mid][k] : image[k][mid]) == &apos;0&apos;;
+    }
+    int search(vector&lt;vector&lt;char&gt;&gt;&amp; image, int b, int e, int mini, int maxi, bool first, bool row) {
+        while (b != e) {
+            int mid = (b + e) / 2, k = mini;
+            while (k &lt; maxi &amp;&amp; white(image, mid, k, row)) k++;
+            if (k &lt; maxi == first) e = mid;
+            else b = mid + 1;
         }
-        <span class="hljs-keyword">return</span> t;
+        return b;
     }
 };
 </code></pre>
+<p>BFS</p>
 
                     
                     </section>
@@ -792,10 +787,10 @@ Given a list of strings which contains only lowercase alphabets, group all strin
         </div>
 
         
-        <a href="../LeetCode Locked/c1.10.html" class="navigation navigation-prev " aria-label="Previous page: Flatten 2D Vector"><i class="fa fa-angle-left"></i></a>
+        <a href="../LeetCode Locked/c1.30.html" class="navigation navigation-prev " aria-label="Previous page: Binary Tree Longest Consecutive Sequence"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../LeetCode Locked/c1.12.html" class="navigation navigation-next " aria-label="Next page: Count Univalue Subtrees"><i class="fa fa-angle-right"></i></a>
+        <a href="../LeetCode Locked/c1.32.html" class="navigation navigation-next " aria-label="Next page: Number of Islands II"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

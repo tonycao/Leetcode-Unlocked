@@ -42,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="0.6" data-basepath=".." data-revision="Tue Nov 10 2015 10:03:53 GMT-0500 (EST)">
+    <div class="book" data-level="0.6" data-basepath=".." data-revision="Wed Dec 30 2015 20:08:44 GMT-0500 (EST)">
     
 
 <div class="book-summary">
@@ -546,6 +546,81 @@
             
         </li>
     
+        <li class="chapter " data-level="0.32" data-path="LeetCode Locked/c1.31.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.31.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>0.32.</b>
+                        
+                        Smallest Rectangle Enclosing Black Pixels
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="0.33" data-path="LeetCode Locked/c1.32.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.32.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>0.33.</b>
+                        
+                        Number of Islands II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="0.34" data-path="LeetCode Locked/c1.33.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.33.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>0.34.</b>
+                        
+                        Range Sum Query 2D - Mutable
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="0.35" data-path="LeetCode Locked/c1.34.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.34.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>0.35.</b>
+                        
+                        Sparse Matrix Multiplication
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="0.36" data-path="LeetCode Locked/c1.35.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.35.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>0.36.</b>
+                        
+                        Binary Tree Vertical Order Traversal
+                    </a>
+            
+            
+        </li>
+    
 
             </ul>
             
@@ -667,17 +742,20 @@
 <blockquote>
 <p><strong>Solution</strong></p>
 </blockquote>
+<p><a href="http://www.cnblogs.com/jcliBlogger/p/4708243.html" target="_blank">http://www.cnblogs.com/jcliBlogger/p/4708243.html</a></p>
 <p>The following is the C++ implementation of the suggested solution using a look-up table (implemented as an unordered_map). It takes 0 ms. But, I wonder, are there any real applications of strobogrammatic numbers?  </p>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
     <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isStrobogrammatic</span><span class="hljs-params">(<span class="hljs-built_in">string</span> num)</span> </span>{
         make_lut();
         <span class="hljs-keyword">int</span> n = num.length();
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> l = <span class="hljs-number">0</span>, r = n - <span class="hljs-number">1</span>; l &lt;= r; l++, r--)
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> l = <span class="hljs-number">0</span>, r = n - <span class="hljs-number">1</span>; l &lt;= r; l++, r--) {
             <span class="hljs-keyword">if</span> (lut.find(num[l]) == lut.end() ||  
                 lut.find(num[r]) == lut.end() ||
-                lut[num[l]] != num[r])
+                lut[num[l]] != num[r]) {
                 <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+            }
+        }
         <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
     }
 <span class="hljs-keyword">private</span>:
@@ -703,6 +781,31 @@
 </blockquote>
 <p>Strobogrammatic Number II give us all the strings with length n.</p>
 <p>in<a href="https://leetcode.com/discuss/50405/3-lines-ruby-5-lines-python?show=50849#a50849" target="_blank">python</a>.</p>
+<pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; findStrobogrammatic(<span class="hljs-keyword">int</span> n) {
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; result;
+        <span class="hljs-keyword">if</span> (n &amp; <span class="hljs-number">1</span>) {
+            result = {<span class="hljs-string">&quot;0&quot;</span>, <span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;8&quot;</span>};
+        } <span class="hljs-keyword">else</span> {
+            result = {<span class="hljs-string">&quot;&quot;</span>};
+        }
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; bases = {<span class="hljs-string">&quot;00&quot;</span>, <span class="hljs-string">&quot;11&quot;</span>, <span class="hljs-string">&quot;88&quot;</span>, <span class="hljs-string">&quot;69&quot;</span>, <span class="hljs-string">&quot;96&quot;</span>};
+        <span class="hljs-keyword">int</span> m = bases.size();
+        <span class="hljs-keyword">while</span> (n &gt; <span class="hljs-number">1</span>) {
+            n -= <span class="hljs-number">2</span>;
+            <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; temp;
+            <span class="hljs-keyword">for</span> (<span class="hljs-built_in">string</span> strobo : result) {
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = (n &lt; <span class="hljs-number">2</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>); i &lt; m; i++) {
+                    temp.push_back(bases[i].substr(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>) + strobo + bases[i].substr(<span class="hljs-number">1</span>));
+                }
+            }
+            swap(temp, result);
+        }
+        <span class="hljs-keyword">return</span> result;
+    }
+};
+</code></pre>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
     <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; processString(<span class="hljs-keyword">const</span> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&amp; vec, <span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> total) {
         <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; ret;

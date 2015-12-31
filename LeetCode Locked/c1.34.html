@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Group Shifted Strings | Leetcode Locked</title>
+        <title>Sparse Matrix Multiplication | Leetcode Locked</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
@@ -31,10 +31,10 @@
         
     
     
-    <link rel="next" href="../LeetCode Locked/c1.12.html" />
+    <link rel="next" href="../LeetCode Locked/c1.35.html" />
     
     
-    <link rel="prev" href="../LeetCode Locked/c1.10.html" />
+    <link rel="prev" href="../LeetCode Locked/c1.33.html" />
     
 
         
@@ -42,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="0.12" data-basepath=".." data-revision="Wed Dec 30 2015 20:08:44 GMT-0500 (EST)">
+    <div class="book" data-level="0.35" data-basepath=".." data-revision="Wed Dec 30 2015 20:08:44 GMT-0500 (EST)">
     
 
 <div class="book-summary">
@@ -246,7 +246,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="0.12" data-path="LeetCode Locked/c1.11.html">
+        <li class="chapter " data-level="0.12" data-path="LeetCode Locked/c1.11.html">
             
                 
                     <a href="../LeetCode Locked/c1.11.html">
@@ -591,7 +591,7 @@
             
         </li>
     
-        <li class="chapter " data-level="0.35" data-path="LeetCode Locked/c1.34.html">
+        <li class="chapter active" data-level="0.35" data-path="LeetCode Locked/c1.34.html">
             
                 
                     <a href="../LeetCode Locked/c1.34.html">
@@ -732,53 +732,44 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h2 id="group-shifted-strings">Group Shifted Strings</h2>
+                        <h2 id="sparse-matrix-multiplication">Sparse Matrix Multiplication</h2>
 <blockquote>
 <p><strong>Question</strong></p>
 </blockquote>
-<p>Given a string, we can <code>&#x201C;shift&#x201D;</code> each of its letter to its successive letter, for example: <code>&#x201C;abc&#x201D; -&gt; &#x201C;bcd&#x201D;</code>. We can keep <code>&#x201C;shifting&#x201D;</code> which forms the sequence:</p>
-<p><code>&quot;abc&quot; -&gt; &quot;bcd&quot; -&gt; ... -&gt; &quot;xyz&quot;</code>
-Given a list of strings which contains only lowercase alphabets, group all strings that belong to the same shifting sequence.</p>
-<p>For example,</p>
-<p>given: <code>[&quot;abc&quot;, &quot;bcd&quot;, &quot;acef&quot;, &quot;xyz&quot;, &quot;az&quot;, &quot;ba&quot;, &quot;a&quot;, &quot;z&quot;]</code>, Return:</p>
-<p><code>[
-    [&quot;abc&quot;,&quot;bcd&quot;,&quot;xyz&quot;],  
-    [&quot;az&quot;,&quot;ba&quot;],  
-    [&quot;acef&quot;],  
-    [&quot;a&quot;,&quot;z&quot;]  
-]</code></p>
-<blockquote>
-<p><strong>Note</strong></p>
-</blockquote>
-<p>For the return value, each inner list&#x2019;s elements must follow the lexicographic order.</p>
-<blockquote>
+<p>Given two sparse matrices <code>A</code> and<code>B</code>, return the result of <code>AB</code>.</p>
+<p>You may assume that A&apos;s column number is equal to B&apos;s row number.</p>
+<p><strong>Example:</strong></p>
+<pre><code>A = [
+      [ 1, 0, 0],
+      [-1, 0, 3]
+]
+
+B = [
+      [ 7, 0, 0 ],
+      [ 0, 0, 0 ],
+      [ 0, 0, 1 ]
+]
+
+
+     |  1 0 0 |   | 7 0 0 |   |  7 0 0 |
+AB = | -1 0 3 | x | 0 0 0 | = | -7 0 3 |
+                  | 0 0 1 |
+</code></pre><blockquote>
 <p><strong>Solution</strong></p>
 </blockquote>
-<p><a href="https://leetcode.com/discuss/50557/4ms-easy-c-solution-with-explanations" target="_blank">here</a>.</p>
+<p><a href="https://leetcode.com/discuss/71968/regular-28-ms-math-solution-6-8-lines" target="_blank">Here</a>
+and <a href="https://leetcode.com/discuss/71912/easiest-java-solution" target="_blank">here</a></p>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; groupStrings(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&amp; strings) {
-        <span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; &gt; mp;
-        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">string</span>  s : strings)
-            mp[shift(s)].push_back(s);
-        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; &gt; groups;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> m : mp) {
-            <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; group = m.second;
-            sort(group.begin(), group.end());
-            groups.push_back(group);
-        }
-        <span class="hljs-keyword">return</span> groups;
-    }
-<span class="hljs-keyword">private</span>:
-    <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">shift</span><span class="hljs-params">(<span class="hljs-built_in">string</span>&amp; s)</span> </span>{
-        <span class="hljs-built_in">string</span> t;
-        <span class="hljs-keyword">int</span> n = s.length();
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i++) {
-            <span class="hljs-keyword">int</span> diff = s[i] - s[i - <span class="hljs-number">1</span>];
-            <span class="hljs-keyword">if</span> (diff &lt; <span class="hljs-number">0</span>) diff += <span class="hljs-number">26</span>;
-            t += <span class="hljs-string">&apos;a&apos;</span> + diff + <span class="hljs-string">&apos;,&apos;</span>;
-        }
-        <span class="hljs-keyword">return</span> t;
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; multiply(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; A, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; B) {
+        <span class="hljs-keyword">int</span> m = A.size(), n = B.size(), p = B[<span class="hljs-number">0</span>].size();
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; C(m, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;(p, <span class="hljs-number">0</span>));
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; m; i++)
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; n; j++)
+                <span class="hljs-keyword">if</span> (A[i][j])
+                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &lt; p; k++)
+                        C[i][k] += A[i][j] * B[j][k];
+        <span class="hljs-keyword">return</span> C;
     }
 };
 </code></pre>
@@ -792,10 +783,10 @@ Given a list of strings which contains only lowercase alphabets, group all strin
         </div>
 
         
-        <a href="../LeetCode Locked/c1.10.html" class="navigation navigation-prev " aria-label="Previous page: Flatten 2D Vector"><i class="fa fa-angle-left"></i></a>
+        <a href="../LeetCode Locked/c1.33.html" class="navigation navigation-prev " aria-label="Previous page: Range Sum Query 2D - Mutable"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../LeetCode Locked/c1.12.html" class="navigation navigation-next " aria-label="Next page: Count Univalue Subtrees"><i class="fa fa-angle-right"></i></a>
+        <a href="../LeetCode Locked/c1.35.html" class="navigation navigation-next " aria-label="Next page: Binary Tree Vertical Order Traversal"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
