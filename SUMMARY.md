@@ -37,3 +37,4 @@
    * [Range Sum Query 2D - Mutable](LeetCode Locked/c1.33.md)
    * [Sparse Matrix Multiplication](LeetCode Locked/c1.34.md)
    * [Binary Tree Vertical Order Traversal](LeetCode Locked/c1.35.md)
+   * [Shortest Distance from All Buildings](LeetCode Locked/c1.36.md)
