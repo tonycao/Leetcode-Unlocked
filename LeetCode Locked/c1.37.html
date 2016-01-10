@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Longest Substring with At Most Two Distinct Characters | Leetcode Locked</title>
+        <title>Generalized Abbreviation | Leetcode Locked</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
@@ -31,10 +31,10 @@
         
     
     
-    <link rel="next" href="../LeetCode Locked/c1.8.html" />
+    <link rel="next" href="../LeetCode Locked/c1.38.html" />
     
     
-    <link rel="prev" href="../LeetCode Locked/c1.6.html" />
+    <link rel="prev" href="../LeetCode Locked/c1.36.html" />
     
 
         
@@ -42,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="0.8" data-basepath=".." data-revision="Sat Jan 09 2016 20:14:29 GMT-0500 (EST)">
+    <div class="book" data-level="0.38" data-basepath=".." data-revision="Sat Jan 09 2016 20:14:29 GMT-0500 (EST)">
     
 
 <div class="book-summary">
@@ -186,7 +186,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="0.8" data-path="LeetCode Locked/c1.7.html">
+        <li class="chapter " data-level="0.8" data-path="LeetCode Locked/c1.7.html">
             
                 
                     <a href="../LeetCode Locked/c1.7.html">
@@ -636,7 +636,7 @@
             
         </li>
     
-        <li class="chapter " data-level="0.38" data-path="LeetCode Locked/c1.37.html">
+        <li class="chapter active" data-level="0.38" data-path="LeetCode Locked/c1.37.html">
             
                 
                     <a href="../LeetCode Locked/c1.37.html">
@@ -777,81 +777,84 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h2 id="longest-substring-with-at-most-two-distinct-characters">Longest Substring with At Most Two Distinct Characters</h2>
+                        <h2 id="generalized-abbreviation">Generalized Abbreviation</h2>
 <blockquote>
 <p><strong>Question</strong></p>
 </blockquote>
-<p>Given a string S, find the length of the longest substring T that contains at most two distinct characters.</p>
-<p>For example,
-Given <code>S = &#x201C;eceba&#x201D;</code>,
-T is <code>`&quot;ece&quot;</code> which its length is 3.</p>
-<blockquote>
+<p>Write a function to generate the generalized abbreviations of a word.</p>
+<p><strong>Example:</strong>
+Given <code>word = &quot;word&quot;</code>, return the following list (order does not matter):</p>
+<pre><code>[&quot;word&quot;, &quot;1ord&quot;, &quot;w1rd&quot;, &quot;wo1d&quot;, &quot;wor1&quot;, &quot;2rd&quot;, &quot;w2d&quot;, &quot;wo2&quot;,
+&quot;1o1d&quot;, &quot;1or1&quot;, &quot;w1r1&quot;, &quot;1o2&quot;, &quot;2r1&quot;, &quot;3d&quot;, &quot;w3&quot;, &quot;4&quot;]
+</code></pre><blockquote>
 <p><strong>Solution</strong></p>
 </blockquote>
-<p>First, we could simplify the problem by assuming that S contains two or more distinct characters, which means T must contain exactly two distinct characters.
-The brute force approach is O(n3) where n is the length of S. We can form every possible substring, and for each substring insert all characters into a Set which the Set&#x2019;s size indicating the number of distinct characters. This could be easily improved to O(n2) by reusing the same Set when adding a character to form a new substring.</p>
-<p>The trick is to maintain a sliding window that always satisfies the invariant where there are always at most two distinct characters in it. When we add a new character that breaks this invariant, how can we move the begin pointer to satisfy the invariant? Using the above example, our first window is the substring &#x201C;abba&#x201D;. When we add the character &#x2018;c&#x2019; into the sliding window, it breaks the invariant. Therefore, we have to readjust the window to satisfy the invariant again. The question is which starting point to choose so the invariant is satisfied.</p>
-<p>Let&#x2019;s look at another example where S = &#x201C;abaac&#x201D;. We found our first window &#x201C;abaa&#x201D;. When we add &#x2018;c&#x2019; to the window, the next sliding window should be &#x201C;aac&#x201D;.
-This method iterates n times and therefore its runtime complexity is O(n). We use three pointers: i, j, and k.</p>
-<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">lengthOfLongestSubstringTwoDistinct</span><span class="hljs-params">(String s)</span> </span>{
-   <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, j = -<span class="hljs-number">1</span>, maxLen = <span class="hljs-number">0</span>;
-   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">1</span>; k &lt; s.length(); k++) {
-      <span class="hljs-keyword">if</span> (s.charAt(k) == s.charAt(k - <span class="hljs-number">1</span>)) <span class="hljs-keyword">continue</span>;
-      <span class="hljs-keyword">if</span> (j &gt;= <span class="hljs-number">0</span> &amp;&amp; s.charAt(j) != s.charAt(k)) {
-         maxLen = Math.max(k - i, maxLen);
-i = j + <span class="hljs-number">1</span>; }
-j = k - <span class="hljs-number">1</span>; }
-   <span class="hljs-keyword">return</span> Math.max(s.length() - i, maxLen);
-}
-</code></pre>
-<pre><code class="lang-c++"><span class="hljs-preprocessor">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
-<span class="hljs-preprocessor">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cmath&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-
-<span class="hljs-keyword">class</span> Solution {
+<p>bit mask</p>
+<pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">lengthOfLongestSubstringTwoDistinct</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span> </span>{
-        <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, j = -<span class="hljs-number">1</span>, maxLen = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">1</span>; k &lt; s.length(); k++) {
-            <span class="hljs-keyword">if</span> (s[k] == s[k - <span class="hljs-number">1</span>]) <span class="hljs-keyword">continue</span>;
-            <span class="hljs-keyword">if</span> (j &gt;= <span class="hljs-number">0</span> &amp;&amp; s[j] != s[k]) {
-                maxLen = max(k - i, maxLen);
-                i = j + <span class="hljs-number">1</span>;
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; generateAbbreviations(<span class="hljs-built_in">string</span> word) {
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; sol;
+        <span class="hljs-keyword">int</span> len = word.length();
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; (<span class="hljs-number">1</span> &lt;&lt; len); i++) {
+            <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;
+            <span class="hljs-built_in">string</span> one = <span class="hljs-string">&quot;&quot;</span>;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; len; j++) {
+                <span class="hljs-keyword">if</span> (i &amp; (<span class="hljs-number">1</span> &lt;&lt; j)) {
+                    count++;
+                } <span class="hljs-keyword">else</span> {
+                    <span class="hljs-keyword">if</span> (count) {
+                        one += to_string(count);
+                        count = <span class="hljs-number">0</span>;
+                    }
+                    one += word[j];
+                }
             }
-            j = k - <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">if</span> (count) {
+                one += to_string(count);
+            }
+            sol.push_back(one);
         }
-        <span class="hljs-keyword">return</span> max((<span class="hljs-keyword">int</span>)(s.length() - i), maxLen);
+        <span class="hljs-keyword">return</span> sol;
     }
 };
-
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
-    Solution sol;
-    <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">s</span><span class="hljs-params">(<span class="hljs-string">&quot;eceba&quot;</span>)</span></span>;
-    <span class="hljs-built_in">cout</span> &lt;&lt; sol.lengthOfLongestSubstringTwoDistinct(s) &lt;&lt; endl;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-}
 </code></pre>
-<blockquote>
-<p><strong>Further Thoughts</strong></p>
-</blockquote>
-<p>Although the above method works fine, it could not be easily generalized to the case where T contains at most k distinct characters.
-The key is when we adjust the sliding window to satisfy the invariant, we need a counter of the number of times each character appears in the substring.</p>
-<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">lengthOfLongestSubstringTwoDistinct</span><span class="hljs-params">(String s)</span> </span>{
-   <span class="hljs-keyword">int</span>[] count = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">256</span>];
-   <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, numDistinct = <span class="hljs-number">0</span>, maxLen = <span class="hljs-number">0</span>;
-   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; s.length(); j++) {
-      <span class="hljs-keyword">if</span> (count[s.charAt(j)] == <span class="hljs-number">0</span>) numDistinct++;
-      count[s.charAt(j)]++;
-      <span class="hljs-keyword">while</span> (numDistinct &gt; <span class="hljs-number">2</span>) {
-         count[s.charAt(i)]--;
-         <span class="hljs-keyword">if</span> (count[s.charAt(i)] == <span class="hljs-number">0</span>) numDistinct--;
-         i++;
-}
-      maxLen = Math.max(j - i + <span class="hljs-number">1</span>, maxLen);
-   }
-   <span class="hljs-keyword">return</span> maxLen;
-}
+<p><a href="https://segmentfault.com/a/1190000004187690" target="_blank">DFS</a></p>
+<pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; generateAbbreviations(<span class="hljs-built_in">string</span> word) {
+        <span class="hljs-comment">//time: O(2^n), space: O(n)</span>
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; res;
+        dfs(res, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-number">0</span>, word);
+        <span class="hljs-keyword">return</span> res;
+    }
+
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&amp; res, <span class="hljs-built_in">string</span> curr, <span class="hljs-keyword">int</span> start, <span class="hljs-built_in">string</span> s)</span> </span>{
+        <span class="hljs-comment">// stop recursion</span>
+        <span class="hljs-keyword">if</span> (start &gt; s.size()) {
+            <span class="hljs-keyword">return</span> ;
+        }
+
+        <span class="hljs-comment">// record valid result</span>
+        res.push_back(curr + s.substr(start));
+
+        <span class="hljs-comment">// restart</span>
+        <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
+
+        <span class="hljs-comment">//</span>
+        <span class="hljs-keyword">if</span> (start &gt; <span class="hljs-number">0</span>) {
+            i = start + <span class="hljs-number">1</span>;
+        }
+
+        <span class="hljs-keyword">for</span> (; i &lt; s.size(); i++) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= s.size(); j++) {
+                <span class="hljs-comment">// append substr before Number</span>
+                dfs(res, curr + s.substring(start, i - start) + j, i + j, s);
+            }
+        }
+    }
+
+};
 </code></pre>
 
                     
@@ -863,10 +866,10 @@ The key is when we adjust the sliding window to satisfy the invariant, we need a
         </div>
 
         
-        <a href="../LeetCode Locked/c1.6.html" class="navigation navigation-prev " aria-label="Previous page: Meeting Rooms I, II"><i class="fa fa-angle-left"></i></a>
+        <a href="../LeetCode Locked/c1.36.html" class="navigation navigation-prev " aria-label="Previous page: Shortest Distance from All Buildings"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../LeetCode Locked/c1.8.html" class="navigation navigation-next " aria-label="Next page: Missing Ranges"><i class="fa fa-angle-right"></i></a>
+        <a href="../LeetCode Locked/c1.38.html" class="navigation navigation-next " aria-label="Next page: Number of Connected Components in an Undirected Graph"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
