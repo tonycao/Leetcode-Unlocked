@@ -42,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="0.14" data-basepath=".." data-revision="Wed Dec 30 2015 20:08:44 GMT-0500 (EST)">
+    <div class="book" data-level="0.14" data-basepath=".." data-revision="Sat Jan 09 2016 20:03:43 GMT-0500 (EST)">
     
 
 <div class="book-summary">
@@ -621,6 +621,21 @@
             
         </li>
     
+        <li class="chapter " data-level="0.37" data-path="LeetCode Locked/c1.36.html">
+            
+                
+                    <a href="../LeetCode Locked/c1.36.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>0.37.</b>
+                        
+                        Shortest Distance from All Buildings
+                    </a>
+            
+            
+        </li>
+    
 
             </ul>
             
@@ -737,7 +752,20 @@
 <p><strong>Question</strong></p>
 </blockquote>
 <p>Given a binary tree where all the right nodes are either leaf nodes with a sibling (a left node that shares the same parent node) or empty, flip it upside down and turn it into a tree where the original right nodes turned into left leaf nodes. Return the new root.</p>
-<blockquote>
+<p>For example:</p>
+<p>Given a binary tree <code>{1,2,3,4,5}</code>,</p>
+<pre><code>1
+/ \
+2 3
+/ \
+4 5
+</code></pre><p>return the root of the binary tree <code>[4,5,2,#,#,3,1]</code>.</p>
+<pre><code>4
+/ \
+5 2
+  / \
+ 3 1
+</code></pre><blockquote>
 <p><strong>Solution</strong></p>
 </blockquote>
 <p>At each node you want to assign:
@@ -747,20 +775,69 @@ p.right = parent;</p>
 <p><strong>Top down approach</strong></p>
 </blockquote>
 <p>We need to be very careful when reassigning current node&#x2019;s left and right children. Besides making a copy of the parent node, you would also need to make a copy of the parent&#x2019;s right child too. The reason is the current node becomes the parent node in the next iteration.</p>
-<p>For example:
-Given a binary tree {1,2,3,4,5},</p>
-<pre><code>   1  
-  / \  
- 2   3  
-/ \  
-4  5
-</code></pre><p>return the root of the binary tree [4,5,2,#,#,3,1].</p>
-<pre><code>  4  
- / \  
-5   2  
-   /  \  
-  3    1
+<p><a href="http://blog.csdn.net/whuwangyi/article/details/43186045" target="_blank">here</a>
+recursion</p>
+<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">UpsideDownBinaryTree</span><span class="hljs-params">(TreeNode root)</span> </span>{
+  <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>)
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+  TreeNode parent = root, left = root.left, right = root.right;
+  <span class="hljs-keyword">if</span> (left != <span class="hljs-keyword">null</span>) {
+    TreeNode ret = UpsideDownBinaryTree(left);
+    left.left = right;
+    left.right = parent;
+    <span class="hljs-keyword">return</span> ret;
+  }
+  <span class="hljs-keyword">return</span> root;
+}
 </code></pre>
+<p>iteration</p>
+<pre><code class="lang-java">
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">UpsideDownBinaryTree</span><span class="hljs-params">(TreeNode root)</span> </span>{
+        TreeNode node = root, parent = <span class="hljs-keyword">null</span>, right = <span class="hljs-keyword">null</span>;
+        <span class="hljs-keyword">while</span> (node != <span class="hljs-keyword">null</span>) {
+            TreeNode left = node.left;
+            node.left = right;
+            right = node.right;
+            node.right = parent;
+            parent = node;
+            node = left;
+        }
+        <span class="hljs-keyword">return</span> parent;
+    }
+</code></pre>
+<p>postorder Traversal</p>
+<pre><code class="lang-java"><span class="hljs-keyword">private</span> TreeNode out = <span class="hljs-keyword">null</span>;
+<span class="hljs-function"><span class="hljs-keyword">public</span> TreeNode <span class="hljs-title">UpsideDownBinaryTree</span><span class="hljs-params">(TreeNode root)</span> </span>{
+  TreeNode dummy = <span class="hljs-keyword">new</span> TreeNode(<span class="hljs-number">0</span>);
+  dummy.left = <span class="hljs-keyword">new</span> TreeNode(<span class="hljs-number">0</span>);
+  out = dummy;
+
+  postorder(root);
+  <span class="hljs-keyword">return</span> dummy.right;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">postorder</span><span class="hljs-params">(TreeNode root)</span> </span>{
+  <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>)
+    <span class="hljs-keyword">return</span>;
+
+  postorder(root.left);
+  postorder(root.right);
+
+  <span class="hljs-keyword">if</span> (out.left == <span class="hljs-keyword">null</span>) {
+    out.left = root;
+    out.left.left = <span class="hljs-keyword">null</span>;
+    out.left.right = <span class="hljs-keyword">null</span>;
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (out.right == <span class="hljs-keyword">null</span>) {
+    out.right = root;
+    out.right.left = <span class="hljs-keyword">null</span>;
+    out.right.right = <span class="hljs-keyword">null</span>;
+  }
+
+  <span class="hljs-keyword">if</span> (out.left != <span class="hljs-keyword">null</span> &amp;&amp; out.right != <span class="hljs-keyword">null</span>)
+    out = out.right;
+}
+</code></pre>
+
                     
                     </section>
                 

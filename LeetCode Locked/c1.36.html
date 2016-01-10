@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Meeting Rooms I, II | Leetcode Locked</title>
+        <title>Shortest Distance from All Buildings | Leetcode Locked</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
@@ -31,10 +31,8 @@
         
     
     
-    <link rel="next" href="../LeetCode Locked/c1.7.html" />
     
-    
-    <link rel="prev" href="../LeetCode Locked/c1.5.html" />
+    <link rel="prev" href="../LeetCode Locked/c1.35.html" />
     
 
         
@@ -42,7 +40,7 @@
     <body>
         
         
-    <div class="book" data-level="0.7" data-basepath=".." data-revision="Sat Jan 09 2016 20:03:43 GMT-0500 (EST)">
+    <div class="book" data-level="0.37" data-basepath=".." data-revision="Sat Jan 09 2016 20:03:43 GMT-0500 (EST)">
     
 
 <div class="book-summary">
@@ -171,7 +169,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="0.7" data-path="LeetCode Locked/c1.6.html">
+        <li class="chapter " data-level="0.7" data-path="LeetCode Locked/c1.6.html">
             
                 
                     <a href="../LeetCode Locked/c1.6.html">
@@ -621,7 +619,7 @@
             
         </li>
     
-        <li class="chapter " data-level="0.37" data-path="LeetCode Locked/c1.36.html">
+        <li class="chapter active" data-level="0.37" data-path="LeetCode Locked/c1.36.html">
             
                 
                     <a href="../LeetCode Locked/c1.36.html">
@@ -747,100 +745,97 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h2 id="meeting-rooms-i-ii">Meeting Rooms I, II</h2>
+                        <h2 id="shortest-distance-from-all-buildings">Shortest Distance from All Buildings</h2>
 <blockquote>
-<p><strong>Question 1</strong></p>
+<p><strong>Question</strong></p>
 </blockquote>
-<p>Given an array of meeting time intervals consisting of start and end times <code>[[s1,e1],[s2,e2],...] (si &lt; ei)</code>, determine if a person could attend all meetings.</p>
-<p>For example,</p>
-<p>Given <code>[[0, 30],[5, 10],[15, 20]]</code>,<br>return false.</p>
-<blockquote>
-<p><strong>Solution</strong></p>
-</blockquote>
-<p>The idea is pretty simple: first we sort the intervals in the ascending order of start; then we check for the overlapping of each pair of neighboring intervals. If they do, then return false; after we finish all the checks and have not returned false, just return true.</p>
-<p>Sorting takes O(nlogn) time and the overlapping checks take O(n) time, so this idea is O(nlogn) time in total.</p>
-<p>The code is as follows.</p>
-<pre><code class="lang-c++"><span class="hljs-comment">/**
- * Definition for an interval.
- * struct Interval {
- *     int start;
- *     int end;
- *     Interval() : start(0), end(0) {}
- *     Interval(int s, int e) : start(s), end(e) {}
- * };
- */</span>
-<span class="hljs-keyword">class</span> Solution {
-<span class="hljs-keyword">public</span>:
-    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">canAttendMeetings</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;Interval&gt;&amp; intervals)</span> </span>{
-        sort(intervals.begin(), intervals.end(), compare);
-        <span class="hljs-keyword">int</span> n = intervals.size();
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n - <span class="hljs-number">1</span>; i++)
-            <span class="hljs-keyword">if</span> (overlap(intervals[i], intervals[i + <span class="hljs-number">1</span>]))
-                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-    }
-<span class="hljs-keyword">private</span>:
-    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">compare</span><span class="hljs-params">(Interval&amp; interval1, Interval&amp; interval2)</span> </span>{
-        <span class="hljs-keyword">return</span> interval1.start &lt; interval2.start;
-    }
-    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">overlap</span><span class="hljs-params">(Interval&amp; interval1, Interval&amp; interval2)</span> </span>{
-        <span class="hljs-keyword">return</span> interval1.end &gt; interval2.start;
-    }
-};
-</code></pre>
-<blockquote>
-<p><strong>Question 2</strong></p>
-</blockquote>
-<p>Given an array of meeting time intervals consisting of start and end times <code>[[s1,e1],[s2,e2],...] (si &lt; ei)</code>, find the minimum number of conference rooms required.</p>
-<p>For example,</p>
-<p>Given <code>[[0, 30],[5, 10],[15, 20]]</code>,<br>return <code>2</code>.</p>
+<p>You want to build a house on an empty land which reaches all buildings in the shortest amount of distance. You can only move up, down, left and right. You are given a 2D grid of values <code>0, 1 or 2</code>, where:</p>
+<p>Each 0 marks an empty land which you can pass by freely.
+Each 1 marks a building which you cannot pass through.
+Each 2 marks an obstacle which you cannot pass through.
+For example, given three buildings at <code>(0,0), (0,4), (2,2)</code>, and an obstacle at <code>(0,2)</code>:</p>
+<pre><code>1 - 0 - 2 - 0 - 1
+|   |   |   |   |
+0 - 0 - 0 - 0 - 0
+|   |   |   |   |
+0 - 0 - 1 - 0 - 0
+</code></pre><p>The point <code>(1,2)</code> is an ideal empty land to build a house, as the total travel distance of <code>3+3+1=7</code> is minimal. So return 7.</p>
+<p><strong>Note:</strong></p>
+<p>There will be at least one building. If it is not possible to build such house according to the above rules, return -1.</p>
 <blockquote>
 <p><strong>Solution</strong></p>
 </blockquote>
-<p>The idea is to group those non-overlapping meetings in the same room and then count how many rooms we need. You may refer to this <a href="https://leetcode.com/discuss/50783/java-ac-code-using-comparator" target="_blank">link</a>.</p>
-<pre><code class="lang-c++"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">myComp</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Interval &amp;a, <span class="hljs-keyword">const</span> Interval &amp;b)</span></span>{
-    <span class="hljs-keyword">return</span> (a.start&lt;b.start);
-}
-<span class="hljs-keyword">class</span> Solution {
+<p><a href="https://segmentfault.com/a/1190000004187914" target="_blank">BFS</a></p>
+<pre><code class="lang-c++">Class Solution{
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">minMeetingRooms</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;Interval&gt;&amp; intervals)</span> </span>{
-        <span class="hljs-keyword">int</span> rooms = <span class="hljs-number">0</span>;
-        priority_queue&lt;<span class="hljs-keyword">int</span>&gt; pq;<span class="hljs-comment">//prioritize earlier ending time</span>
-        sort(intervals.begin(), intervals.end(), myComp);
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;intervals.size(); ++i){
-            <span class="hljs-keyword">while</span>(!pq.empty() &amp;&amp; -pq.top()&lt;intervals[i].end) pq.pop();
-            pq.push(-intervals[i].end);
-            rooms = max(rooms, (<span class="hljs-keyword">int</span>)pq.size());
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">shortestDistance</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; grid)</span> </span>{
+        <span class="hljs-keyword">int</span> rows = grid.size();
+        <span class="hljs-keyword">if</span> (rows == <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
         }
-        <span class="hljs-keyword">return</span> rooms;
-    }
-};
-</code></pre>
-<p>another solution: for each group of non-overlapping intervals, we just need to store the last added one instead of the full list. So we could use a vector &lt; Interval &gt; instead of vector &lt; vector &lt; Interval &gt;&gt; in C++. The code is now as follows.</p>
-<pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
-<span class="hljs-keyword">public</span>:
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">minMeetingRooms</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;Interval&gt;&amp; intervals)</span> </span>{
-        sort(intervals.begin(), intervals.end(), compare);
-        <span class="hljs-built_in">vector</span>&lt;Interval&gt; rooms;
-        <span class="hljs-keyword">int</span> n = intervals.size();
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) {
-            <span class="hljs-keyword">int</span> idx = findNonOverlapping(rooms, intervals[i]);
-            <span class="hljs-keyword">if</span> (rooms.empty() || idx == -<span class="hljs-number">1</span>)
-                rooms.push_back(intervals[i]);
-            <span class="hljs-keyword">else</span> rooms[idx] = intervals[i];
+        <span class="hljs-keyword">int</span> cols = grid[<span class="hljs-number">0</span>].size();
+
+        <span class="hljs-comment">// sum of distances to all the buildings</span>
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; dist(rows, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;(cols, <span class="hljs-number">0</span>));
+
+        <span class="hljs-comment">// number of reachable buildings</span>
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; nums(rows, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;(cols, <span class="hljs-number">0</span>));
+        <span class="hljs-keyword">int</span> buildingNum = <span class="hljs-number">0</span>;
+
+        <span class="hljs-comment">// BFS from each building</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; rows; ++i) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; cols; ++j) {
+                <span class="hljs-keyword">if</span> (grid[i][j] == <span class="hljs-number">1</span>) {
+                    buildingNum++;
+                    bfs(grid, i, j, dist, nums);
+                }
+            }
         }
-        <span class="hljs-keyword">return</span> (<span class="hljs-keyword">int</span>)rooms.size();
-    }
-<span class="hljs-keyword">private</span>:
-    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">compare</span><span class="hljs-params">(Interval&amp; interval1, Interval&amp; interval2)</span> </span>{
-        <span class="hljs-keyword">return</span> interval1.start &lt; interval2.start;
-    }
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">findNonOverlapping</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;Interval&gt;&amp; rooms, Interval&amp; interval)</span> </span>{
-        <span class="hljs-keyword">int</span> n = rooms.size();
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)
-            <span class="hljs-keyword">if</span> (interval.start &gt;= rooms[i].end)
-                <span class="hljs-keyword">return</span> i;
+
+        <span class="hljs-keyword">int</span> minval = INT_MAX;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; rows; ++i) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; cols; ++j) {
+                <span class="hljs-keyword">if</span> (grid[i][j] == <span class="hljs-number">0</span> &amp;&amp; dist[i][j] != <span class="hljs-number">0</span> &amp;&amp; nums[i][j] == buildingNum) {
+                    minval = min(minval, dist[i][j]);
+                }
+            }
+        }
+        <span class="hljs-keyword">if</span> (minval &lt; INT_MIN) {
+            <span class="hljs-keyword">return</span> minval;
+        }
         <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+    }
+
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">bfs</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; grid, <span class="hljs-keyword">int</span> row, <span class="hljs-keyword">int</span> col, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; dist, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; nums)</span> </span>{
+        <span class="hljs-keyword">int</span> rows = grid.size();
+        <span class="hljs-keyword">int</span> cols = grid[<span class="hljs-number">0</span>].size();
+        <span class="hljs-built_in">queue</span>&lt;pair&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt;&gt; q;
+        q.push(make_pair(row, col));
+
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; dirs = {{-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">1</span>}, {<span class="hljs-number">1</span>, <span class="hljs-number">0</span>}, {<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>}};
+
+        <span class="hljs-comment">// record visited node</span>
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&gt; visited(rows, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;(cols, <span class="hljs-literal">false</span>));
+        <span class="hljs-keyword">int</span> level = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">while</span>(!q.empty()) {
+            level++;
+            <span class="hljs-keyword">int</span> size = q.size();
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; ++i) {
+                pair&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt; coords = q.front();
+                q.pop();
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &lt; dirs.size(); ++k) {
+                    <span class="hljs-keyword">int</span> x = coords.first + dirs[k][<span class="hljs-number">0</span>];
+                    <span class="hljs-keyword">int</span> y = coords.second + dirs[k][<span class="hljs-number">1</span>];
+                    <span class="hljs-keyword">if</span> (x &gt;= <span class="hljs-number">0</span> &amp;&amp; x &lt; rows &amp;&amp; y &gt;= <span class="hljs-number">0</span> &amp;&amp; y &lt; cols &amp;&amp; !visited[x][y] &amp;&amp; grid[x][y] == <span class="hljs-number">0</span>) {
+                        visited[x][y] = <span class="hljs-literal">true</span>;
+                        dist[x][y] += level;
+                        nums[x][y]++;
+                        q.push(make_pair(x, y));
+                    }
+                }
+            }
+        }
     }
 };
 </code></pre>
@@ -854,10 +849,8 @@
         </div>
 
         
-        <a href="../LeetCode Locked/c1.5.html" class="navigation navigation-prev " aria-label="Previous page: Strobogrammatic Number I, II, III"><i class="fa fa-angle-left"></i></a>
+        <a href="../LeetCode Locked/c1.35.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Binary Tree Vertical Order Traversal"><i class="fa fa-angle-left"></i></a>
         
-        
-        <a href="../LeetCode Locked/c1.7.html" class="navigation navigation-next " aria-label="Next page: Longest Substring with At Most Two Distinct Characters"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
