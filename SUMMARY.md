@@ -38,3 +38,5 @@
    * [Sparse Matrix Multiplication](LeetCode Locked/c1.34.md)
    * [Binary Tree Vertical Order Traversal](LeetCode Locked/c1.35.md)
    * [Shortest Distance from All Buildings](LeetCode Locked/c1.36.md)
+   * [Generalized Abbreviation](LeetCode Locked/c1.37.md)
+   * [Number of Connected Components in an Undirected Graph](LeetCode Locked/c1.38.md)
