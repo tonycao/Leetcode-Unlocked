@@ -46,3 +46,4 @@ The solutions are collected from the internet.
 * [Shortest Distance from All Buildings](LeetCode Locked/c1.36.html)
 * [Generalized Abbreviation](LeetCode Locked/c1.37.html)
 * [Number of Connected Components in an Undirected Graph](LeetCode Locked/c1.38.html)
+* [Maximum Size Subarray Sum Equals K](LeetCode Locked/c1.40.html)

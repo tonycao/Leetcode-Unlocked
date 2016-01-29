@@ -40,3 +40,4 @@
    * [Shortest Distance from All Buildings](LeetCode Locked/c1.36.md)
    * [Generalized Abbreviation](LeetCode Locked/c1.37.md)
    * [Number of Connected Components in an Undirected Graph](LeetCode Locked/c1.38.md)
+   * [Maximum Size Subarray Sum Equals K](LeetCode Locked/c1.40.md)
