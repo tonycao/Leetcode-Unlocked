@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Inorder Successor | Leetcode Locked</title>
+        <title>Maximum Size Subarray Sum Equals K | Leetcode Locked</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
@@ -31,10 +31,8 @@
         
     
     
-    <link rel="next" href="../LeetCode Locked/c1.26.html" />
     
-    
-    <link rel="prev" href="../LeetCode Locked/c1.24.html" />
+    <link rel="prev" href="../LeetCode Locked/c1.38.html" />
     
 
         
@@ -42,7 +40,7 @@
     <body>
         
         
-    <div class="book" data-level="0.26" data-basepath=".." data-revision="Thu Jan 28 2016 20:52:13 GMT-0500 (EST)">
+    <div class="book" data-level="0.40" data-basepath=".." data-revision="Thu Jan 28 2016 20:52:13 GMT-0500 (EST)">
     
 
 <div class="book-summary">
@@ -456,7 +454,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="0.26" data-path="LeetCode Locked/c1.25.html">
+        <li class="chapter " data-level="0.26" data-path="LeetCode Locked/c1.25.html">
             
                 
                     <a href="../LeetCode Locked/c1.25.html">
@@ -666,7 +664,7 @@
             
         </li>
     
-        <li class="chapter " data-level="0.40" data-path="LeetCode Locked/c1.40.html">
+        <li class="chapter active" data-level="0.40" data-path="LeetCode Locked/c1.40.html">
             
                 
                     <a href="../LeetCode Locked/c1.40.html">
@@ -792,51 +790,48 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h2 id="inorder-successor">Inorder Successor</h2>
+                        <h2 id="maximum-size-subarray-sum-equals-k">Maximum Size Subarray Sum Equals K</h2>
 <blockquote>
-<p><strong>Question</strong></p>
+<p><strong>Qustions</strong></p>
 </blockquote>
-<p>Given a binary search tree and a node in it, find the in-order successor of that node in the BST.</p>
+<p>Given an array nums and a target value k, find the maximum length of a subarray that sums to k. If there isn&apos;t one, return 0 instead.</p>
 <blockquote>
-<p>Note</p>
+<p>Example 1:</p>
 </blockquote>
-<p>If the given node has no in-order successor in the tree, return null.</p>
+<p>Given <code>nums = [1, -1, 5, -2, 3]</code>, <code>k = 3</code>,
+return 4. (because the subarray <code>[1, -1, 5, -2]</code> sums to 3 and is the longest)</p>
+<blockquote>
+<p>Example 2:</p>
+</blockquote>
+<p>Given <code>nums = [-2, -1, 2, 1]</code>, <code>k = 1</code>,
+return 2. (because the subarray <code>[-1, 2]</code> sums to 1 and is the longest)</p>
+<p>Follow Up:
+Can you do it in O(n) time?</p>
 <blockquote>
 <p><strong>Solution</strong></p>
 </blockquote>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-function">TreeNode* <span class="hljs-title">inorderSuccessor</span><span class="hljs-params">(TreeNode* root, TreeNode* p)</span> </span>{
-        <span class="hljs-keyword">if</span> (p -&gt; right) <span class="hljs-keyword">return</span> leftMost(p -&gt; right);
-        TreeNode* suc = <span class="hljs-literal">NULL</span>;
-        <span class="hljs-keyword">while</span> (root) {
-            <span class="hljs-keyword">if</span> (p -&gt; val &lt; root -&gt; val) {
-                suc = root;
-                root = root -&gt; left;
-            }
-            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (p -&gt; val &gt; root -&gt; val)
-                root = root -&gt; right;
-            <span class="hljs-keyword">else</span> <span class="hljs-keyword">break</span>;
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">maxSubArrayLen</span> <span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;nums, <span class="hljs-keyword">int</span> k)</span> </span>{
+        <span class="hljs-keyword">if</span> (nums.empty()) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
         }
-        <span class="hljs-keyword">return</span> suc;
-    }
-<span class="hljs-keyword">private</span>:
-    <span class="hljs-function">TreeNode* <span class="hljs-title">leftMost</span><span class="hljs-params">(TreeNode* node)</span> </span>{
-        <span class="hljs-keyword">while</span> (node -&gt; left) node = node -&gt; left;
-        <span class="hljs-keyword">return</span> node;
-    }
-};
-</code></pre>
-<pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
-<span class="hljs-keyword">public</span>:
-    <span class="hljs-function">TreeNode* <span class="hljs-title">inorderSuccessor</span><span class="hljs-params">(TreeNode* root, TreeNode* p)</span> </span>{
-        TreeNode* suc = <span class="hljs-literal">NULL</span>;
-        <span class="hljs-keyword">while</span> (root) {
-            root = root-&gt;val &lt;= p-&gt;val ? root-&gt;right : (suc = root)-&gt;left;
-        }
-        <span class="hljs-keyword">return</span> suc;
-    }
+        <span class="hljs-keyword">int</span> maxLen = <span class="hljs-number">0</span>;
+        <span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt; summap;
+        summap[<span class="hljs-number">0</span>] = -<span class="hljs-number">1</span>; <span class="hljs-comment">// important</span>
+        <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;
 
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.size(); ++i) {
+            sum += nums[i];
+            <span class="hljs-keyword">if</span> (summap.find(sum) == summap.end()) {
+                summap[sum] = i;
+            }
+            <span class="hljs-keyword">if</span> (summap.find(sum - k) != summap.end()) {
+                maxLen = max(maxLen, i - summap[sum - k]);
+            }
+        }
+        <span class="hljs-keyword">return</span> maxLen;
+    }
 };
 </code></pre>
 
@@ -849,10 +844,8 @@
         </div>
 
         
-        <a href="../LeetCode Locked/c1.24.html" class="navigation navigation-prev " aria-label="Previous page: Walls and Gates"><i class="fa fa-angle-left"></i></a>
+        <a href="../LeetCode Locked/c1.38.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Number of Connected Components in an Undirected Graph"><i class="fa fa-angle-left"></i></a>
         
-        
-        <a href="../LeetCode Locked/c1.26.html" class="navigation navigation-next " aria-label="Next page: Unique Word Abbreviation"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
