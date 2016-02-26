@@ -42,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="0.7" data-basepath=".." data-revision="Thu Jan 28 2016 20:52:13 GMT-0500 (EST)">
+    <div class="book" data-level="0.7" data-basepath=".." data-revision="Thu Feb 25 2016 21:44:09 GMT-0500 (EST)">
     
 
 <div class="book-summary">
@@ -817,6 +817,7 @@
 <span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
     <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">canAttendMeetings</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;Interval&gt;&amp; intervals)</span> </span>{
+        <span class="hljs-comment">// Time: O(NlogN)</span>
         sort(intervals.begin(), intervals.end(), compare);
         <span class="hljs-keyword">int</span> n = intervals.size();
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n - <span class="hljs-number">1</span>; i++)
@@ -853,7 +854,7 @@
         priority_queue&lt;<span class="hljs-keyword">int</span>&gt; pq;<span class="hljs-comment">//prioritize earlier ending time</span>
         sort(intervals.begin(), intervals.end(), myComp);
         <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;intervals.size(); ++i){
-            <span class="hljs-keyword">while</span>(!pq.empty() &amp;&amp; -pq.top()&lt;intervals[i].end) pq.pop();
+            <span class="hljs-keyword">while</span>(!pq.empty() &amp;&amp; -pq.top()&lt;intervals[i].start) pq.pop();
             pq.push(-intervals[i].end);
             rooms = max(rooms, (<span class="hljs-keyword">int</span>)pq.size());
         }
@@ -886,6 +887,25 @@
             <span class="hljs-keyword">if</span> (interval.start &gt;= rooms[i].end)
                 <span class="hljs-keyword">return</span> i;
         <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+    }
+};
+</code></pre>
+<p>another smart solution: <a href="https://leetcode.com/discuss/58720/c-solution-using-a-map-total-11-lines" target="_blank">here</a></p>
+<pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">minMeetingRooms</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;Interval&gt;&amp; intervals)</span></span>{
+        <span class="hljs-comment">// Time O(NlogN)</span>
+        <span class="hljs-built_in">map</span>&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt; mp; <span class="hljs-comment">// key:time, val:+1 start, -1 end</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; intervals.size(); ++i) {
+            mp[intervals[i].start]++;
+            mp[intervals[i].end]--;
+        }
+        <span class="hljs-keyword">int</span> cnt = <span class="hljs-number">0</span>; maxcnt = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> it = mp.begin(); it != mp.end(); ++it) {
+            cnt += it-&gt;second;
+            maxcnt = max(maxcnt, cnt);
+        }
+        <span class="hljs-keyword">return</span> maxcnt;
     }
 };
 </code></pre>

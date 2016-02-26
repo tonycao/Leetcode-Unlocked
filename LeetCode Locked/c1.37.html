@@ -42,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="0.38" data-basepath=".." data-revision="Thu Jan 28 2016 20:52:13 GMT-0500 (EST)">
+    <div class="book" data-level="0.38" data-basepath=".." data-revision="Thu Feb 25 2016 21:44:09 GMT-0500 (EST)">
     
 
 <div class="book-summary">
@@ -864,7 +864,7 @@ Given <code>word = &quot;word&quot;</code>, return the following list (order doe
         <span class="hljs-keyword">for</span> (; i &lt; s.size(); i++) {
             <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= s.size(); j++) {
                 <span class="hljs-comment">// append substr before Number</span>
-                dfs(res, curr + s.substring(start, i - start) + j, i + j, s);
+                dfs(res, curr + s.substr(start, i - start) + to_string(j), i + j, s);
             }
         }
     }

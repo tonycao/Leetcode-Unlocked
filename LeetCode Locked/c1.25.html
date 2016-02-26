@@ -42,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="0.26" data-basepath=".." data-revision="Thu Jan 28 2016 20:52:13 GMT-0500 (EST)">
+    <div class="book" data-level="0.26" data-basepath=".." data-revision="Thu Feb 25 2016 21:44:09 GMT-0500 (EST)">
     
 
 <div class="book-summary">
@@ -804,6 +804,11 @@
 <blockquote>
 <p><strong>Solution</strong></p>
 </blockquote>
+<p>from <a href="http://www.cnblogs.com/jcliBlogger/p/4829200.html" target="_blank">here</a>
+There are just two cases:</p>
+<p>The easier one: p has right subtree, then its successor is just the leftmost child of its right subtree;
+The harder one: p has no right subtree, then a traversal is needed to find its successor.</p>
+<p><strong>Traversal</strong>: we start from the root, each time we see a node with val larger than <code>p -&gt; val</code>, we know this node may be p&apos;s successor. So we record it in suc. Then we try to move to the next level of the tree: if <code>p -&gt; val &gt; root -&gt; val</code>, which means p is in the right subtree, then its successor is also in the right subtree, so we update root = root -&gt; right; if <code>p -&gt; val &lt; root -&gt; val</code>, we update <code>root = root -&gt; left</code> similarly; once we find <code>p -&gt; val == root -&gt; val</code>, we know we&apos;ve reached at p and the current sucis just its successor.</p>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
     <span class="hljs-function">TreeNode* <span class="hljs-title">inorderSuccessor</span><span class="hljs-params">(TreeNode* root, TreeNode* p)</span> </span>{
@@ -827,12 +832,13 @@
     }
 };
 </code></pre>
+<p>Another solution:</p>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
     <span class="hljs-function">TreeNode* <span class="hljs-title">inorderSuccessor</span><span class="hljs-params">(TreeNode* root, TreeNode* p)</span> </span>{
         TreeNode* suc = <span class="hljs-literal">NULL</span>;
         <span class="hljs-keyword">while</span> (root) {
-            root = root-&gt;val &lt;= p-&gt;val ? root-&gt;right : (suc = root)-&gt;left;
+            root = (root-&gt;val &lt;= p-&gt;val) ? root-&gt;right : (suc = root)-&gt;left;
         }
         <span class="hljs-keyword">return</span> suc;
     }

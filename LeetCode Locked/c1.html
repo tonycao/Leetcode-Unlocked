@@ -42,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="0.1" data-basepath=".." data-revision="Thu Jan 28 2016 20:52:13 GMT-0500 (EST)">
+    <div class="book" data-level="0.1" data-basepath=".." data-revision="Thu Feb 25 2016 21:44:09 GMT-0500 (EST)">
     
 
 <div class="book-summary">
@@ -806,6 +806,36 @@ Could you do it in-place without allocating extra space?</p>
 <p><strong>Idea</strong> Reverse twice, both in place.</p>
 <p><strong>Time</strong> O(n) Space: O(1)</p>
 </blockquote>
+<pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">reverseWords</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span> </span>{
+        <span class="hljs-keyword">if</span> (s.size()==<span class="hljs-number">0</span> ) <span class="hljs-keyword">return</span> ;
+        reverse(s, <span class="hljs-number">0</span>, s.size() - <span class="hljs-number">1</span>);
+
+        <span class="hljs-keyword">while</span> (s.size() &gt; <span class="hljs-number">0</span> &amp;&amp; s[<span class="hljs-number">0</span>] == <span class="hljs-string">&apos; &apos;</span>) {
+            s.erase(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
+        }
+
+        <span class="hljs-keyword">int</span> begin = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; s.size(); ++i) {
+            <span class="hljs-keyword">if</span> (i == s.size() || s[i] == <span class="hljs-string">&apos; &apos;</span>) {
+                reverse(s, begin, i - <span class="hljs-number">1</span>);
+                <span class="hljs-keyword">while</span> (i &lt; s.size() - <span class="hljs-number">1</span> &amp;&amp; s[i+<span class="hljs-number">1</span>] == <span class="hljs-string">&apos; &apos;</span>) s.erase(i,<span class="hljs-number">1</span>);
+                <span class="hljs-keyword">if</span> (i == s.size() - <span class="hljs-number">1</span>) s.erase(i, <span class="hljs-number">1</span>);
+                begin = i + <span class="hljs-number">1</span>;
+            }
+        }
+    }
+  <span class="hljs-keyword">private</span>:
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">reverse</span><span class="hljs-params">(<span class="hljs-built_in">string</span> &amp;s, <span class="hljs-keyword">int</span> begin, <span class="hljs-keyword">int</span> end)</span> </span>{
+        <span class="hljs-keyword">while</span> (begin &lt; end) {
+            <span class="hljs-keyword">char</span> tmp = s[begin];
+            s[begin] = s[end];
+            s[end] = tmp;
+        }
+    }
+};
+</code></pre>
 
                     
                     </section>

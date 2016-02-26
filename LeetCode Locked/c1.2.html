@@ -42,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="0.3" data-basepath=".." data-revision="Thu Jan 28 2016 20:52:13 GMT-0500 (EST)">
+    <div class="book" data-level="0.3" data-basepath=".." data-revision="Thu Feb 25 2016 21:44:09 GMT-0500 (EST)">
     
 
 <div class="book-summary">
@@ -801,6 +801,22 @@
 <p><strong>Solution</strong></p>
 </blockquote>
 <p>tow pointers one from beginning and one from end of the array. move pointers based on the two sum results.</p>
+<pre><code class="lang-c++"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; twosum(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;numbers, <span class="hljs-keyword">int</span> target) {
+    <span class="hljs-comment">//vector&lt;int&gt; res;</span>
+    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = nums.size() - <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">while</span> (left &lt; right) {
+        <span class="hljs-keyword">int</span> sum = numbers[left] + numbers[right];
+        <span class="hljs-keyword">if</span> (sum == target) {
+            <span class="hljs-keyword">return</span> {left + <span class="hljs-number">1</span>, right + <span class="hljs-number">1</span>};
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (sum &gt; target){
+            right--;
+        } <span class="hljs-keyword">else</span> {
+            left++;
+        }
+    }
+    <span class="hljs-keyword">return</span> {};
+}
+</code></pre>
 <blockquote>
 <p><strong>Question 2</strong></p>
 </blockquote>
@@ -821,6 +837,26 @@ Maintain a sorted array of numbers. Each add operation would need O(log n) time 
 <li><strong>add &#x2013; O(1) runtime, find &#x2013; O(n) runtime, O(n) space &#x2013; Store input in hash table:</strong>
 A simpler approach is to store each input into a hash table. To find if a pair sum exists, just iterate through the hash table in O(n) runtime. Make sure you are able to handle duplicates correctly.</li>
 </ol>
+<pre><code class="lang-c++"><span class="hljs-keyword">class</span> TwoSum {
+<span class="hljs-keyword">public</span>:
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>{
+        umap[x]++;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span> target)</span> </span>{
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> i : umap) {
+            <span class="hljs-keyword">if</span> (umap.find(target - i.first) != umap.end()) {
+                <span class="hljs-keyword">if</span> (target - i.first != i.first) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+                <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (umap[i.first] &gt;= <span class="hljs-number">2</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+            }
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt; umap;
+};
+</code></pre>
 
                     
                     </section>

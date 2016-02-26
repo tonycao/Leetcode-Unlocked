@@ -42,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="0.20" data-basepath=".." data-revision="Thu Jan 28 2016 20:52:13 GMT-0500 (EST)">
+    <div class="book" data-level="0.20" data-basepath=".." data-revision="Thu Feb 25 2016 21:44:09 GMT-0500 (EST)">
     
 
 <div class="book-summary">
@@ -796,7 +796,7 @@
 <blockquote>
 <p><strong>Question</strong></p>
 </blockquote>
-<p>There is a new alien language which uses the latin alphabet. However, the order among letters are unknown to you. You receive a list of words from the dictionary, wherewords are sorted lexicographically by the rules of this new language. Derive the order of letters in this language.</p>
+<p>There is a new alien language which uses the latin alphabet. However, the order among letters are unknown to you. You receive a list of words from the dictionary, where words are sorted lexicographically by the rules of this new language. Derive the order of letters in this language.</p>
 <p>For example,
 Given the following words in dictionary,</p>
 <pre><code class="lang-c++">[  
@@ -821,7 +821,7 @@ Given the following words in dictionary,</p>
 </blockquote>
 <p>topological sorting from <a href="https://leetcode.com/discuss/54024/straightforward-c-solution?show=54024#q54024" target="_blank">here</a> and <a href="http://www.cnblogs.com/jcliBlogger/p/4758761.html" target="_blank">here</a></p>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
-
+<span class="hljs-comment">// Time Complexity - O(V+E)&#xFF0C;Space Complexity - O(V+E) ?</span>
 <span class="hljs-keyword">public</span>:
     <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">alienOrder</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&amp; words)</span> </span>{
         <span class="hljs-keyword">if</span> (words.size() == <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> words[<span class="hljs-number">0</span>];
@@ -846,7 +846,7 @@ Given the following words in dictionary,</p>
                 <span class="hljs-keyword">if</span> (j &lt; n &amp;&amp; g.find(word2[j]) == g.end())
                     g[word2[j]] = <span class="hljs-built_in">unordered_set</span>&lt;<span class="hljs-keyword">char</span>&gt;();
                 <span class="hljs-keyword">if</span> (j &lt; m &amp;&amp; j &lt; n &amp;&amp; word1[j] != word2[j] &amp;&amp; !found) {
-                    [word1[j]].insert(word2[j]);
+                    g[word1[j]].insert(word2[j]);
                     found = <span class="hljs-literal">true</span>;
                 }
             }
@@ -859,7 +859,7 @@ Given the following words in dictionary,</p>
         <span class="hljs-built_in">string</span> order;
 
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> adj : g) {
-            <span class="hljs-keyword">if</span> (!dfs(g, path, visited, order, adj-&gt;first))
+            <span class="hljs-keyword">if</span> (!dfs(g, path, visited, order, adj.first))
                 <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;
         }
 

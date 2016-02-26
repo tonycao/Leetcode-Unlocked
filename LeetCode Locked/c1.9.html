@@ -42,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="0.10" data-basepath=".." data-revision="Thu Jan 28 2016 20:52:13 GMT-0500 (EST)">
+    <div class="book" data-level="0.10" data-basepath=".." data-revision="Thu Feb 25 2016 21:44:09 GMT-0500 (EST)">
     
 
 <div class="book-summary">
@@ -828,8 +828,12 @@ S = &#x201C;abcde&#x201D; T = &#x201C;abcdeX&#x201D;
 </ol>
 <pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isOneEditDistance</span><span class="hljs-params">(String s, String t)</span> </span>{
      <span class="hljs-keyword">int</span> m = s.length(), n = t.length();
-     <span class="hljs-keyword">if</span> (m &gt; n) <span class="hljs-keyword">return</span> isOneEditDistance(t, s);
-     <span class="hljs-keyword">if</span> (n - m &gt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+     <span class="hljs-keyword">if</span> (m &gt; n) {
+        <span class="hljs-keyword">return</span> isOneEditDistance(t, s);
+     }
+     <span class="hljs-keyword">if</span> (n - m &gt; <span class="hljs-number">1</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+     }
      <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, shift = n - m;
      <span class="hljs-keyword">while</span> (i &lt; m &amp;&amp; s.charAt(i) == t.charAt(i)) i++;
      <span class="hljs-keyword">if</span> (i == m) <span class="hljs-keyword">return</span> shift &gt; <span class="hljs-number">0</span>;
