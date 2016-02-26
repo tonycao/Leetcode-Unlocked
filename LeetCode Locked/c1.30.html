@@ -42,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="0.31" data-basepath=".." data-revision="Thu Feb 25 2016 22:12:26 GMT-0500 (EST)">
+    <div class="book" data-level="0.31" data-basepath=".." data-revision="Fri Feb 26 2016 09:19:45 GMT-0500 (EST)">
     
 
 <div class="book-summary">
@@ -838,6 +838,33 @@
         <span class="hljs-keyword">if</span> (!now) <span class="hljs-keyword">return</span> len;
         len = (parent &amp;&amp; now-&gt;val == parent-&gt;val + <span class="hljs-number">1</span>) ? len + <span class="hljs-number">1</span> : <span class="hljs-number">1</span>;
         <span class="hljs-keyword">return</span> max(len, max(longest(now-&gt;left, now, len), longest(now-&gt;right, now, len)));
+    }
+};
+</code></pre>
+<p>another implementation</p>
+<pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">longestConsecutive</span><span class="hljs-params">(TreeNode* root)</span> </span>{
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-literal">nullptr</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        }
+        <span class="hljs-keyword">return</span> longest(root, <span class="hljs-number">1</span>, INT_MAX);
+    }
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">longest</span><span class="hljs-params">(TreeNode* root, <span class="hljs-keyword">int</span> curLen, <span class="hljs-keyword">int</span> lasValue)</span> </span>{
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-literal">nullptr</span>)
+            <span class="hljs-keyword">return</span> curLen;
+
+        <span class="hljs-keyword">if</span> (root-&gt;val == lasValue + <span class="hljs-number">1</span>) {
+            curLen++;
+        } <span class="hljs-keyword">else</span> {
+            curLen = <span class="hljs-number">1</span>;
+        }
+
+        <span class="hljs-keyword">int</span> left = longest(root-&gt;left, curLen, root-&gt;val);
+        <span class="hljs-keyword">int</span> right = longest(root-&gt;right, curLen, root-&gt;val);
+
+        <span class="hljs-keyword">return</span> max(curLen, max(left, right));
     }
 };
 </code></pre>
