@@ -42,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="0.2" data-basepath=".." data-revision="Thu Feb 25 2016 21:44:09 GMT-0500 (EST)">
+    <div class="book" data-level="0.2" data-basepath=".." data-revision="Thu Feb 25 2016 22:12:26 GMT-0500 (EST)">
     
 
 <div class="book-summary">
@@ -808,7 +808,7 @@ Output: <code>[[2, 2, 7], [2, 14], [4, 7]]</code></p>
     <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; getFactors(<span class="hljs-keyword">int</span> n) {
         <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; ret;
         <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; cur;
-        helper(n, ret, cur, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>);
+        dfs(n, ret, cur, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>);
         <span class="hljs-keyword">return</span> ret;
     }
 
