@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Count Univalue Subtrees | Leetcode Locked</title>
+        <title>Largest BST Subtree | Leetcode Locked</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
@@ -31,10 +31,8 @@
         
     
     
-    <link rel="next" href="../LeetCode Locked/c1.13.html" />
     
-    
-    <link rel="prev" href="../LeetCode Locked/c1.11.html" />
+    <link rel="prev" href="../LeetCode Locked/c1.40.html" />
     
 
         
@@ -42,7 +40,7 @@
     <body>
         
         
-    <div class="book" data-level="1.13" data-basepath=".." data-revision="Fri Mar 04 2016 16:08:50 GMT-0500 (EST)">
+    <div class="book" data-level="1.41" data-basepath=".." data-revision="Fri Mar 04 2016 16:08:50 GMT-0500 (EST)">
     
 
 <div class="book-summary">
@@ -268,7 +266,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.13" data-path="LeetCode Locked/c1.12.html">
+        <li class="chapter " data-level="1.13" data-path="LeetCode Locked/c1.12.html">
             
                 
                     <a href="../LeetCode Locked/c1.12.html">
@@ -688,7 +686,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.41" data-path="LeetCode Locked/c1.41.html">
+        <li class="chapter active" data-level="1.41" data-path="LeetCode Locked/c1.41.html">
             
                 
                     <a href="../LeetCode Locked/c1.41.html">
@@ -814,14 +812,37 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h2 id="count-univalue-subtrees">Count Univalue Subtrees</h2>
+                        <h2 id="largest-bst-subtree">Largest BST Subtree</h2>
 <blockquote>
-<p><strong>Question</strong></p>
+<p><strong>Questions</strong></p>
 </blockquote>
-<p>Given a complete binary tree, count the number of nodes.
-In a complete binary tree every level, except possibly the last, is completely filled, and all nodes in the last level are as far left as possible. It can have between 1 and 2h nodes inclusive at the last level h.</p>
-<p>Universal value binary tree means all value in that tree is the same.</p>
-<pre><code class="lang-c++"><span class="hljs-comment">//C++: 4ms</span>
+<p>Given a binary tree, find the largest subtree which is a Binary Search Tree (BST), where largest means subtree with largest number of nodes in it.</p>
+<blockquote>
+<p>Note:</p>
+</blockquote>
+<p>A subtree must include all of its descendants.
+Here&apos;s an example:</p>
+<pre><code>    10
+    / \
+   5  15
+  / \   \
+ 1   8   7
+</code></pre><p>The Largest BST Subtree in this case is the highlighted one.
+The return value is the subtree&apos;s size, which is 3.</p>
+<blockquote>
+<p>Show Hint:</p>
+</blockquote>
+<ol>
+<li>You can recursively use algorithm similar to 98. Validate Binary Search Tree at each node of the tree, which will result in O(nlogn) time complexity.</li>
+</ol>
+<blockquote>
+<p>Follow up:</p>
+</blockquote>
+<p>Can you figure out ways to solve it with O(n) time complexity?</p>
+<blockquote>
+<p><strong>Solutions</strong></p>
+</blockquote>
+<pre><code class="lang-c++">
 <span class="hljs-comment">/**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -831,26 +852,52 @@ In a complete binary tree every level, except possibly the last, is completely f
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */</span>
+
+<span class="hljs-keyword">struct</span> Data {
+    <span class="hljs-keyword">int</span> size;
+    <span class="hljs-keyword">int</span> lower;
+    <span class="hljs-keyword">int</span> upper;
+    <span class="hljs-keyword">bool</span> isBST;
+    Data() : size(<span class="hljs-number">0</span>), lower(INT_MAX), upper(INT_MIN), isBST(<span class="hljs-literal">false</span>){}
+};
+
 <span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">countUnivalSubtrees</span><span class="hljs-params">(TreeNode* root)</span> </span>{
-        <span class="hljs-keyword">int</span> cnt = <span class="hljs-number">0</span>;
-        helper(root, cnt);
-        <span class="hljs-keyword">return</span> cnt;
-    }
-    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">helper</span><span class="hljs-params">(TreeNode* root, <span class="hljs-keyword">int</span> &amp;cnt)</span></span>{
-        <span class="hljs-keyword">if</span>(!root) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-        <span class="hljs-keyword">bool</span> left = helper(root-&gt;left, cnt);
-        <span class="hljs-keyword">bool</span> right = helper(root-&gt;right, cnt);
-        <span class="hljs-keyword">if</span>(left &amp;&amp; right &amp;&amp;
-            root-&gt;left &amp;&amp; root-&gt;left-&gt;val == root-&gt;val &amp;&amp;
-            root-&gt;right &amp;&amp; root-&gt;right-&gt;val == root-&gt;val) {
-            cnt++;
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">largestBSTSubtree</span><span class="hljs-params">(TreeNode *root)</span> </span>{
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-literal">nullptr</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
         }
 
-        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        largestBSTHelper(root);
+        <span class="hljs-keyword">return</span> max;
     }
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-function">Data <span class="hljs-title">largestBSTHelper</span><span class="hljs-params">(TreeNode *root)</span> </span>{
+        Data curr;
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-literal">nullptr</span>) {
+            curr.isBST = <span class="hljs-literal">true</span>;
+            <span class="hljs-keyword">return</span> curr;
+        }
+
+        Data left = largestBSTHelper(root.left);
+        Data right = largestBSTHelper(root.right);
+
+        curr.lower = min(root-&gt;val, min(left-&gt;lower, right-&gt;lower));
+        curr.upper = min(root-&gt;val, min(left-&gt;upper, right-&gt;upper));
+
+        <span class="hljs-keyword">if</span> (left.isBST &amp;&amp; root-&gt;val &gt; left-&gt;upper &amp;&amp; right.isBST &amp;&amp; root-&gt;val &lt; right-&gt;lower) {
+            curr.size = left-&gt;size + right-&gt;size + <span class="hljs-number">1</span>;
+            cur.isBST = <span class="hljs-literal">true</span>;
+            max = max(max, curr.size);
+        } <span class="hljs-keyword">else</span> {
+            curr.size = -;
+        }
+
+        <span class="hljs-keyword">return</span> curr;
+    }
+
+    <span class="hljs-keyword">int</span> max = <span class="hljs-number">0</span>;
+
 };
 </code></pre>
 
@@ -863,10 +910,8 @@ In a complete binary tree every level, except possibly the last, is completely f
         </div>
 
         
-        <a href="../LeetCode Locked/c1.11.html" class="navigation navigation-prev " aria-label="Previous page: Group Shifted Strings"><i class="fa fa-angle-left"></i></a>
+        <a href="../LeetCode Locked/c1.40.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Maximum Size Subarray Sum Equals K"><i class="fa fa-angle-left"></i></a>
         
-        
-        <a href="../LeetCode Locked/c1.13.html" class="navigation navigation-next " aria-label="Next page: Binary Tree Upside Down"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
