@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Shortest Distance from All Buildings | Leetcode Locked</title>
+        <title>Zigzag Iterator | Leetcode Locked</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
@@ -31,10 +31,10 @@
         
     
     
-    <link rel="next" href="../LeetCode Locked/c1.37.html" />
+    <link rel="next" href="../LeetCode Locked/c1.23.html" />
     
     
-    <link rel="prev" href="../LeetCode Locked/c1.35.html" />
+    <link rel="prev" href="../LeetCode Locked/c1.42.html" />
     
 
         
@@ -42,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="1.39" data-basepath=".." data-revision="Sat Mar 05 2016 00:25:37 GMT-0500 (EST)">
+    <div class="book" data-level="1.25" data-basepath=".." data-revision="Sat Mar 05 2016 00:25:37 GMT-0500 (EST)">
     
 
 <div class="book-summary">
@@ -448,7 +448,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.25" data-path="LeetCode Locked/c1.43.html">
+        <li class="chapter active" data-level="1.25" data-path="LeetCode Locked/c1.43.html">
             
                 
                     <a href="../LeetCode Locked/c1.43.html">
@@ -658,7 +658,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.39" data-path="LeetCode Locked/c1.36.html">
+        <li class="chapter " data-level="1.39" data-path="LeetCode Locked/c1.36.html">
             
                 
                     <a href="../LeetCode Locked/c1.36.html">
@@ -844,98 +844,50 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h2 id="shortest-distance-from-all-buildings">Shortest Distance from All Buildings</h2>
+                        <h2 id="zigzag-iterator">Zigzag Iterator</h2>
 <blockquote>
-<p><strong>Question</strong></p>
+<p><strong>Questions</strong></p>
 </blockquote>
-<p>You want to build a house on an empty land which reaches all buildings in the shortest amount of distance. You can only move up, down, left and right. You are given a 2D grid of values <code>0, 1 or 2</code>, where:</p>
-<p>Each 0 marks an empty land which you can pass by freely.
-Each 1 marks a building which you cannot pass through.
-Each 2 marks an obstacle which you cannot pass through.
-For example, given three buildings at <code>(0,0), (0,4), (2,2)</code>, and an obstacle at <code>(0,2)</code>:</p>
-<pre><code>1 - 0 - 2 - 0 - 1
-|   |   |   |   |
-0 - 0 - 0 - 0 - 0
-|   |   |   |   |
-0 - 0 - 1 - 0 - 0
-</code></pre><p>The point <code>(1,2)</code> is an ideal empty land to build a house, as the total travel distance of <code>3+3+1=7</code> is minimal. So return 7.</p>
-<p><strong>Note:</strong></p>
-<p>There will be at least one building. If it is not possible to build such house according to the above rules, return -1.</p>
+<p>Given two 1d vectors, implement an iterator to return their elements alternately.</p>
+<p>For example, given two 1d vectors:</p>
+<p><code>v1 = [1, 2]</code></p>
+<p><code>v2 = [3, 4, 5, 6]</code></p>
+<p>By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: <code>[1, 3, 2, 4, 5, 6]</code>.</p>
 <blockquote>
-<p><strong>Solution</strong></p>
+<p>Follow up:</p>
 </blockquote>
-<p><a href="https://segmentfault.com/a/1190000004187914" target="_blank">BFS</a></p>
-<pre><code class="lang-c++">Class Solution{
+<p>What if you are given k 1d vectors? How well can your code be extended to such cases?</p>
+<blockquote>
+<p><strong>Solutions</strong></p>
+</blockquote>
+<p>from <a href="http://www.cnblogs.com/jcliBlogger/p/4807033.html" target="_blank">here</a></p>
+<p>The idea is as follows: keep the two beginning iterators and the two end iterators of v1 and v2into two arrays of type vector<int>::iterator with size 2. Then we keep a variable p(initialized to be 0) to record which iterator should be used: p takes values ranging from 0 to1. Each time we call next, update p by p = (p + 1) % 2 to circulate it to point to the next vector.</int></p>
+<p>The code is as follows.</p>
+<pre><code class="lang-c++"><span class="hljs-keyword">class</span> ZigzagIterator {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">shortestDistance</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; grid)</span> </span>{
-        <span class="hljs-keyword">int</span> rows = grid.size();
-        <span class="hljs-keyword">if</span> (rows == <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
-        }
-        <span class="hljs-keyword">int</span> cols = grid[<span class="hljs-number">0</span>].size();
-
-        <span class="hljs-comment">// sum of distances to all the buildings</span>
-        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; dist(rows, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;(cols, <span class="hljs-number">0</span>));
-
-        <span class="hljs-comment">// number of reachable buildings</span>
-        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; nums(rows, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;(cols, <span class="hljs-number">0</span>));
-        <span class="hljs-keyword">int</span> buildingNum = <span class="hljs-number">0</span>;
-
-        <span class="hljs-comment">// BFS from each building</span>
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; rows; ++i) {
-            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; cols; ++j) {
-                <span class="hljs-keyword">if</span> (grid[i][j] == <span class="hljs-number">1</span>) {
-                    buildingNum++;
-                    bfs(grid, i, j, dist, nums);
-                }
-            }
-        }
-
-        <span class="hljs-keyword">int</span> minval = INT_MAX;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; rows; ++i) {
-            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; cols; ++j) {
-                <span class="hljs-keyword">if</span> (grid[i][j] == <span class="hljs-number">0</span> &amp;&amp; dist[i][j] != <span class="hljs-number">0</span> &amp;&amp; nums[i][j] == buildingNum) {
-                    minval = min(minval, dist[i][j]);
-                }
-            }
-        }
-        <span class="hljs-keyword">if</span> (minval &lt; INT_MIN) {
-            <span class="hljs-keyword">return</span> minval;
-        }
-        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+    ZigzagIterator(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; v1, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; v2) {
+        bs[<span class="hljs-number">0</span>] = v1.begin(), bs[<span class="hljs-number">1</span>] = v2.begin();
+        es[<span class="hljs-number">0</span>] = v1.end(), es[<span class="hljs-number">1</span>] = v2.end();
+        p = <span class="hljs-number">0</span>;
     }
 
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">next</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">int</span> elem;
+        <span class="hljs-keyword">if</span> (bs[<span class="hljs-number">0</span>] == es[<span class="hljs-number">0</span>]) elem = *bs[<span class="hljs-number">1</span>]++;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (bs[<span class="hljs-number">1</span>] == es[<span class="hljs-number">1</span>]) elem = *bs[<span class="hljs-number">0</span>]++;
+        <span class="hljs-keyword">else</span> {
+            elem = *bs[p]++;
+            p = (p + <span class="hljs-number">1</span>) % <span class="hljs-number">2</span>;
+        }
+        <span class="hljs-keyword">return</span> elem;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">hasNext</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> bs[<span class="hljs-number">0</span>] != es[<span class="hljs-number">0</span>] || bs[<span class="hljs-number">1</span>] != es[<span class="hljs-number">1</span>];
+    }
 <span class="hljs-keyword">private</span>:
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">bfs</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; grid, <span class="hljs-keyword">int</span> row, <span class="hljs-keyword">int</span> col, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; dist, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; nums)</span> </span>{
-        <span class="hljs-keyword">int</span> rows = grid.size();
-        <span class="hljs-keyword">int</span> cols = grid[<span class="hljs-number">0</span>].size();
-        <span class="hljs-built_in">queue</span>&lt;pair&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt;&gt; q;
-        q.push(make_pair(row, col));
-
-        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; dirs = {{-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">1</span>}, {<span class="hljs-number">1</span>, <span class="hljs-number">0</span>}, {<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>}};
-
-        <span class="hljs-comment">// record visited node</span>
-        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&gt; visited(rows, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;(cols, <span class="hljs-literal">false</span>));
-        <span class="hljs-keyword">int</span> level = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">while</span>(!q.empty()) {
-            level++;
-            <span class="hljs-keyword">int</span> size = q.size();
-            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; ++i) {
-                pair&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt; coords = q.front();
-                q.pop();
-                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &lt; dirs.size(); ++k) {
-                    <span class="hljs-keyword">int</span> x = coords.first + dirs[k][<span class="hljs-number">0</span>];
-                    <span class="hljs-keyword">int</span> y = coords.second + dirs[k][<span class="hljs-number">1</span>];
-                    <span class="hljs-keyword">if</span> (x &gt;= <span class="hljs-number">0</span> &amp;&amp; x &lt; rows &amp;&amp; y &gt;= <span class="hljs-number">0</span> &amp;&amp; y &lt; cols &amp;&amp; !visited[x][y] &amp;&amp; grid[x][y] == <span class="hljs-number">0</span>) {
-                        visited[x][y] = <span class="hljs-literal">true</span>;
-                        dist[x][y] += level;
-                        nums[x][y]++;
-                        q.push(make_pair(x, y));
-                    }
-                }
-            }
-        }
-    }
+    <span class="hljs-keyword">int</span> p;
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;::iterator bs[<span class="hljs-number">2</span>], es[<span class="hljs-number">2</span>];
 };
 </code></pre>
 
@@ -948,10 +900,10 @@ For example, given three buildings at <code>(0,0), (0,4), (2,2)</code>, and an o
         </div>
 
         
-        <a href="../LeetCode Locked/c1.35.html" class="navigation navigation-prev " aria-label="Previous page: Binary Tree Vertical Order Traversal"><i class="fa fa-angle-left"></i></a>
+        <a href="../LeetCode Locked/c1.42.html" class="navigation navigation-prev " aria-label="Previous page: Wiggle Sort"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../LeetCode Locked/c1.37.html" class="navigation navigation-next " aria-label="Next page: Generalized Abbreviation"><i class="fa fa-angle-right"></i></a>
+        <a href="../LeetCode Locked/c1.23.html" class="navigation navigation-next " aria-label="Next page: Paint Fence"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
