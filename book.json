@@ -1,5 +1,5 @@
 {
-    "author": "Tian Cao <tiancao@cs.unc.edu>",
+    "author": "Tony <tiancao@cs.unc.edu>",
     "description": "Leetcode Locked",
     "extension": null,
     "generator": "site",
@@ -13,7 +13,7 @@
             "weibo": null
         },
         "sidebar": {
-            "Tian Cao's Website": "https://tiancao.me"
+            "Tony's Website": "https://tiancao.me"
         }
     },
     "output": null,
